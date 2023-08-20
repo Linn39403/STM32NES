@@ -3,7 +3,8 @@
 #include "imu.h"
 uint32_t volatile joypad_state = 0;
 // static __forceinline 
-uint32_t joypad_update() {
+uint32_t joypad_update(void) 
+{
 	uint32_t state = BUTTONS & 0xFFFF;
 	state |= (joys.x0 > 3072)  << 16;
 	state |= (joys.x0 < 1024)  << 17;
@@ -13,13 +14,15 @@ uint32_t joypad_update() {
 	state |= (joys.x1 < 1024)  << 21;
 	state |= (joys.y1 > 3072)  << 22;
 	state |= (joys.y1 < 1024)  << 23;
-	state |= (getAccelLeft())  << 24;
-	state |= (getAccelRight()) << 25;
-	state |= (getAccelFlick()) << 26;
+	//state |= (getAccelLeft())  << 24; //disable the IMU
+	//state |= (getAccelRight()) << 25;
+	//state |= (getAccelFlick()) << 26;
 	joypad_state = state;
 	return state;
 }
 
+/* use only one key input */
+#if 0
 uint32_t joypad_A = (BTN_R2|BTN_U2|BTN_JS2_U|BTN_JS2_D|BTN_IMU_J);
 uint32_t joypad_B = (BTN_D2|BTN_L2|BTN_JS1|BTN_JS2|BTN_M1|BTN_M2|BTN_JS2_L|BTN_JS2_R);
 uint32_t joypad_U = (BTN_U1|BTN_JS1_U);
@@ -28,6 +31,17 @@ uint32_t joypad_L = (BTN_L1|BTN_JS1_L|BTN_IMU_L);
 uint32_t joypad_R = (BTN_R1|BTN_JS1_R|BTN_IMU_R);
 uint32_t joypad_SEL = (BTN_X1);
 uint32_t joypad_START = (BTN_X4);
+#else
+uint32_t joypad_A = (BTN_R2); /* GPIOE Pin12*/
+uint32_t joypad_B = (BTN_D2); /* GPIOE Pin11*/
+uint32_t joypad_U = (BTN_U1); /* GPIOE Pin1 */
+uint32_t joypad_D = (BTN_D1); /* GPIOE Pin3*/
+uint32_t joypad_L = (BTN_L1); /* GPIOE Pin4*/
+uint32_t joypad_R = (BTN_R1); /* GPIOE Pin2*/
+uint32_t joypad_SEL = (BTN_X1);
+uint32_t joypad_START = (BTN_X4);
+
+#endif
 
 typedef void (*JoypadBtnFunc)(void);
 #define JOYPAD_BTN_TABLE(X) \

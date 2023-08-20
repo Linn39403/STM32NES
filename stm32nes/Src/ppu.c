@@ -201,7 +201,6 @@ void ppu_spr0_hit_flag(int y_axes)
     }    
 } 
 static __forceinline void render_bg_line_fast(int y_axes) {
-    static int last_y_scroll = 0;
     int     i;   
     // int     Buffer_LineCnt;
     int x_TitleLine;   
@@ -296,7 +295,6 @@ static __forceinline void render_bg_line_fast(int y_axes) {
 }
 static void render_bg_line(int y_axes)   
 {   
-    static int last_y_scroll = 0;
     int     i;   
     // int     Buffer_LineCnt;
     int x_TitleLine;   

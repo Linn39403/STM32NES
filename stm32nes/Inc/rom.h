@@ -1,8 +1,8 @@
 #define Constant_NES_Expected 0x4E45531A
 
 #define _USE_ROM_MARIO_
-//#define _USE_ROM_TANKE_
-//#define _USE_ROM_MAPPY_
+#define _USE_ROM_TANKE_
+#define _USE_ROM_MAPPY_
 
 #ifdef _USE_ROM_MARIO_
 
@@ -5650,7 +5650,7 @@ static const NesRom MappyRomFile = {78,69,83,26,1,1,1,0,0,0,0,0,0,0,0,0,
 86,69,68,32,32,32,32,32,32,32,32,32,32,32,32,32};
 #endif
 
-static const NesRom* romFiles[3] = {&MarioRomFile};//, &TankRomFile, &MappyRomFile};
+static const NesRom* romFiles[3] = {&MarioRomFile, &TankRomFile, &MappyRomFile};
 const NesRom* rom_select(int sel) {
     return romFiles[sel];
 }

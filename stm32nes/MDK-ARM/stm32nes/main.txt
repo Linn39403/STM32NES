@@ -5,31 +5,31 @@
                           AREA ||i.Error_Handler||, CODE, READONLY, ALIGN=1
 
                   Error_Handler PROC
-;;;435      */
-;;;436    void Error_Handler(void)
+;;;416      */
+;;;417    void Error_Handler(void)
 000000  4770              BX       lr
-;;;437    {
-;;;438      /* USER CODE BEGIN Error_Handler_Debug */
-;;;439      /* User can add his own implementation to report the HAL error return state */
-;;;440    
-;;;441      /* USER CODE END Error_Handler_Debug */
-;;;442    }
-;;;443    
+;;;418    {
+;;;419      /* USER CODE BEGIN Error_Handler_Debug */
+;;;420      /* User can add his own implementation to report the HAL error return state */
+;;;421    
+;;;422      /* USER CODE END Error_Handler_Debug */
+;;;423    }
+;;;424    
                           ENDP
 
 
                           AREA ||i.HAL_GetTick||, CODE, READONLY, ALIGN=2
 
                   HAL_GetTick PROC
-;;;425    }
-;;;426    uint32_t HAL_GetTick(void)
+;;;406    }
+;;;407    uint32_t HAL_GetTick(void)
 000000  4801              LDR      r0,|L2.8|
-;;;427    {
-;;;428      return __ticks;
+;;;408    {
+;;;409      return __ticks;
 000002  6800              LDR      r0,[r0,#0]  ; __ticks
-;;;429    }
+;;;410    }
 000004  4770              BX       lr
-;;;430    /* USER CODE END 4 */
+;;;411    /* USER CODE END 4 */
                           ENDP
 
 000006  0000              DCW      0x0000
@@ -39,19 +39,19 @@
                           AREA ||i.SysTick_Handler||, CODE, READONLY, ALIGN=2
 
                   SysTick_Handler PROC
-;;;420    volatile uint8_t  __tickf = 1;
-;;;421    void SysTick_Handler(void) {
+;;;401    volatile uint8_t  __tickf = 1;
+;;;402    void SysTick_Handler(void) {
 000000  4808              LDR      r0,|L3.36|
-;;;422    	__ticks++;
+;;;403    	__ticks++;
 000002  6800              LDR      r0,[r0,#0]  ; __ticks
 000004  1c40              ADDS     r0,r0,#1
 000006  4907              LDR      r1,|L3.36|
 000008  6008              STR      r0,[r1,#0]  ; __ticks
-;;;423    	__tickf = 0;
+;;;404    	__tickf = 0;
 00000a  2000              MOVS     r0,#0
 00000c  4906              LDR      r1,|L3.40|
 00000e  7008              STRB     r0,[r1,#0]
-;;;424    	if (__delay) __delay--;
+;;;405    	if (__delay) __delay--;
 000010  4806              LDR      r0,|L3.44|
 000012  6800              LDR      r0,[r0,#0]  ; __delay
 000014  b120              CBZ      r0,|L3.32|
@@ -61,9 +61,9 @@
 00001c  4903              LDR      r1,|L3.44|
 00001e  6008              STR      r0,[r1,#0]  ; __delay
                   |L3.32|
-;;;425    }
+;;;406    }
 000020  4770              BX       lr
-;;;426    uint32_t HAL_GetTick(void)
+;;;407    uint32_t HAL_GetTick(void)
                           ENDP
 
 000022  0000              DCW      0x0000
@@ -77,11 +77,11 @@
                           AREA ||i.SystemClock_Config||, CODE, READONLY, ALIGN=2
 
                   SystemClock_Config PROC
-;;;377      */
-;;;378    void SystemClock_Config(void)
+;;;358      */
+;;;359    void SystemClock_Config(void)
 000000  b570              PUSH     {r4-r6,lr}
-;;;379    {
-;;;380      LL_FLASH_SetLatency(LL_FLASH_LATENCY_5);
+;;;360    {
+;;;361      LL_FLASH_SetLatency(LL_FLASH_LATENCY_5);
 000002  2005              MOVS     r0,#5
 000004  494f              LDR      r1,|L4.324|
 000006  6809              LDR      r1,[r1,#0]
@@ -90,20 +90,20 @@
 00000e  4a4d              LDR      r2,|L4.324|
 000010  6011              STR      r1,[r2,#0]
 000012  bf00              NOP      
-;;;381    
-;;;382      if(LL_FLASH_GetLatency() != LL_FLASH_LATENCY_5)
+;;;362    
+;;;363      if(LL_FLASH_GetLatency() != LL_FLASH_LATENCY_5)
 000014  bf00              NOP      
 000016  4610              MOV      r0,r2
 000018  6800              LDR      r0,[r0,#0]
 00001a  f000000f          AND      r0,r0,#0xf
 00001e  2805              CMP      r0,#5
 000020  d001              BEQ      |L4.38|
-;;;383      {
-;;;384      Error_Handler();  
+;;;364      {
+;;;365      Error_Handler();  
 000022  f7fffffe          BL       Error_Handler
                   |L4.38|
-;;;385      }
-;;;386      LL_PWR_SetRegulVoltageScaling(LL_PWR_REGU_VOLTAGE_SCALE1);
+;;;366      }
+;;;367      LL_PWR_SetRegulVoltageScaling(LL_PWR_REGU_VOLTAGE_SCALE1);
 000026  f44f4040          MOV      r0,#0xc000
 00002a  4947              LDR      r1,|L4.328|
 00002c  6809              LDR      r1,[r1,#0]
@@ -112,7 +112,7 @@
 000034  4a44              LDR      r2,|L4.328|
 000036  6011              STR      r1,[r2,#0]
 000038  bf00              NOP      
-;;;387      LL_RCC_HSE_Enable();
+;;;368      LL_RCC_HSE_Enable();
 00003a  bf00              NOP      
 00003c  4843              LDR      r0,|L4.332|
 00003e  6800              LDR      r0,[r0,#0]
@@ -120,9 +120,9 @@
 000044  4941              LDR      r1,|L4.332|
 000046  6008              STR      r0,[r1,#0]
 000048  bf00              NOP      
-;;;388    
-;;;389       /* Wait till HSE is ready */
-;;;390      while(LL_RCC_HSE_IsReady() != 1)
+;;;369    
+;;;370       /* Wait till HSE is ready */
+;;;371      while(LL_RCC_HSE_IsReady() != 1)
 00004a  bf00              NOP      
                   |L4.76|
 00004c  bf00              NOP      
@@ -131,10 +131,10 @@
 000052  f3c04040          UBFX     r0,r0,#17,#1
 000056  2800              CMP      r0,#0
 000058  d0f8              BEQ      |L4.76|
-;;;391      {
-;;;392        
-;;;393      }
-;;;394      LL_RCC_PLL_ConfigDomain_SYS(LL_RCC_PLLSOURCE_HSE, LL_RCC_PLLM_DIV_8, 336, LL_RCC_PLLP_DIV_2);
+;;;372      {
+;;;373        
+;;;374      }
+;;;375      LL_RCC_PLL_ConfigDomain_SYS(LL_RCC_PLLSOURCE_HSE, LL_RCC_PLLM_DIV_8, 336, LL_RCC_PLLP_DIV_2);
 00005a  f44f0080          MOV      r0,#0x400000
 00005e  2108              MOVS     r1,#8
 000060  f44f72a8          MOV      r2,#0x150
@@ -156,7 +156,7 @@
 000088  431c              ORRS     r4,r4,r3
 00008a  602c              STR      r4,[r5,#0]
 00008c  bf00              NOP      
-;;;395      LL_RCC_PLL_Enable();
+;;;376      LL_RCC_PLL_Enable();
 00008e  bf00              NOP      
 000090  1f28              SUBS     r0,r5,#4
 000092  6800              LDR      r0,[r0,#0]
@@ -164,9 +164,9 @@
 000098  1f29              SUBS     r1,r5,#4
 00009a  6008              STR      r0,[r1,#0]
 00009c  bf00              NOP      
-;;;396    
-;;;397       /* Wait till PLL is ready */
-;;;398      while(LL_RCC_PLL_IsReady() != 1)
+;;;377    
+;;;378       /* Wait till PLL is ready */
+;;;379      while(LL_RCC_PLL_IsReady() != 1)
 00009e  bf00              NOP      
                   |L4.160|
 0000a0  bf00              NOP      
@@ -175,10 +175,10 @@
 0000a6  f3c06040          UBFX     r0,r0,#25,#1
 0000aa  2800              CMP      r0,#0
 0000ac  d0f8              BEQ      |L4.160|
-;;;399      {
-;;;400        
-;;;401      }
-;;;402      LL_RCC_SetAHBPrescaler(LL_RCC_SYSCLK_DIV_1);
+;;;380      {
+;;;381        
+;;;382      }
+;;;383      LL_RCC_SetAHBPrescaler(LL_RCC_SYSCLK_DIV_1);
 0000ae  2000              MOVS     r0,#0
 0000b0  4926              LDR      r1,|L4.332|
 0000b2  3108              ADDS     r1,r1,#8
@@ -189,7 +189,7 @@
 0000be  3208              ADDS     r2,r2,#8
 0000c0  6011              STR      r1,[r2,#0]
 0000c2  bf00              NOP      
-;;;403      LL_RCC_SetAPB1Prescaler(LL_RCC_APB1_DIV_4);
+;;;384      LL_RCC_SetAPB1Prescaler(LL_RCC_APB1_DIV_4);
 0000c4  f44f50a0          MOV      r0,#0x1400
 0000c8  4611              MOV      r1,r2
 0000ca  6809              LDR      r1,[r1,#0]
@@ -197,7 +197,7 @@
 0000d0  4301              ORRS     r1,r1,r0
 0000d2  6011              STR      r1,[r2,#0]
 0000d4  bf00              NOP      
-;;;404      LL_RCC_SetAPB2Prescaler(LL_RCC_APB2_DIV_2);
+;;;385      LL_RCC_SetAPB2Prescaler(LL_RCC_APB2_DIV_2);
 0000d6  f44f4000          MOV      r0,#0x8000
 0000da  4611              MOV      r1,r2
 0000dc  6809              LDR      r1,[r1,#0]
@@ -205,7 +205,7 @@
 0000e2  4301              ORRS     r1,r1,r0
 0000e4  6011              STR      r1,[r2,#0]
 0000e6  bf00              NOP      
-;;;405      LL_RCC_SetSysClkSource(LL_RCC_SYS_CLKSOURCE_PLL);
+;;;386      LL_RCC_SetSysClkSource(LL_RCC_SYS_CLKSOURCE_PLL);
 0000e8  2002              MOVS     r0,#2
 0000ea  4611              MOV      r1,r2
 0000ec  6809              LDR      r1,[r1,#0]
@@ -213,9 +213,9 @@
 0000f2  4301              ORRS     r1,r1,r0
 0000f4  6011              STR      r1,[r2,#0]
 0000f6  bf00              NOP      
-;;;406    
-;;;407       /* Wait till System clock is ready */
-;;;408      while(LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_PLL)
+;;;387    
+;;;388       /* Wait till System clock is ready */
+;;;389      while(LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_PLL)
 0000f8  bf00              NOP      
                   |L4.250|
 0000fa  bf00              NOP      
@@ -225,13 +225,13 @@
 000102  f000000c          AND      r0,r0,#0xc
 000106  2808              CMP      r0,#8
 000108  d1f7              BNE      |L4.250|
-;;;409      {
-;;;410      
-;;;411      }
-;;;412      LL_Init1msTick(168000000);
+;;;390      {
+;;;391      
+;;;392      }
+;;;393      LL_Init1msTick(168000000);
 00010a  4812              LDR      r0,|L4.340|
 00010c  f7fffffe          BL       LL_Init1msTick
-;;;413      LL_SYSTICK_SetClkSource(LL_SYSTICK_CLKSOURCE_HCLK);
+;;;394      LL_SYSTICK_SetClkSource(LL_SYSTICK_CLKSOURCE_HCLK);
 000110  2004              MOVS     r0,#4
 000112  2804              CMP      r0,#4
 000114  d108              BNE      |L4.296|
@@ -249,12 +249,12 @@
 000136  6111              STR      r1,[r2,#0x10]
                   |L4.312|
 000138  bf00              NOP      
-;;;414      LL_SetSystemCoreClock(168000000);
+;;;395      LL_SetSystemCoreClock(168000000);
 00013a  4806              LDR      r0,|L4.340|
 00013c  f7fffffe          BL       LL_SetSystemCoreClock
-;;;415    }
+;;;396    }
 000140  bd70              POP      {r4-r6,pc}
-;;;416    
+;;;397    
                           ENDP
 
 000142  0000              DCW      0x0000
@@ -272,12 +272,12 @@
                           AREA ||i.joypad_assigned||, CODE, READONLY, ALIGN=2
 
                   joypad_assigned PROC
-;;;103    }
-;;;104    uint32_t joypad_assigned(uint8_t i) {
+;;;104    }
+;;;105    uint32_t joypad_assigned(uint8_t i) {
 000000  4601              MOV      r1,r0
-;;;105      uint32_t mask = 0;
+;;;106      uint32_t mask = 0;
 000002  2000              MOVS     r0,#0
-;;;106      if (joypad_assignments[idx_from_mask(BTN_R1)]    == i) mask |= BTN_R1;
+;;;107      if (joypad_assignments[idx_from_mask(BTN_R1)]    == i) mask |= BTN_R1;
 000004  2204              MOVS     r2,#4
 000006  fab2f382          CLZ      r3,r2
 00000a  f1c30320          RSB      r3,r3,#0x20
@@ -288,7 +288,7 @@
 000016  d101              BNE      |L5.28|
 000018  f0400004          ORR      r0,r0,#4
                   |L5.28|
-;;;107      if (joypad_assignments[idx_from_mask(BTN_D1)]    == i) mask |= BTN_D1;
+;;;108      if (joypad_assignments[idx_from_mask(BTN_D1)]    == i) mask |= BTN_D1;
 00001c  2208              MOVS     r2,#8
 00001e  fab2f382          CLZ      r3,r2
 000022  f1c30320          RSB      r3,r3,#0x20
@@ -299,7 +299,7 @@
 00002e  d101              BNE      |L5.52|
 000030  f0400008          ORR      r0,r0,#8
                   |L5.52|
-;;;108      if (joypad_assignments[idx_from_mask(BTN_L1)]    == i) mask |= BTN_L1;
+;;;109      if (joypad_assignments[idx_from_mask(BTN_L1)]    == i) mask |= BTN_L1;
 000034  2210              MOVS     r2,#0x10
 000036  fab2f382          CLZ      r3,r2
 00003a  f1c30320          RSB      r3,r3,#0x20
@@ -310,7 +310,7 @@
 000046  d101              BNE      |L5.76|
 000048  f0400010          ORR      r0,r0,#0x10
                   |L5.76|
-;;;109      if (joypad_assignments[idx_from_mask(BTN_M1)]    == i) mask |= BTN_M1;
+;;;110      if (joypad_assignments[idx_from_mask(BTN_M1)]    == i) mask |= BTN_M1;
 00004c  2220              MOVS     r2,#0x20
 00004e  fab2f382          CLZ      r3,r2
 000052  f1c30320          RSB      r3,r3,#0x20
@@ -321,7 +321,7 @@
 00005e  d101              BNE      |L5.100|
 000060  f0400020          ORR      r0,r0,#0x20
                   |L5.100|
-;;;110      if (joypad_assignments[idx_from_mask(BTN_X1)]    == i) mask |= BTN_X1;
+;;;111      if (joypad_assignments[idx_from_mask(BTN_X1)]    == i) mask |= BTN_X1;
 000064  2240              MOVS     r2,#0x40
 000066  fab2f382          CLZ      r3,r2
 00006a  f1c30320          RSB      r3,r3,#0x20
@@ -332,7 +332,7 @@
 000076  d101              BNE      |L5.124|
 000078  f0400040          ORR      r0,r0,#0x40
                   |L5.124|
-;;;111      if (joypad_assignments[idx_from_mask(BTN_X2)]    == i) mask |= BTN_X2;
+;;;112      if (joypad_assignments[idx_from_mask(BTN_X2)]    == i) mask |= BTN_X2;
 00007c  2280              MOVS     r2,#0x80
 00007e  fab2f382          CLZ      r3,r2
 000082  f1c30320          RSB      r3,r3,#0x20
@@ -343,7 +343,7 @@
 00008e  d101              BNE      |L5.148|
 000090  f0400080          ORR      r0,r0,#0x80
                   |L5.148|
-;;;112      if (joypad_assignments[idx_from_mask(BTN_X3)]    == i) mask |= BTN_X3;
+;;;113      if (joypad_assignments[idx_from_mask(BTN_X3)]    == i) mask |= BTN_X3;
 000094  f44f7280          MOV      r2,#0x100
 000098  fab2f382          CLZ      r3,r2
 00009c  f1c30320          RSB      r3,r3,#0x20
@@ -354,7 +354,7 @@
 0000a8  d101              BNE      |L5.174|
 0000aa  f4407080          ORR      r0,r0,#0x100
                   |L5.174|
-;;;113      if (joypad_assignments[idx_from_mask(BTN_X4)]    == i) mask |= BTN_X4;
+;;;114      if (joypad_assignments[idx_from_mask(BTN_X4)]    == i) mask |= BTN_X4;
 0000ae  f44f7200          MOV      r2,#0x200
 0000b2  fab2f382          CLZ      r3,r2
 0000b6  f1c30320          RSB      r3,r3,#0x20
@@ -365,7 +365,7 @@
 0000c2  d101              BNE      |L5.200|
 0000c4  f4407000          ORR      r0,r0,#0x200
                   |L5.200|
-;;;114      if (joypad_assignments[idx_from_mask(BTN_JS2)]   == i) mask |= BTN_JS2;
+;;;115      if (joypad_assignments[idx_from_mask(BTN_JS2)]   == i) mask |= BTN_JS2;
 0000c8  f44f6280          MOV      r2,#0x400
 0000cc  fab2f382          CLZ      r3,r2
 0000d0  f1c30320          RSB      r3,r3,#0x20
@@ -376,7 +376,7 @@
 0000dc  d101              BNE      |L5.226|
 0000de  f4406080          ORR      r0,r0,#0x400
                   |L5.226|
-;;;115      if (joypad_assignments[idx_from_mask(BTN_D2)]    == i) mask |= BTN_D2;
+;;;116      if (joypad_assignments[idx_from_mask(BTN_D2)]    == i) mask |= BTN_D2;
 0000e2  f44f6200          MOV      r2,#0x800
 0000e6  fab2f382          CLZ      r3,r2
 0000ea  f1c30320          RSB      r3,r3,#0x20
@@ -387,7 +387,7 @@
 0000f6  d101              BNE      |L5.252|
 0000f8  f4406000          ORR      r0,r0,#0x800
                   |L5.252|
-;;;116      if (joypad_assignments[idx_from_mask(BTN_R2)]    == i) mask |= BTN_R2;
+;;;117      if (joypad_assignments[idx_from_mask(BTN_R2)]    == i) mask |= BTN_R2;
 0000fc  f44f5280          MOV      r2,#0x1000
 000100  fab2f382          CLZ      r3,r2
 000104  f1c30320          RSB      r3,r3,#0x20
@@ -398,7 +398,7 @@
 000110  d101              BNE      |L5.278|
 000112  f4405080          ORR      r0,r0,#0x1000
                   |L5.278|
-;;;117      if (joypad_assignments[idx_from_mask(BTN_M2)]    == i) mask |= BTN_M2;
+;;;118      if (joypad_assignments[idx_from_mask(BTN_M2)]    == i) mask |= BTN_M2;
 000116  f44f5200          MOV      r2,#0x2000
 00011a  fab2f382          CLZ      r3,r2
 00011e  f1c30320          RSB      r3,r3,#0x20
@@ -409,7 +409,7 @@
 00012a  d101              BNE      |L5.304|
 00012c  f4405000          ORR      r0,r0,#0x2000
                   |L5.304|
-;;;118      if (joypad_assignments[idx_from_mask(BTN_U2)]    == i) mask |= BTN_U2;
+;;;119      if (joypad_assignments[idx_from_mask(BTN_U2)]    == i) mask |= BTN_U2;
 000130  f44f4280          MOV      r2,#0x4000
 000134  fab2f382          CLZ      r3,r2
 000138  f1c30320          RSB      r3,r3,#0x20
@@ -420,7 +420,7 @@
 000144  d101              BNE      |L5.330|
 000146  f4404080          ORR      r0,r0,#0x4000
                   |L5.330|
-;;;119      if (joypad_assignments[idx_from_mask(BTN_L2)]    == i) mask |= BTN_L2;
+;;;120      if (joypad_assignments[idx_from_mask(BTN_L2)]    == i) mask |= BTN_L2;
 00014a  f44f4200          MOV      r2,#0x8000
 00014e  fab2f382          CLZ      r3,r2
 000152  f1c30320          RSB      r3,r3,#0x20
@@ -431,7 +431,7 @@
 00015e  d101              BNE      |L5.356|
 000160  f4404000          ORR      r0,r0,#0x8000
                   |L5.356|
-;;;120      if (joypad_assignments[idx_from_mask(BTN_JS1)]   == i) mask |= BTN_JS1;
+;;;121      if (joypad_assignments[idx_from_mask(BTN_JS1)]   == i) mask |= BTN_JS1;
 000164  2201              MOVS     r2,#1
 000166  fab2f382          CLZ      r3,r2
 00016a  f1c30320          RSB      r3,r3,#0x20
@@ -442,7 +442,7 @@
 000176  d101              BNE      |L5.380|
 000178  f0400001          ORR      r0,r0,#1
                   |L5.380|
-;;;121      if (joypad_assignments[idx_from_mask(BTN_U1)]    == i) mask |= BTN_U1;
+;;;122      if (joypad_assignments[idx_from_mask(BTN_U1)]    == i) mask |= BTN_U1;
 00017c  2202              MOVS     r2,#2
 00017e  fab2f382          CLZ      r3,r2
 000182  f1c30320          RSB      r3,r3,#0x20
@@ -453,7 +453,7 @@
 00018e  d101              BNE      |L5.404|
 000190  f0400002          ORR      r0,r0,#2
                   |L5.404|
-;;;122      if (joypad_assignments[idx_from_mask(BTN_JS1_L)] == i) mask |= BTN_JS1_L;
+;;;123      if (joypad_assignments[idx_from_mask(BTN_JS1_L)] == i) mask |= BTN_JS1_L;
 000194  f44f3280          MOV      r2,#0x10000
 000198  fab2f382          CLZ      r3,r2
 00019c  f1c30320          RSB      r3,r3,#0x20
@@ -464,7 +464,7 @@
 0001a8  d101              BNE      |L5.430|
 0001aa  f4403080          ORR      r0,r0,#0x10000
                   |L5.430|
-;;;123      if (joypad_assignments[idx_from_mask(BTN_JS1_R)] == i) mask |= BTN_JS1_R;
+;;;124      if (joypad_assignments[idx_from_mask(BTN_JS1_R)] == i) mask |= BTN_JS1_R;
 0001ae  f44f3200          MOV      r2,#0x20000
 0001b2  fab2f382          CLZ      r3,r2
 0001b6  f1c30320          RSB      r3,r3,#0x20
@@ -475,7 +475,7 @@
 0001c2  d101              BNE      |L5.456|
 0001c4  f4403000          ORR      r0,r0,#0x20000
                   |L5.456|
-;;;124      if (joypad_assignments[idx_from_mask(BTN_JS1_D)] == i) mask |= BTN_JS1_D;
+;;;125      if (joypad_assignments[idx_from_mask(BTN_JS1_D)] == i) mask |= BTN_JS1_D;
 0001c8  f44f2280          MOV      r2,#0x40000
 0001cc  fab2f382          CLZ      r3,r2
 0001d0  f1c30320          RSB      r3,r3,#0x20
@@ -486,7 +486,7 @@
 0001dc  d101              BNE      |L5.482|
 0001de  f4402080          ORR      r0,r0,#0x40000
                   |L5.482|
-;;;125      if (joypad_assignments[idx_from_mask(BTN_JS1_U)] == i) mask |= BTN_JS1_U;
+;;;126      if (joypad_assignments[idx_from_mask(BTN_JS1_U)] == i) mask |= BTN_JS1_U;
 0001e2  f44f2200          MOV      r2,#0x80000
 0001e6  fab2f382          CLZ      r3,r2
 0001ea  f1c30320          RSB      r3,r3,#0x20
@@ -497,7 +497,7 @@
 0001f6  d101              BNE      |L5.508|
 0001f8  f4402000          ORR      r0,r0,#0x80000
                   |L5.508|
-;;;126      if (joypad_assignments[idx_from_mask(BTN_JS2_L)] == i) mask |= BTN_JS2_L;
+;;;127      if (joypad_assignments[idx_from_mask(BTN_JS2_L)] == i) mask |= BTN_JS2_L;
 0001fc  f44f1280          MOV      r2,#0x100000
 000200  fab2f382          CLZ      r3,r2
 000204  f1c30320          RSB      r3,r3,#0x20
@@ -508,7 +508,7 @@
 000210  d101              BNE      |L5.534|
 000212  f4401080          ORR      r0,r0,#0x100000
                   |L5.534|
-;;;127      if (joypad_assignments[idx_from_mask(BTN_JS2_R)] == i) mask |= BTN_JS2_R;
+;;;128      if (joypad_assignments[idx_from_mask(BTN_JS2_R)] == i) mask |= BTN_JS2_R;
 000216  f44f1200          MOV      r2,#0x200000
 00021a  fab2f382          CLZ      r3,r2
 00021e  f1c30320          RSB      r3,r3,#0x20
@@ -519,7 +519,7 @@
 00022a  d101              BNE      |L5.560|
 00022c  f4401000          ORR      r0,r0,#0x200000
                   |L5.560|
-;;;128      if (joypad_assignments[idx_from_mask(BTN_JS2_D)] == i) mask |= BTN_JS2_D;
+;;;129      if (joypad_assignments[idx_from_mask(BTN_JS2_D)] == i) mask |= BTN_JS2_D;
 000230  f44f0280          MOV      r2,#0x400000
 000234  fab2f382          CLZ      r3,r2
 000238  f1c30320          RSB      r3,r3,#0x20
@@ -530,7 +530,7 @@
 000244  d101              BNE      |L5.586|
 000246  f4400080          ORR      r0,r0,#0x400000
                   |L5.586|
-;;;129      if (joypad_assignments[idx_from_mask(BTN_JS2_U)] == i) mask |= BTN_JS2_U;
+;;;130      if (joypad_assignments[idx_from_mask(BTN_JS2_U)] == i) mask |= BTN_JS2_U;
 00024a  f44f0200          MOV      r2,#0x800000
 00024e  fab2f382          CLZ      r3,r2
 000252  f1c30320          RSB      r3,r3,#0x20
@@ -541,7 +541,7 @@
 00025e  d101              BNE      |L5.612|
 000260  f4400000          ORR      r0,r0,#0x800000
                   |L5.612|
-;;;130      if (joypad_assignments[idx_from_mask(BTN_IMU_L)] == i) mask |= BTN_IMU_L;
+;;;131      if (joypad_assignments[idx_from_mask(BTN_IMU_L)] == i) mask |= BTN_IMU_L;
 000264  f04f7280          MOV      r2,#0x1000000
 000268  fab2f382          CLZ      r3,r2
 00026c  f1c30320          RSB      r3,r3,#0x20
@@ -552,7 +552,7 @@
 000278  d101              BNE      |L5.638|
 00027a  f0407080          ORR      r0,r0,#0x1000000
                   |L5.638|
-;;;131      if (joypad_assignments[idx_from_mask(BTN_IMU_R)] == i) mask |= BTN_IMU_R;
+;;;132      if (joypad_assignments[idx_from_mask(BTN_IMU_R)] == i) mask |= BTN_IMU_R;
 00027e  f04f7200          MOV      r2,#0x2000000
 000282  fab2f382          CLZ      r3,r2
 000286  f1c30320          RSB      r3,r3,#0x20
@@ -563,7 +563,7 @@
 000292  d101              BNE      |L5.664|
 000294  f0407000          ORR      r0,r0,#0x2000000
                   |L5.664|
-;;;132      if (joypad_assignments[idx_from_mask(BTN_IMU_J)] == i) mask |= BTN_IMU_J;
+;;;133      if (joypad_assignments[idx_from_mask(BTN_IMU_J)] == i) mask |= BTN_IMU_J;
 000298  f04f6280          MOV      r2,#0x4000000
 00029c  fab2f382          CLZ      r3,r2
 0002a0  f1c30320          RSB      r3,r3,#0x20
@@ -574,10 +574,10 @@
 0002ac  d101              BNE      |L5.690|
 0002ae  f0406080          ORR      r0,r0,#0x4000000
                   |L5.690|
-;;;133      return mask;
-;;;134    }
+;;;134      return mask;
+;;;135    }
 0002b2  4770              BX       lr
-;;;135    /* USER CODE END 0 */
+;;;136    /* USER CODE END 0 */
                           ENDP
 
                   |L5.692|
@@ -586,15 +586,15 @@
                           AREA ||i.joypad_icon||, CODE, READONLY, ALIGN=2
 
                   joypad_icon PROC
-;;;95     }
-;;;96     char joypad_icon(uint32_t i) {
+;;;96     }
+;;;97     char joypad_icon(uint32_t i) {
 000000  b50c              PUSH     {r2,r3,lr}
 000002  4601              MOV      r1,r0
-;;;97       const char icons[6] = {'^', 'V', '<', '>', 'A', 'B'};
+;;;98       const char icons[6] = {'^', 'V', '<', '>', 'A', 'B'};
 000004  a207              ADR      r2,|L6.36|
 000006  ca05              LDM      r2,{r0,r2}
 000008  e9cd0200          STRD     r0,r2,[sp,#0]
-;;;98       return icons[joypad_assignments[idx_from_mask(i)]];
+;;;99       return icons[joypad_assignments[idx_from_mask(i)]];
 00000c  bf00              NOP      
 00000e  fab1f081          CLZ      r0,r1
 000012  f1c00020          RSB      r0,r0,#0x20
@@ -602,9 +602,9 @@
 000018  4a04              LDR      r2,|L6.44|
 00001a  5c10              LDRB     r0,[r2,r0]
 00001c  f81d0000          LDRB     r0,[sp,r0]
-;;;99     }
+;;;100    }
 000020  bd0c              POP      {r2,r3,pc}
-;;;100    void joypad_rotate(uint32_t mask) {
+;;;101    void joypad_rotate(uint32_t mask) {
                           ENDP
 
 000022  0000              DCW      0x0000
@@ -618,10 +618,10 @@
                           AREA ||i.joypad_rotate||, CODE, READONLY, ALIGN=2
 
                   joypad_rotate PROC
-;;;99     }
-;;;100    void joypad_rotate(uint32_t mask) {
+;;;100    }
+;;;101    void joypad_rotate(uint32_t mask) {
 000000  b510              PUSH     {r4,lr}
-;;;101      joypad_assignments[idx_from_mask(mask)] += 1;
+;;;102      joypad_assignments[idx_from_mask(mask)] += 1;
 000002  bf00              NOP      
 000004  fab0f280          CLZ      r2,r0
 000008  f1c20220          RSB      r2,r2,#0x20
@@ -631,7 +631,7 @@
 000012  780a              LDRB     r2,[r1,#0]
 000014  1c52              ADDS     r2,r2,#1
 000016  700a              STRB     r2,[r1,#0]
-;;;102      joypad_assignments[idx_from_mask(mask)] %= 6;
+;;;103      joypad_assignments[idx_from_mask(mask)] %= 6;
 000018  bf00              NOP      
 00001a  fab0f280          CLZ      r2,r0
 00001e  f1c20220          RSB      r2,r2,#0x20
@@ -642,9 +642,9 @@
 00002a  fb92f4f3          SDIV     r4,r2,r3
 00002e  fb032214          MLS      r2,r3,r4,r2
 000032  700a              STRB     r2,[r1,#0]
-;;;103    }
+;;;104    }
 000034  bd10              POP      {r4,pc}
-;;;104    uint32_t joypad_assigned(uint8_t i) {
+;;;105    uint32_t joypad_assigned(uint8_t i) {
                           ENDP
 
 000036  0000              DCW      0x0000
@@ -654,30 +654,30 @@
                           AREA ||i.main||, CODE, READONLY, ALIGN=2
 
                   main PROC
-;;;140      */
-;;;141    int main(void)
+;;;141      */
+;;;142    int main(void)
 000000  b51f              PUSH     {r0-r4,lr}
-;;;142    {
-;;;143      /* USER CODE BEGIN 1 */
-;;;144    
-;;;145      /* USER CODE END 1 */
-;;;146    
-;;;147      /* MCU Configuration--------------------------------------------------------*/
-;;;148    
-;;;149      /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-;;;150      HAL_Init();
+;;;143    {
+;;;144      /* USER CODE BEGIN 1 */
+;;;145    
+;;;146      /* USER CODE END 1 */
+;;;147    
+;;;148      /* MCU Configuration--------------------------------------------------------*/
+;;;149    
+;;;150      /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+;;;151      HAL_Init();
 000002  f7fffffe          BL       HAL_Init
-;;;151    
-;;;152      /* USER CODE BEGIN Init */
-;;;153    
-;;;154      /* USER CODE END Init */
-;;;155    
-;;;156      /* Configure the system clock */
-;;;157      SystemClock_Config();
+;;;152    
+;;;153      /* USER CODE BEGIN Init */
+;;;154    
+;;;155      /* USER CODE END Init */
+;;;156    
+;;;157      /* Configure the system clock */
+;;;158      SystemClock_Config();
 000006  f7fffffe          BL       SystemClock_Config
-;;;158    
-;;;159      /* USER CODE BEGIN SysInit */
-;;;160    	ticks_init();
+;;;159    
+;;;160      /* USER CODE BEGIN SysInit */
+;;;161    	ticks_init();
 00000a  bf00              NOP      
 00000c  f04f20e0          MOV      r0,#0xe000e000
 000010  6900              LDR      r0,[r0,#0x10]
@@ -685,1165 +685,1043 @@
 000016  f04f21e0          MOV      r1,#0xe000e000
 00001a  6108              STR      r0,[r1,#0x10]
 00001c  bf00              NOP      
-;;;161      /* USER CODE END SysInit */
-;;;162    
-;;;163      /* Initialize all configured peripherals */
-;;;164      MX_GPIO_Init();
+;;;162      /* USER CODE END SysInit */
+;;;163    
+;;;164      /* Initialize all configured peripherals */
+;;;165      MX_GPIO_Init();
 00001e  f7fffffe          BL       MX_GPIO_Init
-;;;165      MX_DMA_Init();
+;;;166      MX_DMA_Init();
 000022  f7fffffe          BL       MX_DMA_Init
-;;;166      MX_SPI1_Init();
+;;;167      MX_SPI1_Init();
 000026  f7fffffe          BL       MX_SPI1_Init
-;;;167      MX_USART1_UART_Init();
+;;;168      MX_USART1_UART_Init();
 00002a  f7fffffe          BL       MX_USART1_UART_Init
-;;;168      MX_ADC1_Init();
+;;;169      MX_ADC1_Init();
 00002e  f7fffffe          BL       MX_ADC1_Init
-;;;169      MX_SPI5_Init();
+;;;170      MX_SPI5_Init();
 000032  f7fffffe          BL       MX_SPI5_Init
-;;;170      MX_USART2_UART_Init();
+;;;171      MX_USART2_UART_Init();
 000036  f7fffffe          BL       MX_USART2_UART_Init
-;;;171      MX_TIM13_Init();
-00003a  f7fffffe          BL       MX_TIM13_Init
-;;;172      MX_DAC_Init();
-00003e  f7fffffe          BL       MX_DAC_Init
-;;;173      MX_TIM14_Init();
-000042  f7fffffe          BL       MX_TIM14_Init
-;;;174      MX_TIM12_Init();
-000046  f7fffffe          BL       MX_TIM12_Init
-;;;175      MX_TIM11_Init();
-00004a  f7fffffe          BL       MX_TIM11_Init
-;;;176      MX_TIM10_Init();
-00004e  f7fffffe          BL       MX_TIM10_Init
-;;;177      MX_TIM9_Init();
-000052  f7fffffe          BL       MX_TIM9_Init
-;;;178      MX_TIM6_Init();
-000056  f7fffffe          BL       MX_TIM6_Init
-;;;179      MX_TIM7_Init();
-00005a  f7fffffe          BL       MX_TIM7_Init
-;;;180      MX_SDIO_SD_Init();
-00005e  f7fffffe          BL       MX_SDIO_SD_Init
-;;;181      /* USER CODE BEGIN 2 */
-;;;182      tft_init(PIN_ON_LEFT, BLACK, WHITE, GREEN, RED);
-000062  f44f4078          MOV      r0,#0xf800
-000066  f44f63fc          MOV      r3,#0x7e0
-00006a  f64f72ff          MOV      r2,#0xffff
-00006e  2100              MOVS     r1,#0
-000070  9000              STR      r0,[sp,#0]
-000072  2001              MOVS     r0,#1
-000074  f7fffffe          BL       tft_init
-;;;183      // IMU_enableAccel(50);
-;;;184      joystick_init();
-000078  f7fffffe          BL       joystick_init
-;;;185    
-;;;186      //Frame timer
-;;;187      TIM6->PSC = 83;
-00007c  2053              MOVS     r0,#0x53
-00007e  49fe              LDR      r1,|L8.1144|
-000080  6288              STR      r0,[r1,#0x28]
-;;;188      TIM6->ARR = 33333;
-000082  f2482035          MOV      r0,#0x8235
-000086  62c8              STR      r0,[r1,#0x2c]
-;;;189      TIM6->CR1 = TIM_CR1_CEN;
-000088  2001              MOVS     r0,#1
-00008a  6008              STR      r0,[r1,#0]
-;;;190      //LCD backlight PWM
-;;;191      TIM13->PSC = 8399;
-00008c  f24200cf          MOV      r0,#0x20cf
-000090  49fa              LDR      r1,|L8.1148|
-000092  6008              STR      r0,[r1,#0]
-;;;192      TIM13->ARR = 99;
-000094  2063              MOVS     r0,#0x63
-000096  1d09              ADDS     r1,r1,#4
-000098  6008              STR      r0,[r1,#0]
-;;;193      TIM13->CCR1 = 10;
-00009a  200a              MOVS     r0,#0xa
-00009c  49f7              LDR      r1,|L8.1148|
-00009e  310c              ADDS     r1,r1,#0xc
-0000a0  6008              STR      r0,[r1,#0]
-;;;194      TIM13->CR1 = TIM_CR1_CEN;
-0000a2  2001              MOVS     r0,#1
-0000a4  49f5              LDR      r1,|L8.1148|
-0000a6  3928              SUBS     r1,r1,#0x28
-0000a8  6008              STR      r0,[r1,#0]
-;;;195    
-;;;196      joypad_assignments[idx_from_mask(BTN_R1)]    = ASSIGN_RIGHT;
-0000aa  2004              MOVS     r0,#4
-0000ac  fab0f180          CLZ      r1,r0
-0000b0  f1c10120          RSB      r1,r1,#0x20
-0000b4  b2c9              UXTB     r1,r1
-0000b6  48f2              LDR      r0,|L8.1152|
-0000b8  2203              MOVS     r2,#3
-0000ba  5442              STRB     r2,[r0,r1]
-;;;197      joypad_assignments[idx_from_mask(BTN_D1)]    = ASSIGN_DOWN;
-0000bc  2008              MOVS     r0,#8
-0000be  fab0f180          CLZ      r1,r0
-0000c2  f1c10120          RSB      r1,r1,#0x20
-0000c6  b2c9              UXTB     r1,r1
-0000c8  48ed              LDR      r0,|L8.1152|
-0000ca  2201              MOVS     r2,#1
-0000cc  5442              STRB     r2,[r0,r1]
-;;;198      joypad_assignments[idx_from_mask(BTN_L1)]    = ASSIGN_LEFT;
-0000ce  2010              MOVS     r0,#0x10
-0000d0  fab0f180          CLZ      r1,r0
-0000d4  f1c10120          RSB      r1,r1,#0x20
-0000d8  b2c9              UXTB     r1,r1
-0000da  48e9              LDR      r0,|L8.1152|
-0000dc  2202              MOVS     r2,#2
-0000de  5442              STRB     r2,[r0,r1]
-;;;199      joypad_assignments[idx_from_mask(BTN_M1)]    = ASSIGN_B;
-0000e0  2020              MOVS     r0,#0x20
-0000e2  fab0f180          CLZ      r1,r0
-0000e6  f1c10120          RSB      r1,r1,#0x20
-0000ea  b2c9              UXTB     r1,r1
-0000ec  48e4              LDR      r0,|L8.1152|
-0000ee  2205              MOVS     r2,#5
-0000f0  5442              STRB     r2,[r0,r1]
-;;;200      joypad_assignments[idx_from_mask(BTN_JS2)]   = ASSIGN_B;
-0000f2  f44f6080          MOV      r0,#0x400
-0000f6  fab0f180          CLZ      r1,r0
-0000fa  f1c10120          RSB      r1,r1,#0x20
-0000fe  b2c9              UXTB     r1,r1
-000100  48df              LDR      r0,|L8.1152|
-000102  5442              STRB     r2,[r0,r1]
-;;;201      joypad_assignments[idx_from_mask(BTN_D2)]    = ASSIGN_B;
-000104  f44f6000          MOV      r0,#0x800
-000108  fab0f180          CLZ      r1,r0
-00010c  f1c10120          RSB      r1,r1,#0x20
-000110  b2c9              UXTB     r1,r1
-000112  48db              LDR      r0,|L8.1152|
-000114  5442              STRB     r2,[r0,r1]
-;;;202      joypad_assignments[idx_from_mask(BTN_R2)]    = ASSIGN_A;
-000116  f44f5080          MOV      r0,#0x1000
-00011a  fab0f180          CLZ      r1,r0
-00011e  f1c10120          RSB      r1,r1,#0x20
-000122  b2c9              UXTB     r1,r1
-000124  48d6              LDR      r0,|L8.1152|
-000126  2204              MOVS     r2,#4
-000128  5442              STRB     r2,[r0,r1]
-;;;203      joypad_assignments[idx_from_mask(BTN_M2)]    = ASSIGN_B;
-00012a  02d0              LSLS     r0,r2,#11
-00012c  fab0f180          CLZ      r1,r0
-000130  f1c10120          RSB      r1,r1,#0x20
-000134  b2c9              UXTB     r1,r1
-000136  48d2              LDR      r0,|L8.1152|
-000138  2205              MOVS     r2,#5
-00013a  5442              STRB     r2,[r0,r1]
-;;;204      joypad_assignments[idx_from_mask(BTN_U2)]    = ASSIGN_A;
-00013c  f44f4080          MOV      r0,#0x4000
-000140  fab0f180          CLZ      r1,r0
-000144  f1c10120          RSB      r1,r1,#0x20
-000148  b2c9              UXTB     r1,r1
-00014a  48cd              LDR      r0,|L8.1152|
-00014c  2204              MOVS     r2,#4
-00014e  5442              STRB     r2,[r0,r1]
-;;;205      joypad_assignments[idx_from_mask(BTN_L2)]    = ASSIGN_B;
-000150  0350              LSLS     r0,r2,#13
-000152  fab0f180          CLZ      r1,r0
-000156  f1c10120          RSB      r1,r1,#0x20
-00015a  b2c9              UXTB     r1,r1
-00015c  48c8              LDR      r0,|L8.1152|
-00015e  2205              MOVS     r2,#5
-000160  5442              STRB     r2,[r0,r1]
-;;;206      joypad_assignments[idx_from_mask(BTN_JS1)]   = ASSIGN_B;
-000162  2001              MOVS     r0,#1
-000164  fab0f180          CLZ      r1,r0
-000168  f1c10120          RSB      r1,r1,#0x20
-00016c  b2c9              UXTB     r1,r1
-00016e  48c4              LDR      r0,|L8.1152|
-000170  5442              STRB     r2,[r0,r1]
-;;;207      joypad_assignments[idx_from_mask(BTN_U1)]    = ASSIGN_UP;
-000172  2002              MOVS     r0,#2
-000174  fab0f180          CLZ      r1,r0
-000178  f1c10120          RSB      r1,r1,#0x20
-00017c  b2c9              UXTB     r1,r1
-00017e  48c0              LDR      r0,|L8.1152|
-000180  2200              MOVS     r2,#0
-000182  5442              STRB     r2,[r0,r1]
-;;;208      joypad_assignments[idx_from_mask(BTN_JS1_L)] = ASSIGN_LEFT;
-000184  f44f3080          MOV      r0,#0x10000
-000188  fab0f180          CLZ      r1,r0
-00018c  f1c10120          RSB      r1,r1,#0x20
-000190  b2c9              UXTB     r1,r1
-000192  48bb              LDR      r0,|L8.1152|
-000194  2202              MOVS     r2,#2
-000196  5442              STRB     r2,[r0,r1]
-;;;209      joypad_assignments[idx_from_mask(BTN_JS1_R)] = ASSIGN_RIGHT;
-000198  0410              LSLS     r0,r2,#16
-00019a  fab0f180          CLZ      r1,r0
-00019e  f1c10120          RSB      r1,r1,#0x20
-0001a2  b2c9              UXTB     r1,r1
-0001a4  48b6              LDR      r0,|L8.1152|
-0001a6  2203              MOVS     r2,#3
-0001a8  5442              STRB     r2,[r0,r1]
-;;;210      joypad_assignments[idx_from_mask(BTN_JS1_D)] = ASSIGN_DOWN;
-0001aa  f44f2080          MOV      r0,#0x40000
-0001ae  fab0f180          CLZ      r1,r0
-0001b2  f1c10120          RSB      r1,r1,#0x20
-0001b6  b2c9              UXTB     r1,r1
-0001b8  48b1              LDR      r0,|L8.1152|
-0001ba  2201              MOVS     r2,#1
-0001bc  5442              STRB     r2,[r0,r1]
-;;;211      joypad_assignments[idx_from_mask(BTN_JS1_U)] = ASSIGN_UP;
-0001be  04d0              LSLS     r0,r2,#19
-0001c0  fab0f180          CLZ      r1,r0
-0001c4  f1c10120          RSB      r1,r1,#0x20
-0001c8  b2c9              UXTB     r1,r1
-0001ca  48ad              LDR      r0,|L8.1152|
-0001cc  2200              MOVS     r2,#0
-0001ce  5442              STRB     r2,[r0,r1]
-;;;212      joypad_assignments[idx_from_mask(BTN_JS2_L)] = ASSIGN_B;
-0001d0  f44f1080          MOV      r0,#0x100000
-0001d4  fab0f180          CLZ      r1,r0
-0001d8  f1c10120          RSB      r1,r1,#0x20
-0001dc  b2c9              UXTB     r1,r1
-0001de  48a8              LDR      r0,|L8.1152|
-0001e0  2205              MOVS     r2,#5
-0001e2  5442              STRB     r2,[r0,r1]
-;;;213      joypad_assignments[idx_from_mask(BTN_JS2_R)] = ASSIGN_B;
-0001e4  f44f1000          MOV      r0,#0x200000
-0001e8  fab0f180          CLZ      r1,r0
-0001ec  f1c10120          RSB      r1,r1,#0x20
-0001f0  b2c9              UXTB     r1,r1
-0001f2  48a3              LDR      r0,|L8.1152|
-0001f4  5442              STRB     r2,[r0,r1]
-;;;214      joypad_assignments[idx_from_mask(BTN_JS2_D)] = ASSIGN_A;
-0001f6  f44f0080          MOV      r0,#0x400000
-0001fa  fab0f180          CLZ      r1,r0
-0001fe  f1c10120          RSB      r1,r1,#0x20
-000202  b2c9              UXTB     r1,r1
-000204  489e              LDR      r0,|L8.1152|
-000206  2204              MOVS     r2,#4
-000208  5442              STRB     r2,[r0,r1]
-;;;215      joypad_assignments[idx_from_mask(BTN_JS2_U)] = ASSIGN_A;
-00020a  0550              LSLS     r0,r2,#21
-00020c  fab0f180          CLZ      r1,r0
-000210  f1c10120          RSB      r1,r1,#0x20
-000214  b2c9              UXTB     r1,r1
-000216  489a              LDR      r0,|L8.1152|
-000218  5442              STRB     r2,[r0,r1]
-;;;216      joypad_assignments[idx_from_mask(BTN_X1)]    = ASSIGN_SEL;
-00021a  2040              MOVS     r0,#0x40
-00021c  fab0f180          CLZ      r1,r0
-000220  f1c10120          RSB      r1,r1,#0x20
-000224  b2c9              UXTB     r1,r1
-000226  4896              LDR      r0,|L8.1152|
-000228  2207              MOVS     r2,#7
-00022a  5442              STRB     r2,[r0,r1]
-;;;217      joypad_assignments[idx_from_mask(BTN_X2)]    = ASSIGN_NONE;
-00022c  2080              MOVS     r0,#0x80
-00022e  fab0f180          CLZ      r1,r0
-000232  f1c10120          RSB      r1,r1,#0x20
-000236  b2c9              UXTB     r1,r1
-000238  4891              LDR      r0,|L8.1152|
-00023a  2208              MOVS     r2,#8
-00023c  5442              STRB     r2,[r0,r1]
-;;;218      joypad_assignments[idx_from_mask(BTN_X3)]    = ASSIGN_NONE;
-00023e  0150              LSLS     r0,r2,#5
-000240  fab0f180          CLZ      r1,r0
-000244  f1c10120          RSB      r1,r1,#0x20
-000248  b2c9              UXTB     r1,r1
-00024a  488d              LDR      r0,|L8.1152|
-00024c  5442              STRB     r2,[r0,r1]
-;;;219      joypad_assignments[idx_from_mask(BTN_X4)]    = ASSIGN_START;
-00024e  0190              LSLS     r0,r2,#6
-000250  fab0f180          CLZ      r1,r0
-000254  f1c10120          RSB      r1,r1,#0x20
-000258  b2c9              UXTB     r1,r1
-00025a  4889              LDR      r0,|L8.1152|
-00025c  2206              MOVS     r2,#6
-00025e  5442              STRB     r2,[r0,r1]
-;;;220      joypad_assignments[idx_from_mask(BTN_IMU_L)] = ASSIGN_LEFT;
-000260  f04f7080          MOV      r0,#0x1000000
-000264  fab0f180          CLZ      r1,r0
-000268  f1c10120          RSB      r1,r1,#0x20
-00026c  b2c9              UXTB     r1,r1
-00026e  4884              LDR      r0,|L8.1152|
-000270  2202              MOVS     r2,#2
-000272  5442              STRB     r2,[r0,r1]
-;;;221      joypad_assignments[idx_from_mask(BTN_IMU_R)] = ASSIGN_RIGHT;
-000274  0610              LSLS     r0,r2,#24
-000276  fab0f180          CLZ      r1,r0
-00027a  f1c10120          RSB      r1,r1,#0x20
-00027e  b2c9              UXTB     r1,r1
-000280  487f              LDR      r0,|L8.1152|
-000282  2203              MOVS     r2,#3
-000284  5442              STRB     r2,[r0,r1]
-;;;222      joypad_assignments[idx_from_mask(BTN_IMU_J)] = ASSIGN_A;
-000286  f04f6080          MOV      r0,#0x4000000
-00028a  fab0f180          CLZ      r1,r0
-00028e  f1c10120          RSB      r1,r1,#0x20
-000292  b2c9              UXTB     r1,r1
-000294  487a              LDR      r0,|L8.1152|
-000296  2204              MOVS     r2,#4
-000298  5442              STRB     r2,[r0,r1]
-;;;223      delay(100);
-00029a  2064              MOVS     r0,#0x64
-00029c  4979              LDR      r1,|L8.1156|
-00029e  6008              STR      r0,[r1,#0]  ; __delay
-0002a0  bf00              NOP      
-0002a2  bf00              NOP      
-                  |L8.676|
-0002a4  4977              LDR      r1,|L8.1156|
-0002a6  6809              LDR      r1,[r1,#0]  ; __delay
-0002a8  2900              CMP      r1,#0
-0002aa  d1fb              BNE      |L8.676|
-0002ac  bf00              NOP      
-;;;224      /* USER CODE END 2 */
-;;;225    
-;;;226      /* Infinite loop */
-;;;227      /* USER CODE BEGIN WHILE */
-;;;228      while (1)
-0002ae  e30f              B        |L8.2256|
-                  |L8.688|
-;;;229      {
-;;;230        static int GAME_SELECT = 0;
-;;;231        #define NUM_OF_GAMES 3
-;;;232    
-;;;233    
-;;;234        static uint32_t last_joypad_state = 0;
-;;;235        joypad_update();
-0002b0  f7fffffe          BL       joypad_update
-;;;236        #define btn_pressed(X) (joypad_state & (X))
-;;;237        #define btn_clicked(X) (joypad_state & (X)) && !(last_joypad_state & (X))
-;;;238        tft_clear();
-0002b4  f7fffffe          BL       tft_clear
-;;;239        tft_printc(4, 0, "ELEC3300(24) - Anshuman & Aaron");
-0002b8  a273              ADR      r2,|L8.1160|
-0002ba  2100              MOVS     r1,#0
-0002bc  2004              MOVS     r0,#4
-0002be  f7fffffe          BL       tft_printc
-;;;240        tft_printc(6, 12, "SELECT");
-0002c2  a279              ADR      r2,|L8.1192|
-0002c4  210c              MOVS     r1,#0xc
-0002c6  2006              MOVS     r0,#6
-0002c8  f7fffffe          BL       tft_printc
-;;;241        tft_prints(13, 12, "%s Super Mario Bros]", (GAME_SELECT == 0) ? ("[>") : ("-"));
-0002cc  4878              LDR      r0,|L8.1200|
-0002ce  6800              LDR      r0,[r0,#0]  ; GAME_SELECT
-0002d0  b908              CBNZ     r0,|L8.726|
-0002d2  a078              ADR      r0,|L8.1204|
-0002d4  e000              B        |L8.728|
-                  |L8.726|
-0002d6  a078              ADR      r0,|L8.1208|
-                  |L8.728|
-0002d8  4603              MOV      r3,r0
-0002da  a278              ADR      r2,|L8.1212|
-0002dc  210c              MOVS     r1,#0xc
-0002de  200d              MOVS     r0,#0xd
-0002e0  f7fffffe          BL       tft_prints
-;;;242        tft_prints(13, 13, "%s Battle City]"     , (GAME_SELECT == 1) ? ("[>") : ("-"));
-0002e4  4872              LDR      r0,|L8.1200|
-0002e6  6800              LDR      r0,[r0,#0]  ; GAME_SELECT
-0002e8  2801              CMP      r0,#1
-0002ea  d101              BNE      |L8.752|
-0002ec  a071              ADR      r0,|L8.1204|
-0002ee  e000              B        |L8.754|
-                  |L8.752|
-0002f0  a071              ADR      r0,|L8.1208|
-                  |L8.754|
-0002f2  4603              MOV      r3,r0
-0002f4  a277              ADR      r2,|L8.1236|
-0002f6  210d              MOVS     r1,#0xd
-0002f8  4608              MOV      r0,r1
-0002fa  f7fffffe          BL       tft_prints
-;;;243        tft_prints(13, 14, "%s Mappy]"           , (GAME_SELECT == 2) ? ("[>") : ("-"));
-0002fe  486c              LDR      r0,|L8.1200|
-000300  6800              LDR      r0,[r0,#0]  ; GAME_SELECT
-000302  2802              CMP      r0,#2
-000304  d101              BNE      |L8.778|
-000306  a06b              ADR      r0,|L8.1204|
-000308  e000              B        |L8.780|
-                  |L8.778|
-00030a  a06b              ADR      r0,|L8.1208|
-                  |L8.780|
-00030c  4603              MOV      r3,r0
-00030e  a275              ADR      r2,|L8.1252|
-000310  210e              MOVS     r1,#0xe
-000312  200d              MOVS     r0,#0xd
-000314  f7fffffe          BL       tft_prints
-;;;244       
-;;;245      #if 0 
-;;;246        // tft_printc(0, 5, " {/\\} \n{<} {>}\n {\\/} ");
-;;;247        tft_printc(0, 5, " {^} \n{<}  {>}\n {V} ");
-;;;248        tft_printc(36, 5, " {A} \n{B} {A}\n {B} ");
-;;;249      #else
-;;;250        tft_prints(0, 7, " {%c} \n{%c}{%c}{%c}\n {%c} ",
-000318  2008              MOVS     r0,#8
-00031a  f7fffffe          BL       joypad_icon
-00031e  4604              MOV      r4,r0
-000320  2004              MOVS     r0,#4
-000322  f7fffffe          BL       joypad_icon
-000326  4605              MOV      r5,r0
-000328  2020              MOVS     r0,#0x20
-00032a  f7fffffe          BL       joypad_icon
-00032e  4606              MOV      r6,r0
-000330  2010              MOVS     r0,#0x10
-000332  f7fffffe          BL       joypad_icon
-000336  4607              MOV      r7,r0
-000338  2002              MOVS     r0,#2
-00033a  f7fffffe          BL       joypad_icon
-00033e  4680              MOV      r8,r0
-000340  4643              MOV      r3,r8
-000342  a26b              ADR      r2,|L8.1264|
-000344  2107              MOVS     r1,#7
-000346  2000              MOVS     r0,#0
-000348  e9cd7600          STRD     r7,r6,[sp,#0]
-00034c  e9cd5402          STRD     r5,r4,[sp,#8]
-000350  f7fffffe          BL       tft_prints
-;;;251          joypad_icon(BTN_U1), joypad_icon(BTN_L1), joypad_icon(BTN_M1), joypad_icon(BTN_R1), joypad_icon(BTN_D1));
-;;;252        tft_prints(36, 7, " {%c} \n{%c}{%c}{%c}\n {%c} ",
-000354  f44f6000          MOV      r0,#0x800
-000358  f7fffffe          BL       joypad_icon
-00035c  4604              MOV      r4,r0
-00035e  f44f5080          MOV      r0,#0x1000
-000362  f7fffffe          BL       joypad_icon
-000366  4605              MOV      r5,r0
-000368  f44f5000          MOV      r0,#0x2000
-00036c  f7fffffe          BL       joypad_icon
-000370  4606              MOV      r6,r0
-000372  f44f4000          MOV      r0,#0x8000
-000376  f7fffffe          BL       joypad_icon
-00037a  4607              MOV      r7,r0
-00037c  f44f4080          MOV      r0,#0x4000
-000380  f7fffffe          BL       joypad_icon
-000384  4680              MOV      r8,r0
-000386  4643              MOV      r3,r8
-000388  a259              ADR      r2,|L8.1264|
-00038a  2107              MOVS     r1,#7
-00038c  2024              MOVS     r0,#0x24
-00038e  e9cd7600          STRD     r7,r6,[sp,#0]
-000392  e9cd5402          STRD     r5,r4,[sp,#8]
-000396  f7fffffe          BL       tft_prints
-;;;253          joypad_icon(BTN_U2), joypad_icon(BTN_L2), joypad_icon(BTN_M2), joypad_icon(BTN_R2), joypad_icon(BTN_D2));
-;;;254        tft_prints(0, 2, " {%c} \n{%c}{%c}{%c}\n {%c} ",
-00039a  f44f2080          MOV      r0,#0x40000
-00039e  f7fffffe          BL       joypad_icon
-0003a2  4604              MOV      r4,r0
-0003a4  f44f3000          MOV      r0,#0x20000
-0003a8  f7fffffe          BL       joypad_icon
-0003ac  4605              MOV      r5,r0
-0003ae  2001              MOVS     r0,#1
-0003b0  f7fffffe          BL       joypad_icon
-0003b4  4606              MOV      r6,r0
-0003b6  f44f3080          MOV      r0,#0x10000
-0003ba  f7fffffe          BL       joypad_icon
-0003be  4607              MOV      r7,r0
-0003c0  f44f2000          MOV      r0,#0x80000
-0003c4  f7fffffe          BL       joypad_icon
-0003c8  4680              MOV      r8,r0
-0003ca  4643              MOV      r3,r8
-0003cc  a248              ADR      r2,|L8.1264|
-0003ce  2102              MOVS     r1,#2
-0003d0  2000              MOVS     r0,#0
-0003d2  e9cd7600          STRD     r7,r6,[sp,#0]
-0003d6  e9cd5402          STRD     r5,r4,[sp,#8]
-0003da  f7fffffe          BL       tft_prints
-;;;255          joypad_icon(BTN_JS1_U), joypad_icon(BTN_JS1_L), joypad_icon(BTN_JS1), joypad_icon(BTN_JS1_R), joypad_icon(BTN_JS1_D));
-;;;256        tft_prints(36, 2, " {%c} \n{%c}{%c}{%c}\n {%c} ",
-0003de  f44f0080          MOV      r0,#0x400000
-0003e2  f7fffffe          BL       joypad_icon
-0003e6  4604              MOV      r4,r0
-0003e8  f44f1000          MOV      r0,#0x200000
-0003ec  f7fffffe          BL       joypad_icon
-0003f0  4605              MOV      r5,r0
-0003f2  f44f6080          MOV      r0,#0x400
-0003f6  f7fffffe          BL       joypad_icon
-0003fa  4606              MOV      r6,r0
-0003fc  f44f1080          MOV      r0,#0x100000
-000400  f7fffffe          BL       joypad_icon
-000404  4607              MOV      r7,r0
-000406  f44f0000          MOV      r0,#0x800000
-00040a  f7fffffe          BL       joypad_icon
-00040e  4680              MOV      r8,r0
-000410  4643              MOV      r3,r8
-000412  a237              ADR      r2,|L8.1264|
-000414  2102              MOVS     r1,#2
-000416  2024              MOVS     r0,#0x24
-000418  e9cd7600          STRD     r7,r6,[sp,#0]
-00041c  e9cd5402          STRD     r5,r4,[sp,#8]
-000420  f7fffffe          BL       tft_prints
-;;;257          joypad_icon(BTN_JS2_U), joypad_icon(BTN_JS2_L), joypad_icon(BTN_JS2), joypad_icon(BTN_JS2_R), joypad_icon(BTN_JS2_D));
-;;;258        
-;;;259        if (btn_clicked(BTN_R1))    joypad_rotate(BTN_R1);
-000424  4839              LDR      r0,|L8.1292|
-000426  6800              LDR      r0,[r0,#0]  ; joypad_state
-000428  f0000004          AND      r0,r0,#4
-00042c  b138              CBZ      r0,|L8.1086|
-00042e  4838              LDR      r0,|L8.1296|
-000430  7800              LDRB     r0,[r0,#0]  ; last_joypad_state
-000432  f0000004          AND      r0,r0,#4
-000436  b910              CBNZ     r0,|L8.1086|
-000438  2004              MOVS     r0,#4
-00043a  f7fffffe          BL       joypad_rotate
-                  |L8.1086|
-;;;260        if (btn_clicked(BTN_D1))    joypad_rotate(BTN_D1);
-00043e  4833              LDR      r0,|L8.1292|
-000440  6800              LDR      r0,[r0,#0]  ; joypad_state
-000442  f0000008          AND      r0,r0,#8
-000446  b138              CBZ      r0,|L8.1112|
-000448  4831              LDR      r0,|L8.1296|
-00044a  7800              LDRB     r0,[r0,#0]  ; last_joypad_state
-00044c  f0000008          AND      r0,r0,#8
-000450  b910              CBNZ     r0,|L8.1112|
-000452  2008              MOVS     r0,#8
-000454  f7fffffe          BL       joypad_rotate
-                  |L8.1112|
-;;;261        if (btn_clicked(BTN_L1))    joypad_rotate(BTN_L1);
-000458  482c              LDR      r0,|L8.1292|
-00045a  6800              LDR      r0,[r0,#0]  ; joypad_state
-00045c  f0000010          AND      r0,r0,#0x10
-000460  b138              CBZ      r0,|L8.1138|
-000462  482b              LDR      r0,|L8.1296|
-000464  7800              LDRB     r0,[r0,#0]  ; last_joypad_state
-000466  f0000010          AND      r0,r0,#0x10
-00046a  b910              CBNZ     r0,|L8.1138|
-00046c  2010              MOVS     r0,#0x10
-00046e  f7fffffe          BL       joypad_rotate
-                  |L8.1138|
-;;;262        if (btn_clicked(BTN_M1))    joypad_rotate(BTN_M1);
-000472  4826              LDR      r0,|L8.1292|
-000474  6800              LDR      r0,[r0,#0]  ; joypad_state
-000476  e04d              B        |L8.1300|
-                  |L8.1144|
+;;;172      //MX_TIM13_Init();
+;;;173      //MX_DAC_Init();
+;;;174      MX_TIM14_Init();
+00003a  f7fffffe          BL       MX_TIM14_Init
+;;;175      MX_TIM12_Init();
+00003e  f7fffffe          BL       MX_TIM12_Init
+;;;176      MX_TIM11_Init();
+000042  f7fffffe          BL       MX_TIM11_Init
+;;;177      MX_TIM10_Init();
+000046  f7fffffe          BL       MX_TIM10_Init
+;;;178      MX_TIM9_Init();
+00004a  f7fffffe          BL       MX_TIM9_Init
+;;;179      MX_TIM6_Init();
+00004e  f7fffffe          BL       MX_TIM6_Init
+;;;180      MX_TIM7_Init();
+000052  f7fffffe          BL       MX_TIM7_Init
+;;;181      //MX_SDIO_SD_Init();
+;;;182      /* USER CODE BEGIN 2 */
+;;;183      tft_init(PIN_ON_LEFT, BLACK, WHITE, GREEN, RED);
+000056  f44f4078          MOV      r0,#0xf800
+00005a  f44f63fc          MOV      r3,#0x7e0
+00005e  f64f72ff          MOV      r2,#0xffff
+000062  2100              MOVS     r1,#0
+000064  9000              STR      r0,[sp,#0]
+000066  2001              MOVS     r0,#1
+000068  f7fffffe          BL       tft_init
+;;;184      // IMU_enableAccel(50);
+;;;185      joystick_init();
+00006c  f7fffffe          BL       joystick_init
+;;;186    
+;;;187      //Frame timer
+;;;188      TIM6->PSC = 83;
+000070  2053              MOVS     r0,#0x53
+000072  49fe              LDR      r1,|L8.1132|
+000074  6288              STR      r0,[r1,#0x28]
+;;;189      TIM6->ARR = 33333;
+000076  f2482035          MOV      r0,#0x8235
+00007a  62c8              STR      r0,[r1,#0x2c]
+;;;190      TIM6->CR1 = TIM_CR1_CEN;
+00007c  2001              MOVS     r0,#1
+00007e  6008              STR      r0,[r1,#0]
+;;;191    
+;;;192    
+;;;193      joypad_assignments[idx_from_mask(BTN_R1)]    = ASSIGN_RIGHT;
+000080  2004              MOVS     r0,#4
+000082  fab0f180          CLZ      r1,r0
+000086  f1c10120          RSB      r1,r1,#0x20
+00008a  b2c9              UXTB     r1,r1
+00008c  48f8              LDR      r0,|L8.1136|
+00008e  2203              MOVS     r2,#3
+000090  5442              STRB     r2,[r0,r1]
+;;;194      joypad_assignments[idx_from_mask(BTN_D1)]    = ASSIGN_DOWN;
+000092  2008              MOVS     r0,#8
+000094  fab0f180          CLZ      r1,r0
+000098  f1c10120          RSB      r1,r1,#0x20
+00009c  b2c9              UXTB     r1,r1
+00009e  48f4              LDR      r0,|L8.1136|
+0000a0  2201              MOVS     r2,#1
+0000a2  5442              STRB     r2,[r0,r1]
+;;;195      joypad_assignments[idx_from_mask(BTN_L1)]    = ASSIGN_LEFT;
+0000a4  2010              MOVS     r0,#0x10
+0000a6  fab0f180          CLZ      r1,r0
+0000aa  f1c10120          RSB      r1,r1,#0x20
+0000ae  b2c9              UXTB     r1,r1
+0000b0  48ef              LDR      r0,|L8.1136|
+0000b2  2202              MOVS     r2,#2
+0000b4  5442              STRB     r2,[r0,r1]
+;;;196      joypad_assignments[idx_from_mask(BTN_M1)]    = ASSIGN_B;
+0000b6  2020              MOVS     r0,#0x20
+0000b8  fab0f180          CLZ      r1,r0
+0000bc  f1c10120          RSB      r1,r1,#0x20
+0000c0  b2c9              UXTB     r1,r1
+0000c2  48eb              LDR      r0,|L8.1136|
+0000c4  2205              MOVS     r2,#5
+0000c6  5442              STRB     r2,[r0,r1]
+;;;197      joypad_assignments[idx_from_mask(BTN_JS2)]   = ASSIGN_B;
+0000c8  f44f6080          MOV      r0,#0x400
+0000cc  fab0f180          CLZ      r1,r0
+0000d0  f1c10120          RSB      r1,r1,#0x20
+0000d4  b2c9              UXTB     r1,r1
+0000d6  48e6              LDR      r0,|L8.1136|
+0000d8  5442              STRB     r2,[r0,r1]
+;;;198      joypad_assignments[idx_from_mask(BTN_D2)]    = ASSIGN_B;
+0000da  f44f6000          MOV      r0,#0x800
+0000de  fab0f180          CLZ      r1,r0
+0000e2  f1c10120          RSB      r1,r1,#0x20
+0000e6  b2c9              UXTB     r1,r1
+0000e8  48e1              LDR      r0,|L8.1136|
+0000ea  5442              STRB     r2,[r0,r1]
+;;;199      joypad_assignments[idx_from_mask(BTN_R2)]    = ASSIGN_A;
+0000ec  f44f5080          MOV      r0,#0x1000
+0000f0  fab0f180          CLZ      r1,r0
+0000f4  f1c10120          RSB      r1,r1,#0x20
+0000f8  b2c9              UXTB     r1,r1
+0000fa  48dd              LDR      r0,|L8.1136|
+0000fc  2204              MOVS     r2,#4
+0000fe  5442              STRB     r2,[r0,r1]
+;;;200      joypad_assignments[idx_from_mask(BTN_M2)]    = ASSIGN_B;
+000100  02d0              LSLS     r0,r2,#11
+000102  fab0f180          CLZ      r1,r0
+000106  f1c10120          RSB      r1,r1,#0x20
+00010a  b2c9              UXTB     r1,r1
+00010c  48d8              LDR      r0,|L8.1136|
+00010e  2205              MOVS     r2,#5
+000110  5442              STRB     r2,[r0,r1]
+;;;201      joypad_assignments[idx_from_mask(BTN_U2)]    = ASSIGN_A;
+000112  f44f4080          MOV      r0,#0x4000
+000116  fab0f180          CLZ      r1,r0
+00011a  f1c10120          RSB      r1,r1,#0x20
+00011e  b2c9              UXTB     r1,r1
+000120  48d3              LDR      r0,|L8.1136|
+000122  2204              MOVS     r2,#4
+000124  5442              STRB     r2,[r0,r1]
+;;;202      joypad_assignments[idx_from_mask(BTN_L2)]    = ASSIGN_B;
+000126  0350              LSLS     r0,r2,#13
+000128  fab0f180          CLZ      r1,r0
+00012c  f1c10120          RSB      r1,r1,#0x20
+000130  b2c9              UXTB     r1,r1
+000132  48cf              LDR      r0,|L8.1136|
+000134  2205              MOVS     r2,#5
+000136  5442              STRB     r2,[r0,r1]
+;;;203      joypad_assignments[idx_from_mask(BTN_JS1)]   = ASSIGN_B;
+000138  2001              MOVS     r0,#1
+00013a  fab0f180          CLZ      r1,r0
+00013e  f1c10120          RSB      r1,r1,#0x20
+000142  b2c9              UXTB     r1,r1
+000144  48ca              LDR      r0,|L8.1136|
+000146  5442              STRB     r2,[r0,r1]
+;;;204      joypad_assignments[idx_from_mask(BTN_U1)]    = ASSIGN_UP;
+000148  2002              MOVS     r0,#2
+00014a  fab0f180          CLZ      r1,r0
+00014e  f1c10120          RSB      r1,r1,#0x20
+000152  b2c9              UXTB     r1,r1
+000154  48c6              LDR      r0,|L8.1136|
+000156  2200              MOVS     r2,#0
+000158  5442              STRB     r2,[r0,r1]
+;;;205      joypad_assignments[idx_from_mask(BTN_JS1_L)] = ASSIGN_LEFT;
+00015a  f44f3080          MOV      r0,#0x10000
+00015e  fab0f180          CLZ      r1,r0
+000162  f1c10120          RSB      r1,r1,#0x20
+000166  b2c9              UXTB     r1,r1
+000168  48c1              LDR      r0,|L8.1136|
+00016a  2202              MOVS     r2,#2
+00016c  5442              STRB     r2,[r0,r1]
+;;;206      joypad_assignments[idx_from_mask(BTN_JS1_R)] = ASSIGN_RIGHT;
+00016e  0410              LSLS     r0,r2,#16
+000170  fab0f180          CLZ      r1,r0
+000174  f1c10120          RSB      r1,r1,#0x20
+000178  b2c9              UXTB     r1,r1
+00017a  48bd              LDR      r0,|L8.1136|
+00017c  2203              MOVS     r2,#3
+00017e  5442              STRB     r2,[r0,r1]
+;;;207      joypad_assignments[idx_from_mask(BTN_JS1_D)] = ASSIGN_DOWN;
+000180  f44f2080          MOV      r0,#0x40000
+000184  fab0f180          CLZ      r1,r0
+000188  f1c10120          RSB      r1,r1,#0x20
+00018c  b2c9              UXTB     r1,r1
+00018e  48b8              LDR      r0,|L8.1136|
+000190  2201              MOVS     r2,#1
+000192  5442              STRB     r2,[r0,r1]
+;;;208      joypad_assignments[idx_from_mask(BTN_JS1_U)] = ASSIGN_UP;
+000194  04d0              LSLS     r0,r2,#19
+000196  fab0f180          CLZ      r1,r0
+00019a  f1c10120          RSB      r1,r1,#0x20
+00019e  b2c9              UXTB     r1,r1
+0001a0  48b3              LDR      r0,|L8.1136|
+0001a2  2200              MOVS     r2,#0
+0001a4  5442              STRB     r2,[r0,r1]
+;;;209      joypad_assignments[idx_from_mask(BTN_JS2_L)] = ASSIGN_B;
+0001a6  f44f1080          MOV      r0,#0x100000
+0001aa  fab0f180          CLZ      r1,r0
+0001ae  f1c10120          RSB      r1,r1,#0x20
+0001b2  b2c9              UXTB     r1,r1
+0001b4  48ae              LDR      r0,|L8.1136|
+0001b6  2205              MOVS     r2,#5
+0001b8  5442              STRB     r2,[r0,r1]
+;;;210      joypad_assignments[idx_from_mask(BTN_JS2_R)] = ASSIGN_B;
+0001ba  f44f1000          MOV      r0,#0x200000
+0001be  fab0f180          CLZ      r1,r0
+0001c2  f1c10120          RSB      r1,r1,#0x20
+0001c6  b2c9              UXTB     r1,r1
+0001c8  48a9              LDR      r0,|L8.1136|
+0001ca  5442              STRB     r2,[r0,r1]
+;;;211      joypad_assignments[idx_from_mask(BTN_JS2_D)] = ASSIGN_A;
+0001cc  f44f0080          MOV      r0,#0x400000
+0001d0  fab0f180          CLZ      r1,r0
+0001d4  f1c10120          RSB      r1,r1,#0x20
+0001d8  b2c9              UXTB     r1,r1
+0001da  48a5              LDR      r0,|L8.1136|
+0001dc  2204              MOVS     r2,#4
+0001de  5442              STRB     r2,[r0,r1]
+;;;212      joypad_assignments[idx_from_mask(BTN_JS2_U)] = ASSIGN_A;
+0001e0  0550              LSLS     r0,r2,#21
+0001e2  fab0f180          CLZ      r1,r0
+0001e6  f1c10120          RSB      r1,r1,#0x20
+0001ea  b2c9              UXTB     r1,r1
+0001ec  48a0              LDR      r0,|L8.1136|
+0001ee  5442              STRB     r2,[r0,r1]
+;;;213      joypad_assignments[idx_from_mask(BTN_X1)]    = ASSIGN_SEL;
+0001f0  2040              MOVS     r0,#0x40
+0001f2  fab0f180          CLZ      r1,r0
+0001f6  f1c10120          RSB      r1,r1,#0x20
+0001fa  b2c9              UXTB     r1,r1
+0001fc  489c              LDR      r0,|L8.1136|
+0001fe  2207              MOVS     r2,#7
+000200  5442              STRB     r2,[r0,r1]
+;;;214      joypad_assignments[idx_from_mask(BTN_X2)]    = ASSIGN_NONE;
+000202  2080              MOVS     r0,#0x80
+000204  fab0f180          CLZ      r1,r0
+000208  f1c10120          RSB      r1,r1,#0x20
+00020c  b2c9              UXTB     r1,r1
+00020e  4898              LDR      r0,|L8.1136|
+000210  2208              MOVS     r2,#8
+000212  5442              STRB     r2,[r0,r1]
+;;;215      joypad_assignments[idx_from_mask(BTN_X3)]    = ASSIGN_NONE;
+000214  0150              LSLS     r0,r2,#5
+000216  fab0f180          CLZ      r1,r0
+00021a  f1c10120          RSB      r1,r1,#0x20
+00021e  b2c9              UXTB     r1,r1
+000220  4893              LDR      r0,|L8.1136|
+000222  5442              STRB     r2,[r0,r1]
+;;;216      joypad_assignments[idx_from_mask(BTN_X4)]    = ASSIGN_START;
+000224  0190              LSLS     r0,r2,#6
+000226  fab0f180          CLZ      r1,r0
+00022a  f1c10120          RSB      r1,r1,#0x20
+00022e  b2c9              UXTB     r1,r1
+000230  488f              LDR      r0,|L8.1136|
+000232  2206              MOVS     r2,#6
+000234  5442              STRB     r2,[r0,r1]
+;;;217      joypad_assignments[idx_from_mask(BTN_IMU_L)] = ASSIGN_LEFT;
+000236  f04f7080          MOV      r0,#0x1000000
+00023a  fab0f180          CLZ      r1,r0
+00023e  f1c10120          RSB      r1,r1,#0x20
+000242  b2c9              UXTB     r1,r1
+000244  488a              LDR      r0,|L8.1136|
+000246  2202              MOVS     r2,#2
+000248  5442              STRB     r2,[r0,r1]
+;;;218      joypad_assignments[idx_from_mask(BTN_IMU_R)] = ASSIGN_RIGHT;
+00024a  0610              LSLS     r0,r2,#24
+00024c  fab0f180          CLZ      r1,r0
+000250  f1c10120          RSB      r1,r1,#0x20
+000254  b2c9              UXTB     r1,r1
+000256  4886              LDR      r0,|L8.1136|
+000258  2203              MOVS     r2,#3
+00025a  5442              STRB     r2,[r0,r1]
+;;;219      joypad_assignments[idx_from_mask(BTN_IMU_J)] = ASSIGN_A;
+00025c  f04f6080          MOV      r0,#0x4000000
+000260  fab0f180          CLZ      r1,r0
+000264  f1c10120          RSB      r1,r1,#0x20
+000268  b2c9              UXTB     r1,r1
+00026a  4881              LDR      r0,|L8.1136|
+00026c  2204              MOVS     r2,#4
+00026e  5442              STRB     r2,[r0,r1]
+;;;220      delay(100);
+000270  2064              MOVS     r0,#0x64
+000272  4980              LDR      r1,|L8.1140|
+000274  6008              STR      r0,[r1,#0]  ; __delay
+000276  bf00              NOP      
+000278  bf00              NOP      
+                  |L8.634|
+00027a  497e              LDR      r1,|L8.1140|
+00027c  6809              LDR      r1,[r1,#0]  ; __delay
+00027e  2900              CMP      r1,#0
+000280  d1fb              BNE      |L8.634|
+000282  bf00              NOP      
+;;;221      /* USER CODE END 2 */
+;;;222    
+;;;223      /* Infinite loop */
+;;;224      /* USER CODE BEGIN WHILE */
+;;;225      while (1)
+000284  e2be              B        |L8.2052|
+                  |L8.646|
+;;;226      {
+;;;227        static int GAME_SELECT = 0;
+;;;228        #define NUM_OF_GAMES 3
+;;;229    
+;;;230    
+;;;231        static uint32_t last_joypad_state = 0;
+;;;232        joypad_update();
+000286  f7fffffe          BL       joypad_update
+;;;233        #define btn_pressed(X) (joypad_state & (X))
+;;;234        #define btn_clicked(X) (joypad_state & (X)) && !(last_joypad_state & (X))
+;;;235        tft_clear();
+00028a  f7fffffe          BL       tft_clear
+;;;236        tft_printc(4, 0, "ELEC3300(24) - Anshuman & Aaron");
+00028e  a27a              ADR      r2,|L8.1144|
+000290  2100              MOVS     r1,#0
+000292  2004              MOVS     r0,#4
+000294  f7fffffe          BL       tft_printc
+;;;237        tft_printc(6, 12, "SELECT");
+000298  a27f              ADR      r2,|L8.1176|
+00029a  210c              MOVS     r1,#0xc
+00029c  2006              MOVS     r0,#6
+00029e  f7fffffe          BL       tft_printc
+;;;238        tft_prints(13, 12, "%s Super Mario Bros]", (GAME_SELECT == 0) ? ("[>") : ("-"));
+0002a2  487f              LDR      r0,|L8.1184|
+0002a4  6800              LDR      r0,[r0,#0]  ; GAME_SELECT
+0002a6  b908              CBNZ     r0,|L8.684|
+0002a8  a07e              ADR      r0,|L8.1188|
+0002aa  e000              B        |L8.686|
+                  |L8.684|
+0002ac  a07e              ADR      r0,|L8.1192|
+                  |L8.686|
+0002ae  4603              MOV      r3,r0
+0002b0  a27e              ADR      r2,|L8.1196|
+0002b2  210c              MOVS     r1,#0xc
+0002b4  200d              MOVS     r0,#0xd
+0002b6  f7fffffe          BL       tft_prints
+;;;239        tft_prints(13, 13, "%s Battle City]"     , (GAME_SELECT == 1) ? ("[>") : ("-"));
+0002ba  4879              LDR      r0,|L8.1184|
+0002bc  6800              LDR      r0,[r0,#0]  ; GAME_SELECT
+0002be  2801              CMP      r0,#1
+0002c0  d101              BNE      |L8.710|
+0002c2  a078              ADR      r0,|L8.1188|
+0002c4  e000              B        |L8.712|
+                  |L8.710|
+0002c6  a078              ADR      r0,|L8.1192|
+                  |L8.712|
+0002c8  4603              MOV      r3,r0
+0002ca  a27e              ADR      r2,|L8.1220|
+0002cc  210d              MOVS     r1,#0xd
+0002ce  4608              MOV      r0,r1
+0002d0  f7fffffe          BL       tft_prints
+;;;240        tft_prints(13, 14, "%s Mappy]"           , (GAME_SELECT == 2) ? ("[>") : ("-"));
+0002d4  4872              LDR      r0,|L8.1184|
+0002d6  6800              LDR      r0,[r0,#0]  ; GAME_SELECT
+0002d8  2802              CMP      r0,#2
+0002da  d101              BNE      |L8.736|
+0002dc  a071              ADR      r0,|L8.1188|
+0002de  e000              B        |L8.738|
+                  |L8.736|
+0002e0  a071              ADR      r0,|L8.1192|
+                  |L8.738|
+0002e2  4603              MOV      r3,r0
+0002e4  a27b              ADR      r2,|L8.1236|
+0002e6  210e              MOVS     r1,#0xe
+0002e8  200d              MOVS     r0,#0xd
+0002ea  f7fffffe          BL       tft_prints
+;;;241       
+;;;242      #if 0 
+;;;243        // tft_printc(0, 5, " {/\\} \n{<} {>}\n {\\/} ");
+;;;244        tft_printc(0, 5, " {^} \n{<}  {>}\n {V} ");
+;;;245        tft_printc(36, 5, " {A} \n{B} {A}\n {B} ");
+;;;246      #else
+;;;247        tft_prints(0, 7, " {%c} \n{%c}{%c}{%c}\n {%c} ",
+0002ee  2008              MOVS     r0,#8
+0002f0  f7fffffe          BL       joypad_icon
+0002f4  4604              MOV      r4,r0
+0002f6  2004              MOVS     r0,#4
+0002f8  f7fffffe          BL       joypad_icon
+0002fc  4605              MOV      r5,r0
+0002fe  2020              MOVS     r0,#0x20
+000300  f7fffffe          BL       joypad_icon
+000304  4606              MOV      r6,r0
+000306  2010              MOVS     r0,#0x10
+000308  f7fffffe          BL       joypad_icon
+00030c  4607              MOV      r7,r0
+00030e  2002              MOVS     r0,#2
+000310  f7fffffe          BL       joypad_icon
+000314  4680              MOV      r8,r0
+000316  4643              MOV      r3,r8
+000318  a271              ADR      r2,|L8.1248|
+00031a  2107              MOVS     r1,#7
+00031c  2000              MOVS     r0,#0
+00031e  e9cd7600          STRD     r7,r6,[sp,#0]
+000322  e9cd5402          STRD     r5,r4,[sp,#8]
+000326  f7fffffe          BL       tft_prints
+;;;248          joypad_icon(BTN_U1), joypad_icon(BTN_L1), joypad_icon(BTN_M1), joypad_icon(BTN_R1), joypad_icon(BTN_D1));
+;;;249        tft_prints(36, 7, " {%c} \n{%c}{%c}{%c}\n {%c} ",
+00032a  f44f6000          MOV      r0,#0x800
+00032e  f7fffffe          BL       joypad_icon
+000332  4604              MOV      r4,r0
+000334  f44f5080          MOV      r0,#0x1000
+000338  f7fffffe          BL       joypad_icon
+00033c  4605              MOV      r5,r0
+00033e  f44f5000          MOV      r0,#0x2000
+000342  f7fffffe          BL       joypad_icon
+000346  4606              MOV      r6,r0
+000348  f44f4000          MOV      r0,#0x8000
+00034c  f7fffffe          BL       joypad_icon
+000350  4607              MOV      r7,r0
+000352  f44f4080          MOV      r0,#0x4000
+000356  f7fffffe          BL       joypad_icon
+00035a  4680              MOV      r8,r0
+00035c  4643              MOV      r3,r8
+00035e  a260              ADR      r2,|L8.1248|
+000360  2107              MOVS     r1,#7
+000362  2024              MOVS     r0,#0x24
+000364  e9cd7600          STRD     r7,r6,[sp,#0]
+000368  e9cd5402          STRD     r5,r4,[sp,#8]
+00036c  f7fffffe          BL       tft_prints
+;;;250          joypad_icon(BTN_U2), joypad_icon(BTN_L2), joypad_icon(BTN_M2), joypad_icon(BTN_R2), joypad_icon(BTN_D2));
+;;;251        tft_prints(0, 2, " {%c} \n{%c}{%c}{%c}\n {%c} ",
+000370  f44f2080          MOV      r0,#0x40000
+000374  f7fffffe          BL       joypad_icon
+000378  4604              MOV      r4,r0
+00037a  f44f3000          MOV      r0,#0x20000
+00037e  f7fffffe          BL       joypad_icon
+000382  4605              MOV      r5,r0
+000384  2001              MOVS     r0,#1
+000386  f7fffffe          BL       joypad_icon
+00038a  4606              MOV      r6,r0
+00038c  f44f3080          MOV      r0,#0x10000
+000390  f7fffffe          BL       joypad_icon
+000394  4607              MOV      r7,r0
+000396  f44f2000          MOV      r0,#0x80000
+00039a  f7fffffe          BL       joypad_icon
+00039e  4680              MOV      r8,r0
+0003a0  4643              MOV      r3,r8
+0003a2  a24f              ADR      r2,|L8.1248|
+0003a4  2102              MOVS     r1,#2
+0003a6  2000              MOVS     r0,#0
+0003a8  e9cd7600          STRD     r7,r6,[sp,#0]
+0003ac  e9cd5402          STRD     r5,r4,[sp,#8]
+0003b0  f7fffffe          BL       tft_prints
+;;;252          joypad_icon(BTN_JS1_U), joypad_icon(BTN_JS1_L), joypad_icon(BTN_JS1), joypad_icon(BTN_JS1_R), joypad_icon(BTN_JS1_D));
+;;;253        tft_prints(36, 2, " {%c} \n{%c}{%c}{%c}\n {%c} ",
+0003b4  f44f0080          MOV      r0,#0x400000
+0003b8  f7fffffe          BL       joypad_icon
+0003bc  4604              MOV      r4,r0
+0003be  f44f1000          MOV      r0,#0x200000
+0003c2  f7fffffe          BL       joypad_icon
+0003c6  4605              MOV      r5,r0
+0003c8  f44f6080          MOV      r0,#0x400
+0003cc  f7fffffe          BL       joypad_icon
+0003d0  4606              MOV      r6,r0
+0003d2  f44f1080          MOV      r0,#0x100000
+0003d6  f7fffffe          BL       joypad_icon
+0003da  4607              MOV      r7,r0
+0003dc  f44f0000          MOV      r0,#0x800000
+0003e0  f7fffffe          BL       joypad_icon
+0003e4  4680              MOV      r8,r0
+0003e6  4643              MOV      r3,r8
+0003e8  a23d              ADR      r2,|L8.1248|
+0003ea  2102              MOVS     r1,#2
+0003ec  2024              MOVS     r0,#0x24
+0003ee  e9cd7600          STRD     r7,r6,[sp,#0]
+0003f2  e9cd5402          STRD     r5,r4,[sp,#8]
+0003f6  f7fffffe          BL       tft_prints
+;;;254          joypad_icon(BTN_JS2_U), joypad_icon(BTN_JS2_L), joypad_icon(BTN_JS2), joypad_icon(BTN_JS2_R), joypad_icon(BTN_JS2_D));
+;;;255        
+;;;256        if (btn_clicked(BTN_R1))    joypad_rotate(BTN_R1);
+0003fa  4840              LDR      r0,|L8.1276|
+0003fc  6800              LDR      r0,[r0,#0]  ; joypad_state
+0003fe  f0000004          AND      r0,r0,#4
+000402  b138              CBZ      r0,|L8.1044|
+000404  483e              LDR      r0,|L8.1280|
+000406  7800              LDRB     r0,[r0,#0]  ; last_joypad_state
+000408  f0000004          AND      r0,r0,#4
+00040c  b910              CBNZ     r0,|L8.1044|
+00040e  2004              MOVS     r0,#4
+000410  f7fffffe          BL       joypad_rotate
+                  |L8.1044|
+;;;257        if (btn_clicked(BTN_D1))    joypad_rotate(BTN_D1);
+000414  4839              LDR      r0,|L8.1276|
+000416  6800              LDR      r0,[r0,#0]  ; joypad_state
+000418  f0000008          AND      r0,r0,#8
+00041c  b138              CBZ      r0,|L8.1070|
+00041e  4838              LDR      r0,|L8.1280|
+000420  7800              LDRB     r0,[r0,#0]  ; last_joypad_state
+000422  f0000008          AND      r0,r0,#8
+000426  b910              CBNZ     r0,|L8.1070|
+000428  2008              MOVS     r0,#8
+00042a  f7fffffe          BL       joypad_rotate
+                  |L8.1070|
+;;;258        if (btn_clicked(BTN_L1))    joypad_rotate(BTN_L1);
+00042e  4833              LDR      r0,|L8.1276|
+000430  6800              LDR      r0,[r0,#0]  ; joypad_state
+000432  f0000010          AND      r0,r0,#0x10
+000436  b138              CBZ      r0,|L8.1096|
+000438  4831              LDR      r0,|L8.1280|
+00043a  7800              LDRB     r0,[r0,#0]  ; last_joypad_state
+00043c  f0000010          AND      r0,r0,#0x10
+000440  b910              CBNZ     r0,|L8.1096|
+000442  2010              MOVS     r0,#0x10
+000444  f7fffffe          BL       joypad_rotate
+                  |L8.1096|
+;;;259        if (btn_clicked(BTN_M1))    joypad_rotate(BTN_M1);
+000448  482c              LDR      r0,|L8.1276|
+00044a  6800              LDR      r0,[r0,#0]  ; joypad_state
+00044c  f0000020          AND      r0,r0,#0x20
+000450  b138              CBZ      r0,|L8.1122|
+000452  482b              LDR      r0,|L8.1280|
+000454  7800              LDRB     r0,[r0,#0]  ; last_joypad_state
+000456  f0000020          AND      r0,r0,#0x20
+00045a  b910              CBNZ     r0,|L8.1122|
+00045c  2020              MOVS     r0,#0x20
+00045e  f7fffffe          BL       joypad_rotate
+                  |L8.1122|
+;;;260        if (btn_clicked(BTN_JS2))   joypad_rotate(BTN_JS2);
+000462  4826              LDR      r0,|L8.1276|
+000464  6800              LDR      r0,[r0,#0]  ; joypad_state
+000466  f4006080          AND      r0,r0,#0x400
+00046a  e04b              B        |L8.1284|
+                  |L8.1132|
                           DCD      0x40001000
-                  |L8.1148|
-                          DCD      0x40001c28
-                  |L8.1152|
+                  |L8.1136|
                           DCD      joypad_assignments
-                  |L8.1156|
+                  |L8.1140|
                           DCD      __delay
-                  |L8.1160|
-000488  454c4543          DCB      "ELEC3300(24) - Anshuman & Aaron",0
-00048c  33333030
-000490  28323429
-000494  202d2041
-000498  6e736875
-00049c  6d616e20
-0004a0  26204161
-0004a4  726f6e00
-                  |L8.1192|
-0004a8  53454c45          DCB      "SELECT",0
-0004ac  435400  
-0004af  00                DCB      0
-                  |L8.1200|
+                  |L8.1144|
+000478  454c4543          DCB      "ELEC3300(24) - Anshuman & Aaron",0
+00047c  33333030
+000480  28323429
+000484  202d2041
+000488  6e736875
+00048c  6d616e20
+000490  26204161
+000494  726f6e00
+                  |L8.1176|
+000498  53454c45          DCB      "SELECT",0
+00049c  435400  
+00049f  00                DCB      0
+                  |L8.1184|
                           DCD      GAME_SELECT
-                  |L8.1204|
-0004b4  5b3e00            DCB      "[>",0
-0004b7  00                DCB      0
-                  |L8.1208|
-0004b8  2d00              DCB      "-",0
-0004ba  00                DCB      0
-0004bb  00                DCB      0
-                  |L8.1212|
-0004bc  25732053          DCB      "%s Super Mario Bros]"
-0004c0  75706572
-0004c4  204d6172
-0004c8  696f2042
-0004cc  726f735d
-                  |L8.1232|
-0004d0  00                DCB      0
-0004d1  00                DCB      0
-0004d2  00                DCB      0
-0004d3  00                DCB      0
+                  |L8.1188|
+0004a4  5b3e00            DCB      "[>",0
+0004a7  00                DCB      0
+                  |L8.1192|
+0004a8  2d00              DCB      "-",0
+0004aa  00                DCB      0
+0004ab  00                DCB      0
+                  |L8.1196|
+0004ac  25732053          DCB      "%s Super Mario Bros]"
+0004b0  75706572
+0004b4  204d6172
+0004b8  696f2042
+0004bc  726f735d
+                  |L8.1216|
+0004c0  00                DCB      0
+0004c1  00                DCB      0
+0004c2  00                DCB      0
+0004c3  00                DCB      0
+                  |L8.1220|
+0004c4  25732042          DCB      "%s Battle City]",0
+0004c8  6174746c
+0004cc  65204369
+0004d0  74795d00
                   |L8.1236|
-0004d4  25732042          DCB      "%s Battle City]",0
-0004d8  6174746c
-0004dc  65204369
-0004e0  74795d00
-                  |L8.1252|
-0004e4  2573204d          DCB      "%s Mappy]",0
-0004e8  61707079
-0004ec  5d00    
-0004ee  00                DCB      0
-0004ef  00                DCB      0
-                  |L8.1264|
-0004f0  207b2563          DCB      " {%c} \n{%c}{%c}{%c}\n {%c} ",0
-0004f4  7d200a7b
-0004f8  25637d7b
-0004fc  25637d7b
-000500  25637d0a
-000504  207b2563
-000508  7d2000  
-00050b  00                DCB      0
-                  |L8.1292|
+0004d4  2573204d          DCB      "%s Mappy]",0
+0004d8  61707079
+0004dc  5d00    
+0004de  00                DCB      0
+0004df  00                DCB      0
+                  |L8.1248|
+0004e0  207b2563          DCB      " {%c} \n{%c}{%c}{%c}\n {%c} ",0
+0004e4  7d200a7b
+0004e8  25637d7b
+0004ec  25637d7b
+0004f0  25637d0a
+0004f4  207b2563
+0004f8  7d2000  
+0004fb  00                DCB      0
+                  |L8.1276|
                           DCD      joypad_state
-                  |L8.1296|
+                  |L8.1280|
                           DCD      last_joypad_state
-                  |L8.1300|
-000514  f0000020          AND      r0,r0,#0x20
-000518  b138              CBZ      r0,|L8.1322|
-00051a  48ee              LDR      r0,|L8.2260|
-00051c  7800              LDRB     r0,[r0,#0]  ; last_joypad_state
-00051e  f0000020          AND      r0,r0,#0x20
-000522  b910              CBNZ     r0,|L8.1322|
-000524  2020              MOVS     r0,#0x20
-000526  f7fffffe          BL       joypad_rotate
-                  |L8.1322|
-;;;263        if (btn_clicked(BTN_JS2))   joypad_rotate(BTN_JS2);
-00052a  48eb              LDR      r0,|L8.2264|
-00052c  6800              LDR      r0,[r0,#0]  ; joypad_state
-00052e  f4006080          AND      r0,r0,#0x400
-000532  b140              CBZ      r0,|L8.1350|
-000534  48e7              LDR      r0,|L8.2260|
-000536  8800              LDRH     r0,[r0,#0]  ; last_joypad_state
-000538  f4006080          AND      r0,r0,#0x400
-00053c  b918              CBNZ     r0,|L8.1350|
-00053e  f44f6080          MOV      r0,#0x400
-000542  f7fffffe          BL       joypad_rotate
-                  |L8.1350|
-;;;264        if (btn_clicked(BTN_D2))    joypad_rotate(BTN_D2);
-000546  48e4              LDR      r0,|L8.2264|
-000548  6800              LDR      r0,[r0,#0]  ; joypad_state
-00054a  f4006000          AND      r0,r0,#0x800
-00054e  b140              CBZ      r0,|L8.1378|
-000550  48e0              LDR      r0,|L8.2260|
-000552  8800              LDRH     r0,[r0,#0]  ; last_joypad_state
-000554  f4006000          AND      r0,r0,#0x800
-000558  b918              CBNZ     r0,|L8.1378|
-00055a  f44f6000          MOV      r0,#0x800
-00055e  f7fffffe          BL       joypad_rotate
-                  |L8.1378|
-;;;265        if (btn_clicked(BTN_R2))    joypad_rotate(BTN_R2);
-000562  48dd              LDR      r0,|L8.2264|
-000564  6800              LDR      r0,[r0,#0]  ; joypad_state
-000566  f4005080          AND      r0,r0,#0x1000
-00056a  b140              CBZ      r0,|L8.1406|
-00056c  48d9              LDR      r0,|L8.2260|
-00056e  8800              LDRH     r0,[r0,#0]  ; last_joypad_state
-000570  f4005080          AND      r0,r0,#0x1000
-000574  b918              CBNZ     r0,|L8.1406|
-000576  f44f5080          MOV      r0,#0x1000
-00057a  f7fffffe          BL       joypad_rotate
-                  |L8.1406|
-;;;266        if (btn_clicked(BTN_M2))    joypad_rotate(BTN_M2);
-00057e  48d6              LDR      r0,|L8.2264|
-000580  6800              LDR      r0,[r0,#0]  ; joypad_state
-000582  f4005000          AND      r0,r0,#0x2000
-000586  b140              CBZ      r0,|L8.1434|
-000588  48d2              LDR      r0,|L8.2260|
-00058a  8800              LDRH     r0,[r0,#0]  ; last_joypad_state
-00058c  f4005000          AND      r0,r0,#0x2000
-000590  b918              CBNZ     r0,|L8.1434|
-000592  f44f5000          MOV      r0,#0x2000
-000596  f7fffffe          BL       joypad_rotate
-                  |L8.1434|
-;;;267        if (btn_clicked(BTN_U2))    joypad_rotate(BTN_U2);
-00059a  48cf              LDR      r0,|L8.2264|
-00059c  6800              LDR      r0,[r0,#0]  ; joypad_state
-00059e  f4004080          AND      r0,r0,#0x4000
-0005a2  b140              CBZ      r0,|L8.1462|
-0005a4  48cb              LDR      r0,|L8.2260|
-0005a6  8800              LDRH     r0,[r0,#0]  ; last_joypad_state
-0005a8  f4004080          AND      r0,r0,#0x4000
-0005ac  b918              CBNZ     r0,|L8.1462|
-0005ae  f44f4080          MOV      r0,#0x4000
-0005b2  f7fffffe          BL       joypad_rotate
-                  |L8.1462|
-;;;268        if (btn_clicked(BTN_L2))    joypad_rotate(BTN_L2);
-0005b6  48c8              LDR      r0,|L8.2264|
-0005b8  6800              LDR      r0,[r0,#0]  ; joypad_state
-0005ba  f4004000          AND      r0,r0,#0x8000
-0005be  b140              CBZ      r0,|L8.1490|
-0005c0  48c4              LDR      r0,|L8.2260|
-0005c2  8800              LDRH     r0,[r0,#0]  ; last_joypad_state
-0005c4  f4004000          AND      r0,r0,#0x8000
-0005c8  b918              CBNZ     r0,|L8.1490|
-0005ca  f44f4000          MOV      r0,#0x8000
-0005ce  f7fffffe          BL       joypad_rotate
-                  |L8.1490|
-;;;269        if (btn_clicked(BTN_JS1))   joypad_rotate(BTN_JS1);
-0005d2  48c1              LDR      r0,|L8.2264|
-0005d4  6800              LDR      r0,[r0,#0]  ; joypad_state
-0005d6  f0000001          AND      r0,r0,#1
-0005da  b138              CBZ      r0,|L8.1516|
-0005dc  48bd              LDR      r0,|L8.2260|
-0005de  7800              LDRB     r0,[r0,#0]  ; last_joypad_state
-0005e0  f0000001          AND      r0,r0,#1
-0005e4  b910              CBNZ     r0,|L8.1516|
-0005e6  2001              MOVS     r0,#1
-0005e8  f7fffffe          BL       joypad_rotate
-                  |L8.1516|
-;;;270        if (btn_clicked(BTN_U1))    joypad_rotate(BTN_U1);
-0005ec  48ba              LDR      r0,|L8.2264|
-0005ee  6800              LDR      r0,[r0,#0]  ; joypad_state
-0005f0  f0000002          AND      r0,r0,#2
-0005f4  b138              CBZ      r0,|L8.1542|
-0005f6  48b7              LDR      r0,|L8.2260|
-0005f8  7800              LDRB     r0,[r0,#0]  ; last_joypad_state
-0005fa  f0000002          AND      r0,r0,#2
-0005fe  b910              CBNZ     r0,|L8.1542|
-000600  2002              MOVS     r0,#2
-000602  f7fffffe          BL       joypad_rotate
-                  |L8.1542|
-;;;271        if (btn_clicked(BTN_JS1_L)) joypad_rotate(BTN_JS1_L);
-000606  48b4              LDR      r0,|L8.2264|
-000608  6800              LDR      r0,[r0,#0]  ; joypad_state
-00060a  f4003080          AND      r0,r0,#0x10000
-00060e  b140              CBZ      r0,|L8.1570|
-000610  48b0              LDR      r0,|L8.2260|
-000612  6800              LDR      r0,[r0,#0]  ; last_joypad_state
-000614  f4003080          AND      r0,r0,#0x10000
-000618  b918              CBNZ     r0,|L8.1570|
-00061a  f44f3080          MOV      r0,#0x10000
-00061e  f7fffffe          BL       joypad_rotate
-                  |L8.1570|
-;;;272        if (btn_clicked(BTN_JS1_R)) joypad_rotate(BTN_JS1_R);
-000622  48ad              LDR      r0,|L8.2264|
-000624  6800              LDR      r0,[r0,#0]  ; joypad_state
-000626  f4003000          AND      r0,r0,#0x20000
-00062a  b140              CBZ      r0,|L8.1598|
-00062c  48a9              LDR      r0,|L8.2260|
-00062e  6800              LDR      r0,[r0,#0]  ; last_joypad_state
-000630  f4003000          AND      r0,r0,#0x20000
-000634  b918              CBNZ     r0,|L8.1598|
-000636  f44f3000          MOV      r0,#0x20000
-00063a  f7fffffe          BL       joypad_rotate
-                  |L8.1598|
-;;;273        if (btn_clicked(BTN_JS1_D)) joypad_rotate(BTN_JS1_D);
-00063e  48a6              LDR      r0,|L8.2264|
-000640  6800              LDR      r0,[r0,#0]  ; joypad_state
-000642  f4002080          AND      r0,r0,#0x40000
-000646  b140              CBZ      r0,|L8.1626|
-000648  48a2              LDR      r0,|L8.2260|
-00064a  6800              LDR      r0,[r0,#0]  ; last_joypad_state
-00064c  f4002080          AND      r0,r0,#0x40000
-000650  b918              CBNZ     r0,|L8.1626|
-000652  f44f2080          MOV      r0,#0x40000
-000656  f7fffffe          BL       joypad_rotate
-                  |L8.1626|
-;;;274        if (btn_clicked(BTN_JS1_U)) joypad_rotate(BTN_JS1_U);
-00065a  489f              LDR      r0,|L8.2264|
-00065c  6800              LDR      r0,[r0,#0]  ; joypad_state
-00065e  f4002000          AND      r0,r0,#0x80000
-000662  b140              CBZ      r0,|L8.1654|
-000664  489b              LDR      r0,|L8.2260|
-000666  6800              LDR      r0,[r0,#0]  ; last_joypad_state
-000668  f4002000          AND      r0,r0,#0x80000
-00066c  b918              CBNZ     r0,|L8.1654|
-00066e  f44f2000          MOV      r0,#0x80000
-000672  f7fffffe          BL       joypad_rotate
-                  |L8.1654|
-;;;275        if (btn_clicked(BTN_JS2_L)) joypad_rotate(BTN_JS2_L);
-000676  4898              LDR      r0,|L8.2264|
-000678  6800              LDR      r0,[r0,#0]  ; joypad_state
-00067a  f4001080          AND      r0,r0,#0x100000
-00067e  b140              CBZ      r0,|L8.1682|
-000680  4894              LDR      r0,|L8.2260|
-000682  6800              LDR      r0,[r0,#0]  ; last_joypad_state
-000684  f4001080          AND      r0,r0,#0x100000
-000688  b918              CBNZ     r0,|L8.1682|
-00068a  f44f1080          MOV      r0,#0x100000
-00068e  f7fffffe          BL       joypad_rotate
-                  |L8.1682|
-;;;276        if (btn_clicked(BTN_JS2_R)) joypad_rotate(BTN_JS2_R);
-000692  4891              LDR      r0,|L8.2264|
-000694  6800              LDR      r0,[r0,#0]  ; joypad_state
-000696  f4001000          AND      r0,r0,#0x200000
-00069a  b140              CBZ      r0,|L8.1710|
-00069c  488d              LDR      r0,|L8.2260|
-00069e  6800              LDR      r0,[r0,#0]  ; last_joypad_state
-0006a0  f4001000          AND      r0,r0,#0x200000
-0006a4  b918              CBNZ     r0,|L8.1710|
-0006a6  f44f1000          MOV      r0,#0x200000
-0006aa  f7fffffe          BL       joypad_rotate
-                  |L8.1710|
-;;;277        if (btn_clicked(BTN_JS2_D)) joypad_rotate(BTN_JS2_D);
-0006ae  488a              LDR      r0,|L8.2264|
-0006b0  6800              LDR      r0,[r0,#0]  ; joypad_state
-0006b2  f4000080          AND      r0,r0,#0x400000
-0006b6  b140              CBZ      r0,|L8.1738|
-0006b8  4886              LDR      r0,|L8.2260|
-0006ba  6800              LDR      r0,[r0,#0]  ; last_joypad_state
-0006bc  f4000080          AND      r0,r0,#0x400000
-0006c0  b918              CBNZ     r0,|L8.1738|
-0006c2  f44f0080          MOV      r0,#0x400000
-0006c6  f7fffffe          BL       joypad_rotate
-                  |L8.1738|
-;;;278        if (btn_clicked(BTN_JS2_U)) joypad_rotate(BTN_JS2_U);
-0006ca  4883              LDR      r0,|L8.2264|
-0006cc  6800              LDR      r0,[r0,#0]  ; joypad_state
-0006ce  f4000000          AND      r0,r0,#0x800000
-0006d2  b140              CBZ      r0,|L8.1766|
-0006d4  487f              LDR      r0,|L8.2260|
-0006d6  6800              LDR      r0,[r0,#0]  ; last_joypad_state
-0006d8  f4000000          AND      r0,r0,#0x800000
-0006dc  b918              CBNZ     r0,|L8.1766|
-0006de  f44f0000          MOV      r0,#0x800000
-0006e2  f7fffffe          BL       joypad_rotate
-                  |L8.1766|
-;;;279        joypad_A     = joypad_assigned(ASSIGN_A);
-0006e6  2004              MOVS     r0,#4
-0006e8  f7fffffe          BL       joypad_assigned
-0006ec  497b              LDR      r1,|L8.2268|
-0006ee  6008              STR      r0,[r1,#0]  ; joypad_A
-;;;280        joypad_B     = joypad_assigned(ASSIGN_B);
-0006f0  2005              MOVS     r0,#5
-0006f2  f7fffffe          BL       joypad_assigned
-0006f6  497a              LDR      r1,|L8.2272|
-0006f8  6008              STR      r0,[r1,#0]  ; joypad_B
-;;;281        joypad_U     = joypad_assigned(ASSIGN_UP);
-0006fa  2000              MOVS     r0,#0
-0006fc  f7fffffe          BL       joypad_assigned
-000700  4978              LDR      r1,|L8.2276|
-000702  6008              STR      r0,[r1,#0]  ; joypad_U
-;;;282        joypad_D     = joypad_assigned(ASSIGN_DOWN);
-000704  2001              MOVS     r0,#1
-000706  f7fffffe          BL       joypad_assigned
-00070a  4977              LDR      r1,|L8.2280|
-00070c  6008              STR      r0,[r1,#0]  ; joypad_D
-;;;283        joypad_L     = joypad_assigned(ASSIGN_LEFT);
-00070e  2002              MOVS     r0,#2
-000710  f7fffffe          BL       joypad_assigned
-000714  4975              LDR      r1,|L8.2284|
-000716  6008              STR      r0,[r1,#0]  ; joypad_L
-;;;284        joypad_R     = joypad_assigned(ASSIGN_RIGHT);
-000718  2003              MOVS     r0,#3
-00071a  f7fffffe          BL       joypad_assigned
-00071e  4974              LDR      r1,|L8.2288|
-000720  6008              STR      r0,[r1,#0]  ; joypad_R
-;;;285        joypad_SEL   = joypad_assigned(ASSIGN_SEL);
-000722  2007              MOVS     r0,#7
-000724  f7fffffe          BL       joypad_assigned
-000728  4972              LDR      r1,|L8.2292|
-00072a  6008              STR      r0,[r1,#0]  ; joypad_SEL
-;;;286        joypad_START = joypad_assigned(ASSIGN_START);
-00072c  2006              MOVS     r0,#6
-00072e  f7fffffe          BL       joypad_assigned
-000732  4971              LDR      r1,|L8.2296|
-000734  6008              STR      r0,[r1,#0]  ; joypad_START
-;;;287    
-;;;288        // tft_printc(36, 5, " {A} \n{B} {A}\n {B} ");
-;;;289      #endif
-;;;290        tft_prints(0,  14, "{SEL}");
-000736  a271              ADR      r2,|L8.2300|
-000738  210e              MOVS     r1,#0xe
-00073a  2000              MOVS     r0,#0
-00073c  f7fffffe          BL       tft_prints
-;;;291        tft_prints(36, 14, "{STRT}");
-000740  a270              ADR      r2,|L8.2308|
-000742  210e              MOVS     r1,#0xe
-000744  2024              MOVS     r0,#0x24
-000746  f7fffffe          BL       tft_prints
-;;;292        tft_printc(5, 1, " __    __  ________   ______   \n\
-00074a  4a70              LDR      r2,|L8.2316|
-00074c  2101              MOVS     r1,#1
-00074e  2005              MOVS     r0,#5
-000750  f7fffffe          BL       tft_printc
-;;;293    /  \\  /  |/        | /      \\ \n\
-;;;294    [$$]  \\ [$$] |[$$$$$$$$]/ /[$$$$$$]  |\n\
-;;;295    [$$$]  \\[$$] |[$$] |__    [$$] \\__[$$]/ \n\
-;;;296    [$$$$]  [$$] |[$$]    |   [$$]      \\ \n\
-;;;297    [$$] [$$] [$$] |[$$$$$]/     [$$$$$$]  |\n\
-;;;298    [$$] |[$$$$] |[$$] |_____ /  \\__[$$] |\n\
-;;;299    [$$] | [$$$] |[$$]       |[$$]    [$$]/ \n\
-;;;300    [$$]/   [$$]/ [$$$$$$$$]/  [$$$$$$]/  ");
-;;;301    
-;;;302        tft_prints(0,13, "%sIMU]",(getIMUControl())?"[":"");
-000754  f7fffffe          BL       getIMUControl
-000758  b108              CBZ      r0,|L8.1886|
-00075a  a06d              ADR      r0,|L8.2320|
-00075c  e001              B        |L8.1890|
-                  |L8.1886|
-00075e  f2af2090          ADR      r0,|L8.1232|
-                  |L8.1890|
-000762  4604              MOV      r4,r0
-000764  4623              MOV      r3,r4
-000766  a26b              ADR      r2,|L8.2324|
-000768  210d              MOVS     r1,#0xd
-00076a  2000              MOVS     r0,#0
-00076c  f7fffffe          BL       tft_prints
-;;;303        // IMU_dataAvailable();
-;;;304        // tft_printi(6,11,(int16_t)getAccelY()*10);
-;;;305        // tft_printi(0, 1, get_ticks()%1000);
-;;;306        // tft_printi(5,1,(int16_t)(getQuatI()*1000));
-;;;307        // tft_printi(5,2,(int16_t)(getQuatJ()*1000));
-;;;308        // tft_printi(5,3,(int16_t)(getQuatK()*1000));
-;;;309        // tft_printi(5,4,(int16_t)(getQuatReal()*1000));
-;;;310        // tft_printi(10,1,(int16_t)(getRoll()*10));
-;;;311        // tft_printi(10,2,(int16_t)(getPitch()*10));
-;;;312        // tft_printi(10,3,(int16_t)(getYaw()*10));
-;;;313        // tft_printi(5,2,(int16_t)(getAccelX()*1000));
-;;;314    
-;;;315        // tft_printi(5,1,getAccelLeftRight());
-;;;316        // static uint8_t asdf = 0;
-;;;317        // tft_printi(5,4,asdf+= getAccelFlick());
-;;;318    
-;;;319        tft_update();
-000770  f7fffffe          BL       tft_update
-;;;320        
-;;;321        static uint32_t last_blink = 0;
-;;;322        if ((get_ticks() - last_blink) > 100) {
-000774  bf00              NOP      
-000776  4869              LDR      r0,|L8.2332|
-000778  6800              LDR      r0,[r0,#0]  ; __ticks
-00077a  4969              LDR      r1,|L8.2336|
-00077c  6809              LDR      r1,[r1,#0]  ; last_blink
-00077e  1a40              SUBS     r0,r0,r1
-000780  2864              CMP      r0,#0x64
-000782  d90c              BLS      |L8.1950|
-;;;323          gpio_toggle(LED2);
-000784  f44f4080          MOV      r0,#0x4000
-000788  4966              LDR      r1,|L8.2340|
-00078a  6949              LDR      r1,[r1,#0x14]
-00078c  4041              EORS     r1,r1,r0
-00078e  4a65              LDR      r2,|L8.2340|
-000790  6151              STR      r1,[r2,#0x14]
-000792  bf00              NOP      
-;;;324          last_blink = get_ticks();
-000794  bf00              NOP      
-000796  4861              LDR      r0,|L8.2332|
-000798  6800              LDR      r0,[r0,#0]  ; __ticks
-00079a  4961              LDR      r1,|L8.2336|
-00079c  6008              STR      r0,[r1,#0]  ; last_blink
-                  |L8.1950|
-;;;325        }
-;;;326    
-;;;327        static uint32_t last_bright = 0;
-;;;328        if ((get_ticks() - last_bright) > 50) {
-00079e  bf00              NOP      
-0007a0  485e              LDR      r0,|L8.2332|
-0007a2  6800              LDR      r0,[r0,#0]  ; __ticks
-0007a4  4960              LDR      r1,|L8.2344|
-0007a6  6809              LDR      r1,[r1,#0]  ; last_bright
-0007a8  1a40              SUBS     r0,r0,r1
-0007aa  2832              CMP      r0,#0x32
-0007ac  d917              BLS      |L8.2014|
-;;;329          if (btn_pressed(BTN_X2)) TIM13->CCR1+= 3;
-0007ae  484a              LDR      r0,|L8.2264|
-0007b0  6800              LDR      r0,[r0,#0]  ; joypad_state
-0007b2  f0000080          AND      r0,r0,#0x80
-0007b6  b120              CBZ      r0,|L8.1986|
-0007b8  485c              LDR      r0,|L8.2348|
-0007ba  6800              LDR      r0,[r0,#0]
-0007bc  1cc0              ADDS     r0,r0,#3
-0007be  495b              LDR      r1,|L8.2348|
-0007c0  6008              STR      r0,[r1,#0]
-                  |L8.1986|
-;;;330          TIM13->CCR1%= 100;
-0007c2  485a              LDR      r0,|L8.2348|
-0007c4  6800              LDR      r0,[r0,#0]
-0007c6  2164              MOVS     r1,#0x64
-0007c8  fbb0f2f1          UDIV     r2,r0,r1
-0007cc  fb010012          MLS      r0,r1,r2,r0
-0007d0  4956              LDR      r1,|L8.2348|
-0007d2  6008              STR      r0,[r1,#0]
-;;;331          last_bright = get_ticks();
-0007d4  bf00              NOP      
-0007d6  4851              LDR      r0,|L8.2332|
-0007d8  6800              LDR      r0,[r0,#0]  ; __ticks
-0007da  4953              LDR      r1,|L8.2344|
-0007dc  6008              STR      r0,[r1,#0]  ; last_bright
-                  |L8.2014|
-;;;332        }
-;;;333    
-;;;334        //if (btn_clicked(BTN_X1)) 
-;;;335          //toggleIMUControl();
-;;;336    
-;;;337        if (btn_clicked(BTN_X3)) {
-0007de  483e              LDR      r0,|L8.2264|
-0007e0  6800              LDR      r0,[r0,#0]  ; joypad_state
-0007e2  f4007080          AND      r0,r0,#0x100
-0007e6  b190              CBZ      r0,|L8.2062|
-0007e8  483a              LDR      r0,|L8.2260|
-0007ea  8800              LDRH     r0,[r0,#0]  ; last_joypad_state
-0007ec  f4007080          AND      r0,r0,#0x100
-0007f0  b968              CBNZ     r0,|L8.2062|
-;;;338          GAME_SELECT++;
-0007f2  484f              LDR      r0,|L8.2352|
-0007f4  6800              LDR      r0,[r0,#0]  ; GAME_SELECT
-0007f6  1c40              ADDS     r0,r0,#1
-0007f8  494d              LDR      r1,|L8.2352|
-0007fa  6008              STR      r0,[r1,#0]  ; GAME_SELECT
-;;;339          GAME_SELECT %= 3;
-0007fc  4608              MOV      r0,r1
-0007fe  6800              LDR      r0,[r0,#0]  ; GAME_SELECT
-000800  2103              MOVS     r1,#3
-000802  fb90f2f1          SDIV     r2,r0,r1
-000806  fb010012          MLS      r0,r1,r2,r0
-00080a  4949              LDR      r1,|L8.2352|
-00080c  6008              STR      r0,[r1,#0]  ; GAME_SELECT
-                  |L8.2062|
-;;;340        }
-;;;341        if (btn_clicked(BTN_X4)) {
-00080e  4832              LDR      r0,|L8.2264|
-000810  6800              LDR      r0,[r0,#0]  ; joypad_state
-000812  f4007000          AND      r0,r0,#0x200
-000816  b3e8              CBZ      r0,|L8.2196|
-000818  482e              LDR      r0,|L8.2260|
-00081a  8800              LDRH     r0,[r0,#0]  ; last_joypad_state
-00081c  f4007000          AND      r0,r0,#0x200
-000820  bbc0              CBNZ     r0,|L8.2196|
-;;;342          nes_init(rom_select(GAME_SELECT));
-000822  4843              LDR      r0,|L8.2352|
-000824  6800              LDR      r0,[r0,#0]  ; GAME_SELECT
-000826  f7fffffe          BL       rom_select
-00082a  4604              MOV      r4,r0
-00082c  f7fffffe          BL       nes_init
-;;;343    
-;;;344          while (1) {
-000830  e049              B        |L8.2246|
-                  |L8.2098|
-;;;345            if ((get_ticks() - last_bright) > 50) {
-000832  bf00              NOP      
-000834  4839              LDR      r0,|L8.2332|
-000836  6800              LDR      r0,[r0,#0]  ; __ticks
-000838  493b              LDR      r1,|L8.2344|
-00083a  6809              LDR      r1,[r1,#0]  ; last_bright
-00083c  1a40              SUBS     r0,r0,r1
-00083e  2832              CMP      r0,#0x32
-000840  d917              BLS      |L8.2162|
-;;;346              if (btn_pressed(BTN_X2)) TIM13->CCR1+= 3;
-000842  4825              LDR      r0,|L8.2264|
-000844  6800              LDR      r0,[r0,#0]  ; joypad_state
-000846  f0000080          AND      r0,r0,#0x80
-00084a  b120              CBZ      r0,|L8.2134|
-00084c  4837              LDR      r0,|L8.2348|
-00084e  6800              LDR      r0,[r0,#0]
-000850  1cc0              ADDS     r0,r0,#3
-000852  4936              LDR      r1,|L8.2348|
-000854  6008              STR      r0,[r1,#0]
-                  |L8.2134|
-;;;347              TIM13->CCR1 %= 100;
-000856  4835              LDR      r0,|L8.2348|
-000858  6800              LDR      r0,[r0,#0]
-00085a  2164              MOVS     r1,#0x64
-00085c  fbb0f2f1          UDIV     r2,r0,r1
-000860  fb010012          MLS      r0,r1,r2,r0
-000864  4931              LDR      r1,|L8.2348|
-000866  6008              STR      r0,[r1,#0]
-;;;348              last_bright = get_ticks();
-000868  bf00              NOP      
-00086a  482c              LDR      r0,|L8.2332|
-00086c  6800              LDR      r0,[r0,#0]  ; __ticks
-00086e  492e              LDR      r1,|L8.2344|
-000870  6008              STR      r0,[r1,#0]  ; last_bright
-                  |L8.2162|
-;;;349            }
-;;;350            if (TIM6->SR & TIM_SR_UIF) {
-000872  4830              LDR      r0,|L8.2356|
-000874  6900              LDR      r0,[r0,#0x10]
-000876  f0000001          AND      r0,r0,#1
-00087a  b1e8              CBZ      r0,|L8.2232|
-;;;351              //IMU_dataAvailable();
-;;;352              joypad_update();
-00087c  f7fffffe          BL       joypad_update
-;;;353    
-;;;354              TIM6->SR = 0;
-000880  2000              MOVS     r0,#0
-000882  492c              LDR      r1,|L8.2356|
-000884  6108              STR      r0,[r1,#0x10]
-;;;355              nes_frame(0);
-000886  f7fffffe          BL       nes_frame
-;;;356              // gpio_toggle(LED1);
-;;;357              nes_frame(1);
-00088a  2001              MOVS     r0,#1
-00088c  f7fffffe          BL       nes_frame
-;;;358              // gpio_toggle(LED1);
-;;;359              if (btn_clicked(BTN_X3)) cpu_reset();
-000890  4811              LDR      r0,|L8.2264|
-000892  e000              B        |L8.2198|
-                  |L8.2196|
-000894  e018              B        |L8.2248|
-                  |L8.2198|
-000896  6800              LDR      r0,[r0,#0]  ; joypad_state
-000898  f4007080          AND      r0,r0,#0x100
-00089c  b130              CBZ      r0,|L8.2220|
-00089e  480d              LDR      r0,|L8.2260|
-0008a0  8800              LDRH     r0,[r0,#0]  ; last_joypad_state
-0008a2  f4007080          AND      r0,r0,#0x100
-0008a6  b908              CBNZ     r0,|L8.2220|
-0008a8  f7fffffe          BL       cpu_reset
-                  |L8.2220|
-;;;360              gpio_set(LED2);
-0008ac  f44f4080          MOV      r0,#0x4000
-0008b0  491c              LDR      r1,|L8.2340|
-0008b2  6188              STR      r0,[r1,#0x18]
-0008b4  bf00              NOP      
-0008b6  e006              B        |L8.2246|
-                  |L8.2232|
-;;;361            } else {
-;;;362              gpio_reset(LED2);
-0008b8  f44f4080          MOV      r0,#0x4000
-0008bc  0401              LSLS     r1,r0,#16
-0008be  4a19              LDR      r2,|L8.2340|
-0008c0  6191              STR      r1,[r2,#0x18]
-0008c2  bf00              NOP      
-0008c4  bf00              NOP      
-                  |L8.2246|
-0008c6  e7b4              B        |L8.2098|
-                  |L8.2248|
-;;;363            }
-;;;364          }
-;;;365        }
-;;;366        last_joypad_state = joypad_state;
-0008c8  4803              LDR      r0,|L8.2264|
-0008ca  6800              LDR      r0,[r0,#0]  ; joypad_state
-0008cc  4901              LDR      r1,|L8.2260|
-0008ce  6008              STR      r0,[r1,#0]  ; last_joypad_state
-                  |L8.2256|
-0008d0  e4ee              B        |L8.688|
-;;;367        /* USER CODE END WHILE */
-;;;368    
-;;;369        /* USER CODE BEGIN 3 */
-;;;370      }
-;;;371      /* USER CODE END 3 */
-;;;372    }
-;;;373    
+                  |L8.1284|
+000504  b140              CBZ      r0,|L8.1304|
+000506  48c0              LDR      r0,|L8.2056|
+000508  8800              LDRH     r0,[r0,#0]  ; last_joypad_state
+00050a  f4006080          AND      r0,r0,#0x400
+00050e  b918              CBNZ     r0,|L8.1304|
+000510  f44f6080          MOV      r0,#0x400
+000514  f7fffffe          BL       joypad_rotate
+                  |L8.1304|
+;;;261        if (btn_clicked(BTN_D2))    joypad_rotate(BTN_D2);
+000518  48bc              LDR      r0,|L8.2060|
+00051a  6800              LDR      r0,[r0,#0]  ; joypad_state
+00051c  f4006000          AND      r0,r0,#0x800
+000520  b140              CBZ      r0,|L8.1332|
+000522  48b9              LDR      r0,|L8.2056|
+000524  8800              LDRH     r0,[r0,#0]  ; last_joypad_state
+000526  f4006000          AND      r0,r0,#0x800
+00052a  b918              CBNZ     r0,|L8.1332|
+00052c  f44f6000          MOV      r0,#0x800
+000530  f7fffffe          BL       joypad_rotate
+                  |L8.1332|
+;;;262        if (btn_clicked(BTN_R2))    joypad_rotate(BTN_R2);
+000534  48b5              LDR      r0,|L8.2060|
+000536  6800              LDR      r0,[r0,#0]  ; joypad_state
+000538  f4005080          AND      r0,r0,#0x1000
+00053c  b140              CBZ      r0,|L8.1360|
+00053e  48b2              LDR      r0,|L8.2056|
+000540  8800              LDRH     r0,[r0,#0]  ; last_joypad_state
+000542  f4005080          AND      r0,r0,#0x1000
+000546  b918              CBNZ     r0,|L8.1360|
+000548  f44f5080          MOV      r0,#0x1000
+00054c  f7fffffe          BL       joypad_rotate
+                  |L8.1360|
+;;;263        if (btn_clicked(BTN_M2))    joypad_rotate(BTN_M2);
+000550  48ae              LDR      r0,|L8.2060|
+000552  6800              LDR      r0,[r0,#0]  ; joypad_state
+000554  f4005000          AND      r0,r0,#0x2000
+000558  b140              CBZ      r0,|L8.1388|
+00055a  48ab              LDR      r0,|L8.2056|
+00055c  8800              LDRH     r0,[r0,#0]  ; last_joypad_state
+00055e  f4005000          AND      r0,r0,#0x2000
+000562  b918              CBNZ     r0,|L8.1388|
+000564  f44f5000          MOV      r0,#0x2000
+000568  f7fffffe          BL       joypad_rotate
+                  |L8.1388|
+;;;264        if (btn_clicked(BTN_U2))    joypad_rotate(BTN_U2);
+00056c  48a7              LDR      r0,|L8.2060|
+00056e  6800              LDR      r0,[r0,#0]  ; joypad_state
+000570  f4004080          AND      r0,r0,#0x4000
+000574  b140              CBZ      r0,|L8.1416|
+000576  48a4              LDR      r0,|L8.2056|
+000578  8800              LDRH     r0,[r0,#0]  ; last_joypad_state
+00057a  f4004080          AND      r0,r0,#0x4000
+00057e  b918              CBNZ     r0,|L8.1416|
+000580  f44f4080          MOV      r0,#0x4000
+000584  f7fffffe          BL       joypad_rotate
+                  |L8.1416|
+;;;265        if (btn_clicked(BTN_L2))    joypad_rotate(BTN_L2);
+000588  48a0              LDR      r0,|L8.2060|
+00058a  6800              LDR      r0,[r0,#0]  ; joypad_state
+00058c  f4004000          AND      r0,r0,#0x8000
+000590  b140              CBZ      r0,|L8.1444|
+000592  489d              LDR      r0,|L8.2056|
+000594  8800              LDRH     r0,[r0,#0]  ; last_joypad_state
+000596  f4004000          AND      r0,r0,#0x8000
+00059a  b918              CBNZ     r0,|L8.1444|
+00059c  f44f4000          MOV      r0,#0x8000
+0005a0  f7fffffe          BL       joypad_rotate
+                  |L8.1444|
+;;;266        if (btn_clicked(BTN_JS1))   joypad_rotate(BTN_JS1);
+0005a4  4899              LDR      r0,|L8.2060|
+0005a6  6800              LDR      r0,[r0,#0]  ; joypad_state
+0005a8  f0000001          AND      r0,r0,#1
+0005ac  b138              CBZ      r0,|L8.1470|
+0005ae  4896              LDR      r0,|L8.2056|
+0005b0  7800              LDRB     r0,[r0,#0]  ; last_joypad_state
+0005b2  f0000001          AND      r0,r0,#1
+0005b6  b910              CBNZ     r0,|L8.1470|
+0005b8  2001              MOVS     r0,#1
+0005ba  f7fffffe          BL       joypad_rotate
+                  |L8.1470|
+;;;267        if (btn_clicked(BTN_U1))    joypad_rotate(BTN_U1);
+0005be  4893              LDR      r0,|L8.2060|
+0005c0  6800              LDR      r0,[r0,#0]  ; joypad_state
+0005c2  f0000002          AND      r0,r0,#2
+0005c6  b138              CBZ      r0,|L8.1496|
+0005c8  488f              LDR      r0,|L8.2056|
+0005ca  7800              LDRB     r0,[r0,#0]  ; last_joypad_state
+0005cc  f0000002          AND      r0,r0,#2
+0005d0  b910              CBNZ     r0,|L8.1496|
+0005d2  2002              MOVS     r0,#2
+0005d4  f7fffffe          BL       joypad_rotate
+                  |L8.1496|
+;;;268        if (btn_clicked(BTN_JS1_L)) joypad_rotate(BTN_JS1_L);
+0005d8  488c              LDR      r0,|L8.2060|
+0005da  6800              LDR      r0,[r0,#0]  ; joypad_state
+0005dc  f4003080          AND      r0,r0,#0x10000
+0005e0  b140              CBZ      r0,|L8.1524|
+0005e2  4889              LDR      r0,|L8.2056|
+0005e4  6800              LDR      r0,[r0,#0]  ; last_joypad_state
+0005e6  f4003080          AND      r0,r0,#0x10000
+0005ea  b918              CBNZ     r0,|L8.1524|
+0005ec  f44f3080          MOV      r0,#0x10000
+0005f0  f7fffffe          BL       joypad_rotate
+                  |L8.1524|
+;;;269        if (btn_clicked(BTN_JS1_R)) joypad_rotate(BTN_JS1_R);
+0005f4  4885              LDR      r0,|L8.2060|
+0005f6  6800              LDR      r0,[r0,#0]  ; joypad_state
+0005f8  f4003000          AND      r0,r0,#0x20000
+0005fc  b140              CBZ      r0,|L8.1552|
+0005fe  4882              LDR      r0,|L8.2056|
+000600  6800              LDR      r0,[r0,#0]  ; last_joypad_state
+000602  f4003000          AND      r0,r0,#0x20000
+000606  b918              CBNZ     r0,|L8.1552|
+000608  f44f3000          MOV      r0,#0x20000
+00060c  f7fffffe          BL       joypad_rotate
+                  |L8.1552|
+;;;270        if (btn_clicked(BTN_JS1_D)) joypad_rotate(BTN_JS1_D);
+000610  487e              LDR      r0,|L8.2060|
+000612  6800              LDR      r0,[r0,#0]  ; joypad_state
+000614  f4002080          AND      r0,r0,#0x40000
+000618  b140              CBZ      r0,|L8.1580|
+00061a  487b              LDR      r0,|L8.2056|
+00061c  6800              LDR      r0,[r0,#0]  ; last_joypad_state
+00061e  f4002080          AND      r0,r0,#0x40000
+000622  b918              CBNZ     r0,|L8.1580|
+000624  f44f2080          MOV      r0,#0x40000
+000628  f7fffffe          BL       joypad_rotate
+                  |L8.1580|
+;;;271        if (btn_clicked(BTN_JS1_U)) joypad_rotate(BTN_JS1_U);
+00062c  4877              LDR      r0,|L8.2060|
+00062e  6800              LDR      r0,[r0,#0]  ; joypad_state
+000630  f4002000          AND      r0,r0,#0x80000
+000634  b140              CBZ      r0,|L8.1608|
+000636  4874              LDR      r0,|L8.2056|
+000638  6800              LDR      r0,[r0,#0]  ; last_joypad_state
+00063a  f4002000          AND      r0,r0,#0x80000
+00063e  b918              CBNZ     r0,|L8.1608|
+000640  f44f2000          MOV      r0,#0x80000
+000644  f7fffffe          BL       joypad_rotate
+                  |L8.1608|
+;;;272        if (btn_clicked(BTN_JS2_L)) joypad_rotate(BTN_JS2_L);
+000648  4870              LDR      r0,|L8.2060|
+00064a  6800              LDR      r0,[r0,#0]  ; joypad_state
+00064c  f4001080          AND      r0,r0,#0x100000
+000650  b140              CBZ      r0,|L8.1636|
+000652  486d              LDR      r0,|L8.2056|
+000654  6800              LDR      r0,[r0,#0]  ; last_joypad_state
+000656  f4001080          AND      r0,r0,#0x100000
+00065a  b918              CBNZ     r0,|L8.1636|
+00065c  f44f1080          MOV      r0,#0x100000
+000660  f7fffffe          BL       joypad_rotate
+                  |L8.1636|
+;;;273        if (btn_clicked(BTN_JS2_R)) joypad_rotate(BTN_JS2_R);
+000664  4869              LDR      r0,|L8.2060|
+000666  6800              LDR      r0,[r0,#0]  ; joypad_state
+000668  f4001000          AND      r0,r0,#0x200000
+00066c  b140              CBZ      r0,|L8.1664|
+00066e  4866              LDR      r0,|L8.2056|
+000670  6800              LDR      r0,[r0,#0]  ; last_joypad_state
+000672  f4001000          AND      r0,r0,#0x200000
+000676  b918              CBNZ     r0,|L8.1664|
+000678  f44f1000          MOV      r0,#0x200000
+00067c  f7fffffe          BL       joypad_rotate
+                  |L8.1664|
+;;;274        if (btn_clicked(BTN_JS2_D)) joypad_rotate(BTN_JS2_D);
+000680  4862              LDR      r0,|L8.2060|
+000682  6800              LDR      r0,[r0,#0]  ; joypad_state
+000684  f4000080          AND      r0,r0,#0x400000
+000688  b140              CBZ      r0,|L8.1692|
+00068a  485f              LDR      r0,|L8.2056|
+00068c  6800              LDR      r0,[r0,#0]  ; last_joypad_state
+00068e  f4000080          AND      r0,r0,#0x400000
+000692  b918              CBNZ     r0,|L8.1692|
+000694  f44f0080          MOV      r0,#0x400000
+000698  f7fffffe          BL       joypad_rotate
+                  |L8.1692|
+;;;275        if (btn_clicked(BTN_JS2_U)) joypad_rotate(BTN_JS2_U);
+00069c  485b              LDR      r0,|L8.2060|
+00069e  6800              LDR      r0,[r0,#0]  ; joypad_state
+0006a0  f4000000          AND      r0,r0,#0x800000
+0006a4  b140              CBZ      r0,|L8.1720|
+0006a6  4858              LDR      r0,|L8.2056|
+0006a8  6800              LDR      r0,[r0,#0]  ; last_joypad_state
+0006aa  f4000000          AND      r0,r0,#0x800000
+0006ae  b918              CBNZ     r0,|L8.1720|
+0006b0  f44f0000          MOV      r0,#0x800000
+0006b4  f7fffffe          BL       joypad_rotate
+                  |L8.1720|
+;;;276        joypad_A     = joypad_assigned(ASSIGN_A);
+0006b8  2004              MOVS     r0,#4
+0006ba  f7fffffe          BL       joypad_assigned
+0006be  4954              LDR      r1,|L8.2064|
+0006c0  6008              STR      r0,[r1,#0]  ; joypad_A
+;;;277        joypad_B     = joypad_assigned(ASSIGN_B);
+0006c2  2005              MOVS     r0,#5
+0006c4  f7fffffe          BL       joypad_assigned
+0006c8  4952              LDR      r1,|L8.2068|
+0006ca  6008              STR      r0,[r1,#0]  ; joypad_B
+;;;278        joypad_U     = joypad_assigned(ASSIGN_UP);
+0006cc  2000              MOVS     r0,#0
+0006ce  f7fffffe          BL       joypad_assigned
+0006d2  4951              LDR      r1,|L8.2072|
+0006d4  6008              STR      r0,[r1,#0]  ; joypad_U
+;;;279        joypad_D     = joypad_assigned(ASSIGN_DOWN);
+0006d6  2001              MOVS     r0,#1
+0006d8  f7fffffe          BL       joypad_assigned
+0006dc  494f              LDR      r1,|L8.2076|
+0006de  6008              STR      r0,[r1,#0]  ; joypad_D
+;;;280        joypad_L     = joypad_assigned(ASSIGN_LEFT);
+0006e0  2002              MOVS     r0,#2
+0006e2  f7fffffe          BL       joypad_assigned
+0006e6  494e              LDR      r1,|L8.2080|
+0006e8  6008              STR      r0,[r1,#0]  ; joypad_L
+;;;281        joypad_R     = joypad_assigned(ASSIGN_RIGHT);
+0006ea  2003              MOVS     r0,#3
+0006ec  f7fffffe          BL       joypad_assigned
+0006f0  494c              LDR      r1,|L8.2084|
+0006f2  6008              STR      r0,[r1,#0]  ; joypad_R
+;;;282        joypad_SEL   = joypad_assigned(ASSIGN_SEL);
+0006f4  2007              MOVS     r0,#7
+0006f6  f7fffffe          BL       joypad_assigned
+0006fa  494b              LDR      r1,|L8.2088|
+0006fc  6008              STR      r0,[r1,#0]  ; joypad_SEL
+;;;283        joypad_START = joypad_assigned(ASSIGN_START);
+0006fe  2006              MOVS     r0,#6
+000700  f7fffffe          BL       joypad_assigned
+000704  4949              LDR      r1,|L8.2092|
+000706  6008              STR      r0,[r1,#0]  ; joypad_START
+;;;284    
+;;;285        // tft_printc(36, 5, " {A} \n{B} {A}\n {B} ");
+;;;286      #endif
+;;;287        tft_prints(0,  14, "{SEL}");
+000708  a249              ADR      r2,|L8.2096|
+00070a  210e              MOVS     r1,#0xe
+00070c  2000              MOVS     r0,#0
+00070e  f7fffffe          BL       tft_prints
+;;;288        tft_prints(36, 14, "{STRT}");
+000712  a249              ADR      r2,|L8.2104|
+000714  210e              MOVS     r1,#0xe
+000716  2024              MOVS     r0,#0x24
+000718  f7fffffe          BL       tft_prints
+;;;289        tft_printc(5, 1, " __    __  ________   ______   \n\
+00071c  4a48              LDR      r2,|L8.2112|
+00071e  2101              MOVS     r1,#1
+000720  2005              MOVS     r0,#5
+000722  f7fffffe          BL       tft_printc
+;;;290    /  \\  /  |/        | /      \\ \n\
+;;;291    [$$]  \\ [$$] |[$$$$$$$$]/ /[$$$$$$]  |\n\
+;;;292    [$$$]  \\[$$] |[$$] |__    [$$] \\__[$$]/ \n\
+;;;293    [$$$$]  [$$] |[$$]    |   [$$]      \\ \n\
+;;;294    [$$] [$$] [$$] |[$$$$$]/     [$$$$$$]  |\n\
+;;;295    [$$] |[$$$$] |[$$] |_____ /  \\__[$$] |\n\
+;;;296    [$$] | [$$$] |[$$]       |[$$]    [$$]/ \n\
+;;;297    [$$]/   [$$]/ [$$$$$$$$]/  [$$$$$$]/  ");
+;;;298    
+;;;299        tft_prints(0,13, "%sIMU]",(getIMUControl())?"[":"");
+000726  f7fffffe          BL       getIMUControl
+00072a  b108              CBZ      r0,|L8.1840|
+00072c  a045              ADR      r0,|L8.2116|
+00072e  e001              B        |L8.1844|
+                  |L8.1840|
+000730  f2af2074          ADR      r0,|L8.1216|
+                  |L8.1844|
+000734  4604              MOV      r4,r0
+000736  4623              MOV      r3,r4
+000738  a243              ADR      r2,|L8.2120|
+00073a  210d              MOVS     r1,#0xd
+00073c  2000              MOVS     r0,#0
+00073e  f7fffffe          BL       tft_prints
+;;;300        // IMU_dataAvailable();
+;;;301        // tft_printi(6,11,(int16_t)getAccelY()*10);
+;;;302        // tft_printi(0, 1, get_ticks()%1000);
+;;;303        // tft_printi(5,1,(int16_t)(getQuatI()*1000));
+;;;304        // tft_printi(5,2,(int16_t)(getQuatJ()*1000));
+;;;305        // tft_printi(5,3,(int16_t)(getQuatK()*1000));
+;;;306        // tft_printi(5,4,(int16_t)(getQuatReal()*1000));
+;;;307        // tft_printi(10,1,(int16_t)(getRoll()*10));
+;;;308        // tft_printi(10,2,(int16_t)(getPitch()*10));
+;;;309        // tft_printi(10,3,(int16_t)(getYaw()*10));
+;;;310        // tft_printi(5,2,(int16_t)(getAccelX()*1000));
+;;;311    
+;;;312        // tft_printi(5,1,getAccelLeftRight());
+;;;313        // static uint8_t asdf = 0;
+;;;314        // tft_printi(5,4,asdf+= getAccelFlick());
+;;;315    
+;;;316        tft_update();
+000742  f7fffffe          BL       tft_update
+;;;317        
+;;;318        static uint32_t last_blink = 0;
+;;;319        if ((get_ticks() - last_blink) > 100) {
+000746  bf00              NOP      
+000748  4841              LDR      r0,|L8.2128|
+00074a  6800              LDR      r0,[r0,#0]  ; __ticks
+00074c  4941              LDR      r1,|L8.2132|
+00074e  6809              LDR      r1,[r1,#0]  ; last_blink
+000750  1a40              SUBS     r0,r0,r1
+000752  2864              CMP      r0,#0x64
+000754  d90c              BLS      |L8.1904|
+;;;320          gpio_toggle(LED2);
+000756  f44f4080          MOV      r0,#0x4000
+00075a  493f              LDR      r1,|L8.2136|
+00075c  6949              LDR      r1,[r1,#0x14]
+00075e  4041              EORS     r1,r1,r0
+000760  4a3d              LDR      r2,|L8.2136|
+000762  6151              STR      r1,[r2,#0x14]
+000764  bf00              NOP      
+;;;321          last_blink = get_ticks();
+000766  bf00              NOP      
+000768  4839              LDR      r0,|L8.2128|
+00076a  6800              LDR      r0,[r0,#0]  ; __ticks
+00076c  4939              LDR      r1,|L8.2132|
+00076e  6008              STR      r0,[r1,#0]  ; last_blink
+                  |L8.1904|
+;;;322        }
+;;;323    		
+;;;324        if (btn_clicked(BTN_X3)) {
+000770  4826              LDR      r0,|L8.2060|
+000772  6800              LDR      r0,[r0,#0]  ; joypad_state
+000774  f4007080          AND      r0,r0,#0x100
+000778  b190              CBZ      r0,|L8.1952|
+00077a  4823              LDR      r0,|L8.2056|
+00077c  8800              LDRH     r0,[r0,#0]  ; last_joypad_state
+00077e  f4007080          AND      r0,r0,#0x100
+000782  b968              CBNZ     r0,|L8.1952|
+;;;325          GAME_SELECT++;
+000784  4835              LDR      r0,|L8.2140|
+000786  6800              LDR      r0,[r0,#0]  ; GAME_SELECT
+000788  1c40              ADDS     r0,r0,#1
+00078a  4934              LDR      r1,|L8.2140|
+00078c  6008              STR      r0,[r1,#0]  ; GAME_SELECT
+;;;326          GAME_SELECT %= 3;
+00078e  4608              MOV      r0,r1
+000790  6800              LDR      r0,[r0,#0]  ; GAME_SELECT
+000792  2103              MOVS     r1,#3
+000794  fb90f2f1          SDIV     r2,r0,r1
+000798  fb010012          MLS      r0,r1,r2,r0
+00079c  492f              LDR      r1,|L8.2140|
+00079e  6008              STR      r0,[r1,#0]  ; GAME_SELECT
+                  |L8.1952|
+;;;327        }
+;;;328        if (btn_clicked(BTN_X4)) {
+0007a0  481a              LDR      r0,|L8.2060|
+0007a2  6800              LDR      r0,[r0,#0]  ; joypad_state
+0007a4  f4007000          AND      r0,r0,#0x200
+0007a8  b340              CBZ      r0,|L8.2044|
+0007aa  4817              LDR      r0,|L8.2056|
+0007ac  8800              LDRH     r0,[r0,#0]  ; last_joypad_state
+0007ae  f4007000          AND      r0,r0,#0x200
+0007b2  bb18              CBNZ     r0,|L8.2044|
+;;;329          nes_init(rom_select(GAME_SELECT));
+0007b4  4829              LDR      r0,|L8.2140|
+0007b6  6800              LDR      r0,[r0,#0]  ; GAME_SELECT
+0007b8  f7fffffe          BL       rom_select
+0007bc  4604              MOV      r4,r0
+0007be  f7fffffe          BL       nes_init
+;;;330    
+;;;331          while (1) 
+0007c2  e01a              B        |L8.2042|
+                  |L8.1988|
+;;;332    			{	
+;;;333            if (TIM6->SR & TIM_SR_UIF) 
+0007c4  4826              LDR      r0,|L8.2144|
+0007c6  6900              LDR      r0,[r0,#0x10]
+0007c8  f0000001          AND      r0,r0,#1
+0007cc  b1a8              CBZ      r0,|L8.2042|
+;;;334    				{
+;;;335              //IMU_dataAvailable();
+;;;336              joypad_update();
+0007ce  f7fffffe          BL       joypad_update
+;;;337              TIM6->SR = 0;
+0007d2  2000              MOVS     r0,#0
+0007d4  4922              LDR      r1,|L8.2144|
+0007d6  6108              STR      r0,[r1,#0x10]
+;;;338              nes_frame(0);;
+0007d8  f7fffffe          BL       nes_frame
+;;;339              nes_frame(1);
+0007dc  2001              MOVS     r0,#1
+0007de  f7fffffe          BL       nes_frame
+;;;340              if (btn_clicked(BTN_X3))
+0007e2  480a              LDR      r0,|L8.2060|
+0007e4  6800              LDR      r0,[r0,#0]  ; joypad_state
+0007e6  f4007080          AND      r0,r0,#0x100
+0007ea  b130              CBZ      r0,|L8.2042|
+0007ec  4806              LDR      r0,|L8.2056|
+0007ee  8800              LDRH     r0,[r0,#0]  ; last_joypad_state
+0007f0  f4007080          AND      r0,r0,#0x100
+0007f4  b908              CBNZ     r0,|L8.2042|
+;;;341    					{
+;;;342    						cpu_reset();
+0007f6  f7fffffe          BL       cpu_reset
+                  |L8.2042|
+0007fa  e7e3              B        |L8.1988|
+                  |L8.2044|
+;;;343    					}
+;;;344            } 
+;;;345          }
+;;;346        }
+;;;347        last_joypad_state = joypad_state;
+0007fc  4803              LDR      r0,|L8.2060|
+0007fe  6800              LDR      r0,[r0,#0]  ; joypad_state
+000800  4901              LDR      r1,|L8.2056|
+000802  6008              STR      r0,[r1,#0]  ; last_joypad_state
+                  |L8.2052|
+000804  e53f              B        |L8.646|
+;;;348        /* USER CODE END WHILE */
+;;;349    
+;;;350        /* USER CODE BEGIN 3 */
+;;;351      }
+;;;352      /* USER CODE END 3 */
+;;;353    }
+;;;354    
                           ENDP
 
-0008d2  0000              DCW      0x0000
-                  |L8.2260|
+000806  0000              DCW      0x0000
+                  |L8.2056|
                           DCD      last_joypad_state
-                  |L8.2264|
+                  |L8.2060|
                           DCD      joypad_state
-                  |L8.2268|
+                  |L8.2064|
                           DCD      joypad_A
-                  |L8.2272|
+                  |L8.2068|
                           DCD      joypad_B
-                  |L8.2276|
+                  |L8.2072|
                           DCD      joypad_U
-                  |L8.2280|
+                  |L8.2076|
                           DCD      joypad_D
-                  |L8.2284|
+                  |L8.2080|
                           DCD      joypad_L
-                  |L8.2288|
+                  |L8.2084|
                           DCD      joypad_R
-                  |L8.2292|
+                  |L8.2088|
                           DCD      joypad_SEL
-                  |L8.2296|
+                  |L8.2092|
                           DCD      joypad_START
-                  |L8.2300|
-0008fc  7b53454c          DCB      "{SEL}",0
-000900  7d00    
-000902  00                DCB      0
-000903  00                DCB      0
-                  |L8.2308|
-000904  7b535452          DCB      "{STRT}",0
-000908  547d00  
-00090b  00                DCB      0
-                  |L8.2316|
+                  |L8.2096|
+000830  7b53454c          DCB      "{SEL}",0
+000834  7d00    
+000836  00                DCB      0
+000837  00                DCB      0
+                  |L8.2104|
+000838  7b535452          DCB      "{STRT}",0
+00083c  547d00  
+00083f  00                DCB      0
+                  |L8.2112|
                           DCD      ||.conststring||
-                  |L8.2320|
-000910  5b00              DCB      "[",0
-000912  00                DCB      0
-000913  00                DCB      0
-                  |L8.2324|
-000914  2573494d          DCB      "%sIMU]",0
-000918  555d00  
-00091b  00                DCB      0
-                  |L8.2332|
+                  |L8.2116|
+000844  5b00              DCB      "[",0
+000846  00                DCB      0
+000847  00                DCB      0
+                  |L8.2120|
+000848  2573494d          DCB      "%sIMU]",0
+00084c  555d00  
+00084f  00                DCB      0
+                  |L8.2128|
                           DCD      __ticks
-                  |L8.2336|
+                  |L8.2132|
                           DCD      last_blink
-                  |L8.2340|
+                  |L8.2136|
                           DCD      0x40020c00
-                  |L8.2344|
-                          DCD      last_bright
-                  |L8.2348|
-                          DCD      0x40001c34
-                  |L8.2352|
+                  |L8.2140|
                           DCD      GAME_SELECT
-                  |L8.2356|
+                  |L8.2144|
                           DCD      0x40001000
 
                           AREA ||.bss||, DATA, NOINIT, ALIGN=0
@@ -2002,8 +1880,6 @@
                   last_joypad_state
                           DCD      0x00000000
                   last_blink
-                          DCD      0x00000000
-                  last_bright
                           DCD      0x00000000
 
 ;*** Start embedded assembler ***

@@ -112,23 +112,23 @@
                           AREA ||i.ppu_render_line||, CODE, READONLY, ALIGN=2
 
                   ppu_render_line PROC
-;;;443       
-;;;444    void ppu_render_line(int y_axes)   
+;;;441       
+;;;442    void ppu_render_line(int y_axes)   
 000000  b501              PUSH     {r0,lr}
-;;;445    {   
+;;;443    {   
 000002  b09a              SUB      sp,sp,#0x68
-;;;446        int i, render_spr_num, dy_axes;   
-;;;447    //  MapperRenderScreen( 1 );   
-;;;448       
-;;;449        PPU_Reg.R2 &= ~R2_LOST_SPR;  
+;;;444        int i, render_spr_num, dy_axes;   
+;;;445    //  MapperRenderScreen( 1 );   
+;;;446       
+;;;447        PPU_Reg.R2 &= ~R2_LOST_SPR;  
 000004  48fa              LDR      r0,|L2.1008|
 000006  7880              LDRB     r0,[r0,#2]  ; PPU_Reg
 000008  f0200020          BIC      r0,r0,#0x20
 00000c  49f8              LDR      r1,|L2.1008|
 00000e  7088              STRB     r0,[r1,#2]
-;;;450    //  PPU_BG_VScrlOrg_Pre = PPU_BG_VScrlOrg;
-;;;451    //  PPU_BG_HScrlOrg_Pre = PPU_BG_HScrlOrg; 
-;;;452        if((PPU_Reg.R1 & R1_BG_VISIBLE) && !(PPU_Reg.R1 & R1_SPR_VISIBLE)) {
+;;;448    //  PPU_BG_VScrlOrg_Pre = PPU_BG_VScrlOrg;
+;;;449    //  PPU_BG_HScrlOrg_Pre = PPU_BG_HScrlOrg; 
+;;;450        if((PPU_Reg.R1 & R1_BG_VISIBLE) && !(PPU_Reg.R1 & R1_SPR_VISIBLE)) {
 000010  4608              MOV      r0,r1
 000012  7840              LDRB     r0,[r0,#1]  ; PPU_Reg
 000014  f0000008          AND      r0,r0,#8
@@ -139,12 +139,12 @@
 000020  f0000010          AND      r0,r0,#0x10
 000024  2800              CMP      r0,#0
 000026  d177              BNE      |L2.280|
-;;;453            for(i=7; i<256 ; i++){  
+;;;451            for(i=7; i<256 ; i++){  
 000028  2007              MOVS     r0,#7
 00002a  9019              STR      r0,[sp,#0x64]
 00002c  e00b              B        |L2.70|
                   |L2.46|
-;;;454                Buffer_scanline[i] =  NES_Color_Palette[PPU_Mem.image_palette[0]];   
+;;;452                Buffer_scanline[i] =  NES_Color_Palette[PPU_Mem.image_palette[0]];   
 00002e  48f1              LDR      r0,|L2.1012|
 000030  7f00              LDRB     r0,[r0,#0x1c]  ; PPU_Mem
 000032  49f1              LDR      r1,|L2.1016|
@@ -152,15 +152,15 @@
 000038  4af0              LDR      r2,|L2.1020|
 00003a  9819              LDR      r0,[sp,#0x64]
 00003c  f8221010          STRH     r1,[r2,r0,LSL #1]
-000040  9819              LDR      r0,[sp,#0x64]         ;453
-000042  1c40              ADDS     r0,r0,#1              ;453
-000044  9019              STR      r0,[sp,#0x64]         ;453
+000040  9819              LDR      r0,[sp,#0x64]         ;451
+000042  1c40              ADDS     r0,r0,#1              ;451
+000044  9019              STR      r0,[sp,#0x64]         ;451
                   |L2.70|
-000046  9819              LDR      r0,[sp,#0x64]         ;453
-000048  28ff              CMP      r0,#0xff              ;453
+000046  9819              LDR      r0,[sp,#0x64]         ;451
+000048  28ff              CMP      r0,#0xff              ;451
 00004a  ddf0              BLE      |L2.46|
-;;;455            } 
-;;;456            render_bg_line_fast(y_axes); 
+;;;453            } 
+;;;454            render_bg_line_fast(y_axes); 
 00004c  981a              LDR      r0,[sp,#0x68]
 00004e  9016              STR      r0,[sp,#0x58]
 000050  48e7              LDR      r0,|L2.1008|
@@ -508,18 +508,18 @@
 000342  bf00              NOP      
 000344  f001b993          B.W      |L2.5742|
                   |L2.840|
-;;;457        } else if(PPU_Reg.R1 & (R1_BG_VISIBLE | R1_SPR_VISIBLE)){ 
+;;;455        } else if(PPU_Reg.R1 & (R1_BG_VISIBLE | R1_SPR_VISIBLE)){ 
 000348  4829              LDR      r0,|L2.1008|
 00034a  7840              LDRB     r0,[r0,#1]  ; PPU_Reg
 00034c  f0000018          AND      r0,r0,#0x18
 000350  2800              CMP      r0,#0
 000352  f0018175          BEQ.W    |L2.5696|
-;;;458            for(i=7; i<256 ; i++){  
+;;;456            for(i=7; i<256 ; i++){  
 000356  2007              MOVS     r0,#7
 000358  9019              STR      r0,[sp,#0x64]
 00035a  e00b              B        |L2.884|
                   |L2.860|
-;;;459                Buffer_scanline[i] =  NES_Color_Palette[PPU_Mem.image_palette[0]];   
+;;;457                Buffer_scanline[i] =  NES_Color_Palette[PPU_Mem.image_palette[0]];   
 00035c  4825              LDR      r0,|L2.1012|
 00035e  7f00              LDRB     r0,[r0,#0x1c]  ; PPU_Mem
 000360  4925              LDR      r1,|L2.1016|
@@ -527,16 +527,16 @@
 000366  4a25              LDR      r2,|L2.1020|
 000368  9819              LDR      r0,[sp,#0x64]
 00036a  f8221010          STRH     r1,[r2,r0,LSL #1]
-00036e  9819              LDR      r0,[sp,#0x64]         ;458
-000370  1c40              ADDS     r0,r0,#1              ;458
-000372  9019              STR      r0,[sp,#0x64]         ;458
+00036e  9819              LDR      r0,[sp,#0x64]         ;456
+000370  1c40              ADDS     r0,r0,#1              ;456
+000372  9019              STR      r0,[sp,#0x64]         ;456
                   |L2.884|
-000374  9819              LDR      r0,[sp,#0x64]         ;458
-000376  28ff              CMP      r0,#0xff              ;458
+000374  9819              LDR      r0,[sp,#0x64]         ;456
+000376  28ff              CMP      r0,#0xff              ;456
 000378  ddf0              BLE      |L2.860|
-;;;460            } 
-;;;461    
-;;;462            const int spr_size = PPU_Reg.R0 & R0_SPR_SIZE ? 0x0F : 0x07;
+;;;458            } 
+;;;459    
+;;;460            const int spr_size = PPU_Reg.R0 & R0_SPR_SIZE ? 0x0F : 0x07;
 00037a  481d              LDR      r0,|L2.1008|
 00037c  7800              LDRB     r0,[r0,#0]  ; PPU_Reg
 00037e  f0000020          AND      r0,r0,#0x20
@@ -547,22 +547,22 @@
 000388  2007              MOVS     r0,#7
                   |L2.906|
 00038a  9016              STR      r0,[sp,#0x58]
-;;;463            
-;;;464            if(PPU_Reg.R1 & R1_SPR_VISIBLE){ 
+;;;461            
+;;;462            if(PPU_Reg.R1 & R1_SPR_VISIBLE){ 
 00038c  4818              LDR      r0,|L2.1008|
 00038e  7840              LDRB     r0,[r0,#1]  ; PPU_Reg
 000390  f0000010          AND      r0,r0,#0x10
 000394  2800              CMP      r0,#0
 000396  d07d              BEQ      |L2.1172|
-;;;465                render_spr_num=0; 
+;;;463                render_spr_num=0; 
 000398  2000              MOVS     r0,#0
 00039a  9018              STR      r0,[sp,#0x60]
-;;;466                for(i=63; i>=0; i--){   
+;;;464                for(i=63; i>=0; i--){   
 00039c  203f              MOVS     r0,#0x3f
 00039e  9019              STR      r0,[sp,#0x64]
 0003a0  e3bd              B        |L2.2846|
                   |L2.930|
-;;;467                    if(!(sprite[i].attr & SPR_BG_PRIO)) continue;            //(0=Sprite In front of BG, 1=Sprite Behind BG)   
+;;;465                    if(!(sprite[i].attr & SPR_BG_PRIO)) continue;            //(0=Sprite In front of BG, 1=Sprite Behind BG)   
 0003a2  481a              LDR      r0,|L2.1036|
 0003a4  6801              LDR      r1,[r0,#0]  ; sprite
 0003a6  9819              LDR      r0,[sp,#0x64]
@@ -572,7 +572,7 @@
 0003b2  b900              CBNZ     r0,|L2.950|
 0003b4  e3b0              B        |L2.2840|
                   |L2.950|
-;;;468                    dy_axes = y_axes - (uint8_t)(sprite[i].y + 1);  
+;;;466                    dy_axes = y_axes - (uint8_t)(sprite[i].y + 1);  
 0003b6  4815              LDR      r0,|L2.1036|
 0003b8  6801              LDR      r1,[r0,#0]  ; sprite
 0003ba  9819              LDR      r0,[sp,#0x64]
@@ -582,28 +582,28 @@
 0003c4  981a              LDR      r0,[sp,#0x68]
 0003c6  1a40              SUBS     r0,r0,r1
 0003c8  9017              STR      r0,[sp,#0x5c]
-;;;469                    if(dy_axes != (dy_axes & spr_size)) continue; 
+;;;467                    if(dy_axes != (dy_axes & spr_size)) continue; 
 0003ca  e9dd1016          LDRD     r1,r0,[sp,#0x58]
 0003ce  4001              ANDS     r1,r1,r0
 0003d0  4281              CMP      r1,r0
 0003d2  d000              BEQ      |L2.982|
 0003d4  e3a0              B        |L2.2840|
                   |L2.982|
-;;;470                    render_spr_num++; 
+;;;468                    render_spr_num++; 
 0003d6  9818              LDR      r0,[sp,#0x60]
 0003d8  1c40              ADDS     r0,r0,#1
 0003da  9018              STR      r0,[sp,#0x60]
-;;;471                    if(render_spr_num > 8 ){ 
+;;;469                    if(render_spr_num > 8 ){ 
 0003dc  9818              LDR      r0,[sp,#0x60]
 0003de  2808              CMP      r0,#8
 0003e0  dd16              BLE      |L2.1040|
-;;;472                        PPU_Reg.R2 |= R2_LOST_SPR; 
+;;;470                        PPU_Reg.R2 |= R2_LOST_SPR; 
 0003e2  4803              LDR      r0,|L2.1008|
 0003e4  7880              LDRB     r0,[r0,#2]  ; PPU_Reg
 0003e6  f0400020          ORR      r0,r0,#0x20
 0003ea  4901              LDR      r1,|L2.1008|
 0003ec  7088              STRB     r0,[r1,#2]
-;;;473                        break;   
+;;;471                        break;   
 0003ee  e39a              B        |L2.2854|
                   |L2.1008|
                           DCD      PPU_Reg
@@ -622,14 +622,14 @@
                   |L2.1036|
                           DCD      sprite
                   |L2.1040|
-;;;474                    }   
-;;;475                    if(PPU_Reg.R0 & R0_SPR_SIZE){ 
+;;;472                    }   
+;;;473                    if(PPU_Reg.R0 & R0_SPR_SIZE){ 
 000410  48fa              LDR      r0,|L2.2044|
 000412  7800              LDRB     r0,[r0,#0]  ; PPU_Reg
 000414  f0000020          AND      r0,r0,#0x20
 000418  2800              CMP      r0,#0
 00041a  d07d              BEQ      |L2.1304|
-;;;476                        render_sprite_16(&sprite[i], dy_axes);   
+;;;474                        render_sprite_16(&sprite[i], dy_axes);   
 00041c  48f8              LDR      r0,|L2.2048|
 00041e  6801              LDR      r1,[r0,#0]  ; sprite
 000420  9819              LDR      r0,[sp,#0x64]
@@ -1308,8 +1308,8 @@
 0009a0  bf00              NOP      
 0009a2  e0b8              B        |L2.2838|
                   |L2.2468|
-;;;477                    }else{
-;;;478                        render_sprite_88(&sprite[i], dy_axes);   
+;;;475                    }else{
+;;;476                        render_sprite_88(&sprite[i], dy_axes);   
 0009a4  48a0              LDR      r0,|L2.3112|
 0009a6  6801              LDR      r1,[r0,#0]  ; sprite
 0009a8  9819              LDR      r0,[sp,#0x64]
@@ -1487,36 +1487,36 @@
 000b12  bf00              NOP      
 000b14  bf00              NOP      
                   |L2.2838|
-000b16  bf00              NOP                            ;467
+000b16  bf00              NOP                            ;465
                   |L2.2840|
-000b18  9819              LDR      r0,[sp,#0x64]         ;466
-000b1a  1e40              SUBS     r0,r0,#1              ;466
-000b1c  9019              STR      r0,[sp,#0x64]         ;466
+000b18  9819              LDR      r0,[sp,#0x64]         ;464
+000b1a  1e40              SUBS     r0,r0,#1              ;464
+000b1c  9019              STR      r0,[sp,#0x64]         ;464
                   |L2.2846|
-000b1e  9819              LDR      r0,[sp,#0x64]         ;466
-000b20  2800              CMP      r0,#0                 ;466
+000b1e  9819              LDR      r0,[sp,#0x64]         ;464
+000b20  2800              CMP      r0,#0                 ;464
 000b22  f6bfac3e          BGE      |L2.930|
                   |L2.2854|
-000b26  bf00              NOP                            ;473
+000b26  bf00              NOP                            ;471
                   |L2.2856|
-;;;479                    }   
-;;;480                }      
-;;;481            }   
-;;;482    
-;;;483            if(PPU_Reg.R1 & R1_BG_VISIBLE){  
+;;;477                    }   
+;;;478                }      
+;;;479            }   
+;;;480    
+;;;481            if(PPU_Reg.R1 & R1_BG_VISIBLE){  
 000b28  4840              LDR      r0,|L2.3116|
 000b2a  7840              LDRB     r0,[r0,#1]  ; PPU_Reg
 000b2c  f0000008          AND      r0,r0,#8
 000b30  2800              CMP      r0,#0
 000b32  d071              BEQ      |L2.3096|
-;;;484                gpio_set(LED3); 
+;;;482                gpio_set(LED3); 
 000b34  f44f4000          MOV      r0,#0x8000
 000b38  9012              STR      r0,[sp,#0x48]
 000b3a  493d              LDR      r1,|L2.3120|
 000b3c  9812              LDR      r0,[sp,#0x48]
 000b3e  6188              STR      r0,[r1,#0x18]
 000b40  bf00              NOP      
-;;;485                render_bg_line_fast(y_axes);    
+;;;483                render_bg_line_fast(y_axes);    
 000b42  981a              LDR      r0,[sp,#0x68]
 000b44  9012              STR      r0,[sp,#0x48]
 000b46  4839              LDR      r0,|L2.3116|
@@ -1880,7 +1880,7 @@
 000e56  4288              CMP      r0,r1
 000e58  f77faf6c          BLE      |L2.3380|
 000e5c  bf00              NOP      
-;;;486                gpio_reset(LED3); 
+;;;484                gpio_reset(LED3); 
 000e5e  f44f4000          MOV      r0,#0x8000
 000e62  9012              STR      r0,[sp,#0x48]
 000e64  9812              LDR      r0,[sp,#0x48]
@@ -1890,23 +1890,23 @@
 000e6c  bf00              NOP      
 000e6e  bf00              NOP      
                   |L2.3696|
-;;;487            }   
-;;;488    
-;;;489            if(PPU_Reg.R1 & R1_SPR_VISIBLE){  
+;;;485            }   
+;;;486    
+;;;487            if(PPU_Reg.R1 & R1_SPR_VISIBLE){  
 000e70  488c              LDR      r0,|L2.4260|
 000e72  7840              LDRB     r0,[r0,#1]  ; PPU_Reg
 000e74  f0000010          AND      r0,r0,#0x10
 000e78  2800              CMP      r0,#0
 000e7a  d07d              BEQ      |L2.3960|
-;;;490                render_spr_num=0; 
+;;;488                render_spr_num=0; 
 000e7c  2000              MOVS     r0,#0
 000e7e  9018              STR      r0,[sp,#0x60]
-;;;491                for(i=63; i>=0; i--){ 
+;;;489                for(i=63; i>=0; i--){ 
 000e80  203f              MOVS     r0,#0x3f
 000e82  9019              STR      r0,[sp,#0x64]
 000e84  e3bc              B        |L2.5632|
                   |L2.3718|
-;;;492                    if(sprite[i].attr & SPR_BG_PRIO)    continue;            //(0=Sprite In front of BG, 1=Sprite Behind BG)   
+;;;490                    if(sprite[i].attr & SPR_BG_PRIO)    continue;            //(0=Sprite In front of BG, 1=Sprite Behind BG)   
 000e86  4888              LDR      r0,|L2.4264|
 000e88  6801              LDR      r1,[r0,#0]  ; sprite
 000e8a  9819              LDR      r0,[sp,#0x64]
@@ -1916,7 +1916,7 @@
 000e96  b100              CBZ      r0,|L2.3738|
 000e98  e3af              B        |L2.5626|
                   |L2.3738|
-;;;493                    dy_axes = y_axes - ((int)sprite[i].y + 1);    
+;;;491                    dy_axes = y_axes - ((int)sprite[i].y + 1);    
 000e9a  4883              LDR      r0,|L2.4264|
 000e9c  6801              LDR      r1,[r0,#0]  ; sprite
 000e9e  9819              LDR      r0,[sp,#0x64]
@@ -1925,7 +1925,7 @@
 000ea6  991a              LDR      r1,[sp,#0x68]
 000ea8  1a08              SUBS     r0,r1,r0
 000eaa  9017              STR      r0,[sp,#0x5c]
-;;;494                    if(dy_axes != (dy_axes & spr_size)) continue; 
+;;;492                    if(dy_axes != (dy_axes & spr_size)) continue; 
 000eac  e9dd1016          LDRD     r1,r0,[sp,#0x58]
 000eb0  4008              ANDS     r0,r0,r1
 000eb2  9917              LDR      r1,[sp,#0x5c]
@@ -1933,31 +1933,31 @@
 000eb6  d000              BEQ      |L2.3770|
 000eb8  e39f              B        |L2.5626|
                   |L2.3770|
-;;;495                    render_spr_num++;          
+;;;493                    render_spr_num++;          
 000eba  9818              LDR      r0,[sp,#0x60]
 000ebc  1c40              ADDS     r0,r0,#1
 000ebe  9018              STR      r0,[sp,#0x60]
-;;;496                    if(render_spr_num > 8 ){     
+;;;494                    if(render_spr_num > 8 ){     
 000ec0  9818              LDR      r0,[sp,#0x60]
 000ec2  2808              CMP      r0,#8
 000ec4  dd06              BLE      |L2.3796|
-;;;497                        PPU_Reg.R2 |= R2_LOST_SPR;
+;;;495                        PPU_Reg.R2 |= R2_LOST_SPR;
 000ec6  4877              LDR      r0,|L2.4260|
 000ec8  7880              LDRB     r0,[r0,#2]  ; PPU_Reg
 000eca  f0400020          ORR      r0,r0,#0x20
 000ece  4975              LDR      r1,|L2.4260|
 000ed0  7088              STRB     r0,[r1,#2]
-;;;498                        break;   
+;;;496                        break;   
 000ed2  e399              B        |L2.5640|
                   |L2.3796|
-;;;499                    }   
-;;;500                    if(PPU_Reg.R0 & R0_SPR_SIZE){ 
+;;;497                    }   
+;;;498                    if(PPU_Reg.R0 & R0_SPR_SIZE){ 
 000ed4  4873              LDR      r0,|L2.4260|
 000ed6  7800              LDRB     r0,[r0,#0]  ; PPU_Reg
 000ed8  f0000020          AND      r0,r0,#0x20
 000edc  2800              CMP      r0,#0
 000ede  d07c              BEQ      |L2.4058|
-;;;501                        render_sprite_16(&sprite[i], dy_axes);   
+;;;499                        render_sprite_16(&sprite[i], dy_axes);   
 000ee0  4871              LDR      r0,|L2.4264|
 000ee2  6801              LDR      r1,[r0,#0]  ; sprite
 000ee4  9819              LDR      r0,[sp,#0x64]
@@ -2641,8 +2641,8 @@
 00146e  bf00              NOP      
 001470  e0c2              B        |L2.5624|
                   |L2.5234|
-;;;502                    }else{ 
-;;;503                        render_sprite_88(&sprite[i], dy_axes);   
+;;;500                    }else{ 
+;;;501                        render_sprite_88(&sprite[i], dy_axes);   
 001472  4829              LDR      r0,|L2.5400|
 001474  6801              LDR      r1,[r0,#0]  ; sprite
 001476  9819              LDR      r0,[sp,#0x64]
@@ -2830,41 +2830,41 @@
 0015f4  bf00              NOP      
 0015f6  bf00              NOP      
                   |L2.5624|
-0015f8  bf00              NOP                            ;492
+0015f8  bf00              NOP                            ;490
                   |L2.5626|
-0015fa  9819              LDR      r0,[sp,#0x64]         ;491
-0015fc  1e40              SUBS     r0,r0,#1              ;491
-0015fe  9019              STR      r0,[sp,#0x64]         ;491
+0015fa  9819              LDR      r0,[sp,#0x64]         ;489
+0015fc  1e40              SUBS     r0,r0,#1              ;489
+0015fe  9019              STR      r0,[sp,#0x64]         ;489
                   |L2.5632|
-001600  9819              LDR      r0,[sp,#0x64]         ;491
-001602  2800              CMP      r0,#0                 ;491
+001600  9819              LDR      r0,[sp,#0x64]         ;489
+001602  2800              CMP      r0,#0                 ;489
 001604  f6bfac3f          BGE      |L2.3718|
                   |L2.5640|
-001608  bf00              NOP                            ;498
+001608  bf00              NOP                            ;496
                   |L2.5642|
-;;;504                    }   
-;;;505                }      
-;;;506            }
-;;;507    
-;;;508            //uint64_t* ptr = (void*)&Buffer_scanline[4]; //Should be 8?
-;;;509            //uint64_t* end = (void*)&Buffer_scanline[4+256];
-;;;510            //uint64_t* out = (void*)&DisplayBuffer[y_axes*256];
-;;;511    				uint16_t* ptr = (void*)&Buffer_scanline[4]; //Should be 8?			
+;;;502                    }   
+;;;503                }      
+;;;504            }
+;;;505    
+;;;506            //uint64_t* ptr = (void*)&Buffer_scanline[4]; //Should be 8?
+;;;507            //uint64_t* end = (void*)&Buffer_scanline[4+256];
+;;;508            //uint64_t* out = (void*)&DisplayBuffer[y_axes*256];
+;;;509    				uint16_t* ptr = (void*)&Buffer_scanline[4]; //Should be 8?			
 00160a  481c              LDR      r0,|L2.5756|
 00160c  3008              ADDS     r0,r0,#8
 00160e  9015              STR      r0,[sp,#0x54]
-;;;512    				uint16_t* end = (void*)&Buffer_scanline[4+256];
+;;;510    				uint16_t* end = (void*)&Buffer_scanline[4+256];
 001610  f5007000          ADD      r0,r0,#0x200
 001614  9014              STR      r0,[sp,#0x50]
-;;;513    				uint16_t* out = (void*)&DisplayBuffer[y_axes*256];
+;;;511    				uint16_t* out = (void*)&DisplayBuffer[y_axes*256];
 001616  491a              LDR      r1,|L2.5760|
 001618  981a              LDR      r0,[sp,#0x68]
 00161a  eb012040          ADD      r0,r1,r0,LSL #9
 00161e  9013              STR      r0,[sp,#0x4c]
-;;;514            while (ptr != end) {
+;;;512            while (ptr != end) {
 001620  e009              B        |L2.5686|
                   |L2.5666|
-;;;515                *out++ = *ptr++;
+;;;513                *out++ = *ptr++;
 001622  9815              LDR      r0,[sp,#0x54]
 001624  8801              LDRH     r1,[r0,#0]
 001626  9813              LDR      r0,[sp,#0x4c]
@@ -2876,30 +2876,30 @@
 001632  1c80              ADDS     r0,r0,#2
 001634  9013              STR      r0,[sp,#0x4c]
                   |L2.5686|
-001636  e9dd1014          LDRD     r1,r0,[sp,#0x50]      ;514
-00163a  4288              CMP      r0,r1                 ;514
+001636  e9dd1014          LDRD     r1,r0,[sp,#0x50]      ;512
+00163a  4288              CMP      r0,r1                 ;512
 00163c  d1f1              BNE      |L2.5666|
-;;;516            } 
-;;;517        }else{   
+;;;514            } 
+;;;515        }else{   
 00163e  e016              B        |L2.5742|
                   |L2.5696|
-;;;518            // for(i=8; i<264; i++){   
-;;;519            //     Buffer_scanline[i] = 0;        
-;;;520            // }
-;;;521            uint64_t* out = (void*)&DisplayBuffer[y_axes*256];
+;;;516            // for(i=8; i<264; i++){   
+;;;517            //     Buffer_scanline[i] = 0;        
+;;;518            // }
+;;;519            uint64_t* out = (void*)&DisplayBuffer[y_axes*256];
 001640  490f              LDR      r1,|L2.5760|
 001642  981a              LDR      r0,[sp,#0x68]
 001644  eb012040          ADD      r0,r1,r0,LSL #9
 001648  9016              STR      r0,[sp,#0x58]
-;;;522            uint64_t* end = (void*)&DisplayBuffer[(y_axes+1)*256];
+;;;520            uint64_t* end = (void*)&DisplayBuffer[(y_axes+1)*256];
 00164a  981a              LDR      r0,[sp,#0x68]
 00164c  1c40              ADDS     r0,r0,#1
 00164e  eb012040          ADD      r0,r1,r0,LSL #9
 001652  9015              STR      r0,[sp,#0x54]
-;;;523            while (out != end) {
+;;;521            while (out != end) {
 001654  e006              B        |L2.5732|
                   |L2.5718|
-;;;524                *out++ = 0;
+;;;522                *out++ = 0;
 001656  2200              MOVS     r2,#0
 001658  9816              LDR      r0,[sp,#0x58]
 00165a  6002              STR      r2,[r0,#0]
@@ -2908,22 +2908,22 @@
 001660  3008              ADDS     r0,r0,#8
 001662  9016              STR      r0,[sp,#0x58]
                   |L2.5732|
-001664  e9dd1015          LDRD     r1,r0,[sp,#0x54]      ;523
-001668  4288              CMP      r0,r1                 ;523
+001664  e9dd1015          LDRD     r1,r0,[sp,#0x54]      ;521
+001668  4288              CMP      r0,r1                 ;521
 00166a  d1f4              BNE      |L2.5718|
-;;;525            }    
-;;;526        }   
+;;;523            }    
+;;;524        }   
 00166c  bf00              NOP      
                   |L2.5742|
-;;;527    
-;;;528        // for (int i=0; i<256; i++) { \
-;;;529        //     DisplayBuffer[(y_axes)*256 + i] = Buffer_scanline[8+i]; \
-;;;530        // } 
-;;;531    
-;;;532    }
+;;;525    
+;;;526        // for (int i=0; i<256; i++) { \
+;;;527        //     DisplayBuffer[(y_axes)*256 + i] = Buffer_scanline[8+i]; \
+;;;528        // } 
+;;;529    
+;;;530    }
 00166e  b01b              ADD      sp,sp,#0x6c
 001670  bd00              POP      {pc}
-;;;533       
+;;;531       
                           ENDP
 
 001672  0000              DCW      0x0000
@@ -3285,25 +3285,24 @@
                           AREA ||i.render_bg_line||, CODE, READONLY, ALIGN=2
 
                   render_bg_line PROC
-;;;296    }
-;;;297    static void render_bg_line(int y_axes)   
+;;;295    }
+;;;296    static void render_bg_line(int y_axes)   
 000000  e92d4ff1          PUSH     {r0,r4-r11,lr}
-;;;298    {   
+;;;297    {   
 000004  b092              SUB      sp,sp,#0x48
-;;;299        static int last_y_scroll = 0;
-;;;300        int     i;   
-;;;301        // int     Buffer_LineCnt;
-;;;302        int x_TitleLine;   
-;;;303        uint8_t   H_byte, L_byte, BG_color_num, BG_attr_value;   
-;;;304        uint8_t   _nNameTable =  PPU_Reg.R0 & R0_NAME_TABLE;
+;;;298        int     i;   
+;;;299        // int     Buffer_LineCnt;
+;;;300        int x_TitleLine;   
+;;;301        uint8_t   H_byte, L_byte, BG_color_num, BG_attr_value;   
+;;;302        uint8_t   _nNameTable =  PPU_Reg.R0 & R0_NAME_TABLE;
 000006  4872              LDR      r0,|L5.464|
 000008  7800              LDRB     r0,[r0,#0]  ; PPU_Reg
 00000a  f0000003          AND      r0,r0,#3
 00000e  900f              STR      r0,[sp,#0x3c]
-;;;305        const uint8_t  *BG_Patterntable;   
-;;;306       
-;;;307    //  nNameTable = PPU_BG_NameTableNum; 
-;;;308        BG_Patterntable = PPU_Reg.R0 & BG_PATTERN_ADDR ? PPU_Mem.patterntable1 : PPU_Mem.patterntable0;
+;;;303        const uint8_t  *BG_Patterntable;   
+;;;304       
+;;;305    //  nNameTable = PPU_BG_NameTableNum; 
+;;;306        BG_Patterntable = PPU_Reg.R0 & BG_PATTERN_ADDR ? PPU_Mem.patterntable1 : PPU_Mem.patterntable0;
 000010  486f              LDR      r0,|L5.464|
 000012  7800              LDRB     r0,[r0,#0]  ; PPU_Reg
 000014  f0000010          AND      r0,r0,#0x10
@@ -3316,42 +3315,42 @@
 000022  6840              LDR      r0,[r0,#4]  ; PPU_Mem
                   |L5.36|
 000024  4683              MOV      r11,r0
-;;;309        int _y_scroll = y_axes + PPU_BG_VScrlOrg; 
+;;;307        int _y_scroll = y_axes + PPU_BG_VScrlOrg; 
 000026  496c              LDR      r1,|L5.472|
 000028  7809              LDRB     r1,[r1,#0]  ; PPU_BG_VScrlOrg
 00002a  9812              LDR      r0,[sp,#0x48]
 00002c  4408              ADD      r0,r0,r1
 00002e  900e              STR      r0,[sp,#0x38]
-;;;310        if(_y_scroll > 239){   
+;;;308        if(_y_scroll > 239){   
 000030  980e              LDR      r0,[sp,#0x38]
 000032  28ef              CMP      r0,#0xef
 000034  dd06              BLE      |L5.68|
-;;;311            _y_scroll -= 240;   
+;;;309            _y_scroll -= 240;   
 000036  980e              LDR      r0,[sp,#0x38]
 000038  38f0              SUBS     r0,r0,#0xf0
 00003a  900e              STR      r0,[sp,#0x38]
-;;;312            _nNameTable ^= NAME_TABLE_V_MASK;
+;;;310            _nNameTable ^= NAME_TABLE_V_MASK;
 00003c  980f              LDR      r0,[sp,#0x3c]
 00003e  f0800002          EOR      r0,r0,#2
 000042  900f              STR      r0,[sp,#0x3c]
                   |L5.68|
-;;;313        }   
-;;;314        const uint8_t nNameTable = _nNameTable;
+;;;311        }   
+;;;312        const uint8_t nNameTable = _nNameTable;
 000044  980f              LDR      r0,[sp,#0x3c]
 000046  900d              STR      r0,[sp,#0x34]
-;;;315        const int y_scroll = _y_scroll;
+;;;313        const int y_scroll = _y_scroll;
 000048  980e              LDR      r0,[sp,#0x38]
 00004a  900c              STR      r0,[sp,#0x30]
-;;;316    
-;;;317        uint16_t premap_palette[16] = {0};
+;;;314    
+;;;315        uint16_t premap_palette[16] = {0};
 00004c  2120              MOVS     r1,#0x20
 00004e  a804              ADD      r0,sp,#0x10
 000050  f7fffffe          BL       __aeabi_memclr4
-;;;318        for (int i=0; i<16; i++)
+;;;316        for (int i=0; i<16; i++)
 000054  2000              MOVS     r0,#0
 000056  e009              B        |L5.108|
                   |L5.88|
-;;;319            premap_palette[i] = NES_Color_Palette[PPU_Mem.image_palette[i]];
+;;;317            premap_palette[i] = NES_Color_Palette[PPU_Mem.image_palette[i]];
 000058  495e              LDR      r1,|L5.468|
 00005a  311c              ADDS     r1,r1,#0x1c
 00005c  5c09              LDRB     r1,[r1,r0]
@@ -3359,200 +3358,200 @@
 000060  f8321011          LDRH     r1,[r2,r1,LSL #1]
 000064  aa04              ADD      r2,sp,#0x10
 000066  f8221010          STRH     r1,[r2,r0,LSL #1]
-00006a  1c40              ADDS     r0,r0,#1              ;318
+00006a  1c40              ADDS     r0,r0,#1              ;316
                   |L5.108|
-00006c  2810              CMP      r0,#0x10              ;318
+00006c  2810              CMP      r0,#0x10              ;316
 00006e  dbf3              BLT      |L5.88|
-;;;320    
-;;;321        uint8_t* nNameTablePtr;
-;;;322        const int y_TitleLine = y_scroll >> 3;
+;;;318    
+;;;319        uint8_t* nNameTablePtr;
+;;;320        const int y_TitleLine = y_scroll >> 3;
 000070  980c              LDR      r0,[sp,#0x30]
 000072  10c7              ASRS     r7,r0,#3
-;;;323        const int dy_axes = y_scroll & 0x07;  
+;;;321        const int dy_axes = y_scroll & 0x07;  
 000074  980c              LDR      r0,[sp,#0x30]
 000076  f0000007          AND      r0,r0,#7
 00007a  9003              STR      r0,[sp,#0xc]
-;;;324    //  x_scroll =  PPU_BG_HScrlOrg_Pre;           
-;;;325        const int dx_axes = PPU_BG_HScrlOrg & 0x07;
+;;;322    //  x_scroll =  PPU_BG_HScrlOrg_Pre;           
+;;;323        const int dx_axes = PPU_BG_HScrlOrg & 0x07;
 00007c  4858              LDR      r0,|L5.480|
 00007e  7800              LDRB     r0,[r0,#0]  ; PPU_BG_HScrlOrg
 000080  f0000007          AND      r0,r0,#7
 000084  9002              STR      r0,[sp,#8]
-;;;326        uint16_t* bufptr = &Buffer_scanline[8 - dx_axes];
+;;;324        uint16_t* bufptr = &Buffer_scanline[8 - dx_axes];
 000086  9802              LDR      r0,[sp,#8]
 000088  f1c00008          RSB      r0,r0,#8
 00008c  4955              LDR      r1,|L5.484|
 00008e  eb010840          ADD      r8,r1,r0,LSL #1
-;;;327    
-;;;328        nNameTablePtr = PPU_Mem.name_table[nNameTable];
+;;;325    
+;;;326        nNameTablePtr = PPU_Mem.name_table[nNameTable];
 000092  4850              LDR      r0,|L5.468|
 000094  300c              ADDS     r0,r0,#0xc
 000096  990d              LDR      r1,[sp,#0x34]
 000098  f850a021          LDR      r10,[r0,r1,LSL #2]
-;;;329        for(x_TitleLine = PPU_BG_HScrlOrg >> 3; x_TitleLine < 32; x_TitleLine++){  
+;;;327        for(x_TitleLine = PPU_BG_HScrlOrg >> 3; x_TitleLine < 32; x_TitleLine++){  
 00009c  4850              LDR      r0,|L5.480|
 00009e  7800              LDRB     r0,[r0,#0]  ; PPU_BG_HScrlOrg
 0000a0  10c4              ASRS     r4,r0,#3
 0000a2  e03f              B        |L5.292|
                   |L5.164|
-;;;330            uint32_t BG_TitlePatNum = (nNameTablePtr[(y_TitleLine << 5) + x_TitleLine]<<4) + dy_axes;
+;;;328            uint32_t BG_TitlePatNum = (nNameTablePtr[(y_TitleLine << 5) + x_TitleLine]<<4) + dy_axes;
 0000a4  eb041147          ADD      r1,r4,r7,LSL #5
 0000a8  f81a2001          LDRB     r2,[r10,r1]
 0000ac  9903              LDR      r1,[sp,#0xc]
 0000ae  eb011002          ADD      r0,r1,r2,LSL #4
-;;;331            L_byte = BG_Patterntable[BG_TitlePatNum];
+;;;329            L_byte = BG_Patterntable[BG_TitlePatNum];
 0000b2  f81b1000          LDRB     r1,[r11,r0]
 0000b6  9110              STR      r1,[sp,#0x40]
-;;;332            H_byte = BG_Patterntable[BG_TitlePatNum + 8];         
+;;;330            H_byte = BG_Patterntable[BG_TitlePatNum + 8];         
 0000b8  f1000108          ADD      r1,r0,#8
 0000bc  f81b1001          LDRB     r1,[r11,r1]
 0000c0  9111              STR      r1,[sp,#0x44]
-;;;333            BG_attr_value = nNameTablePtr[960 + ((y_TitleLine >> 2) << 3) + (x_TitleLine >> 2)]; 
+;;;331            BG_attr_value = nNameTablePtr[960 + ((y_TitleLine >> 2) << 3) + (x_TitleLine >> 2)]; 
 0000c2  10b9              ASRS     r1,r7,#2
 0000c4  f44f7270          MOV      r2,#0x3c0
 0000c8  eb0201c1          ADD      r1,r2,r1,LSL #3
 0000cc  eb0101a4          ADD      r1,r1,r4,ASR #2
 0000d0  f81a9001          LDRB     r9,[r10,r1]
-;;;334            BG_attr_value = ((BG_attr_value >> (((y_TitleLine & 2) << 1) | (x_TitleLine & 2))) & 3) << 2;  
+;;;332            BG_attr_value = ((BG_attr_value >> (((y_TitleLine & 2) << 1) | (x_TitleLine & 2))) & 3) << 2;  
 0000d4  f0040102          AND      r1,r4,#2
 0000d8  f0070202          AND      r2,r7,#2
 0000dc  ea410142          ORR      r1,r1,r2,LSL #1
 0000e0  fa49f101          ASR      r1,r9,r1
 0000e4  0789              LSLS     r1,r1,#30
 0000e6  ea4f7911          LSR      r9,r1,#28
-;;;335            for(i=7; i>=0; i--){ 
+;;;333            for(i=7; i>=0; i--){ 
 0000ea  2507              MOVS     r5,#7
 0000ec  e017              B        |L5.286|
                   |L5.238|
-;;;336                BG_color_num = BG_attr_value;   
+;;;334                BG_color_num = BG_attr_value;   
 0000ee  464e              MOV      r6,r9
-;;;337                BG_color_num |=(L_byte >> i) & 1;                
+;;;335                BG_color_num |=(L_byte >> i) & 1;                
 0000f0  9910              LDR      r1,[sp,#0x40]
 0000f2  4129              ASRS     r1,r1,r5
 0000f4  f0010101          AND      r1,r1,#1
 0000f8  430e              ORRS     r6,r6,r1
-;;;338                BG_color_num |=((H_byte >> i) & 1) << 1;   
+;;;336                BG_color_num |=((H_byte >> i) & 1) << 1;   
 0000fa  9911              LDR      r1,[sp,#0x44]
 0000fc  4129              ASRS     r1,r1,r5
 0000fe  f0010101          AND      r1,r1,#1
 000102  ea460641          ORR      r6,r6,r1,LSL #1
-;;;339                if(BG_color_num & 3){
+;;;337                if(BG_color_num & 3){
 000106  f0060103          AND      r1,r6,#3
 00010a  b129              CBZ      r1,|L5.280|
-;;;340                    *bufptr++ =  premap_palette[BG_color_num];   
+;;;338                    *bufptr++ =  premap_palette[BG_color_num];   
 00010c  a904              ADD      r1,sp,#0x10
 00010e  f8311016          LDRH     r1,[r1,r6,LSL #1]
 000112  f8281b02          STRH     r1,[r8],#2
 000116  e001              B        |L5.284|
                   |L5.280|
-;;;341                    // *bufptr++ =  NES_Color_Palette[PPU_Mem.image_palette[BG_color_num]];   
-;;;342                    // Buffer_LineCnt++;   
-;;;343                }else{   
-;;;344                    // Buffer_LineCnt++;  
-;;;345                    bufptr++; 
+;;;339                    // *bufptr++ =  NES_Color_Palette[PPU_Mem.image_palette[BG_color_num]];   
+;;;340                    // Buffer_LineCnt++;   
+;;;341                }else{   
+;;;342                    // Buffer_LineCnt++;  
+;;;343                    bufptr++; 
 000118  f1080802          ADD      r8,r8,#2
                   |L5.284|
-00011c  1e6d              SUBS     r5,r5,#1              ;335
+00011c  1e6d              SUBS     r5,r5,#1              ;333
                   |L5.286|
-00011e  2d00              CMP      r5,#0                 ;335
+00011e  2d00              CMP      r5,#0                 ;333
 000120  dae5              BGE      |L5.238|
-000122  1c64              ADDS     r4,r4,#1              ;329
+000122  1c64              ADDS     r4,r4,#1              ;327
                   |L5.292|
-000124  2c20              CMP      r4,#0x20              ;329
+000124  2c20              CMP      r4,#0x20              ;327
 000126  dbbd              BLT      |L5.164|
-;;;346                }   
-;;;347            }   
-;;;348        } 
-;;;349    
-;;;350        nNameTablePtr = PPU_Mem.name_table[nNameTable ^ NAME_TABLE_H_MASK]; 
+;;;344                }   
+;;;345            }   
+;;;346        } 
+;;;347    
+;;;348        nNameTablePtr = PPU_Mem.name_table[nNameTable ^ NAME_TABLE_H_MASK]; 
 000128  980d              LDR      r0,[sp,#0x34]
 00012a  f0800101          EOR      r1,r0,#1
 00012e  4829              LDR      r0,|L5.468|
 000130  300c              ADDS     r0,r0,#0xc
 000132  f850a021          LDR      r10,[r0,r1,LSL #2]
-;;;351    //  Buffer_LineCnt -= dx_axes;  
-;;;352        int end = (PPU_BG_HScrlOrg >> 3);
+;;;349    //  Buffer_LineCnt -= dx_axes;  
+;;;350        int end = (PPU_BG_HScrlOrg >> 3);
 000136  482a              LDR      r0,|L5.480|
 000138  7800              LDRB     r0,[r0,#0]  ; PPU_BG_HScrlOrg
 00013a  10c0              ASRS     r0,r0,#3
 00013c  9001              STR      r0,[sp,#4]
-;;;353        for (x_TitleLine = 0; x_TitleLine <= end; x_TitleLine++ ){   
+;;;351        for (x_TitleLine = 0; x_TitleLine <= end; x_TitleLine++ ){   
 00013e  2400              MOVS     r4,#0
 000140  e03f              B        |L5.450|
                   |L5.322|
-;;;354            uint32_t BG_TitlePatNum = (nNameTablePtr[(y_TitleLine << 5) + x_TitleLine]<<4) + dy_axes;
+;;;352            uint32_t BG_TitlePatNum = (nNameTablePtr[(y_TitleLine << 5) + x_TitleLine]<<4) + dy_axes;
 000142  eb041147          ADD      r1,r4,r7,LSL #5
 000146  f81a2001          LDRB     r2,[r10,r1]
 00014a  9903              LDR      r1,[sp,#0xc]
 00014c  eb011002          ADD      r0,r1,r2,LSL #4
-;;;355            L_byte = BG_Patterntable[BG_TitlePatNum];
+;;;353            L_byte = BG_Patterntable[BG_TitlePatNum];
 000150  f81b1000          LDRB     r1,[r11,r0]
 000154  9110              STR      r1,[sp,#0x40]
-;;;356            H_byte = BG_Patterntable[BG_TitlePatNum + 8];         
+;;;354            H_byte = BG_Patterntable[BG_TitlePatNum + 8];         
 000156  f1000108          ADD      r1,r0,#8
 00015a  f81b1001          LDRB     r1,[r11,r1]
 00015e  9111              STR      r1,[sp,#0x44]
-;;;357            BG_attr_value = nNameTablePtr[960 + ((y_TitleLine >> 2) << 3) + (x_TitleLine >> 2)]; 
+;;;355            BG_attr_value = nNameTablePtr[960 + ((y_TitleLine >> 2) << 3) + (x_TitleLine >> 2)]; 
 000160  10b9              ASRS     r1,r7,#2
 000162  f44f7270          MOV      r2,#0x3c0
 000166  eb0201c1          ADD      r1,r2,r1,LSL #3
 00016a  eb0101a4          ADD      r1,r1,r4,ASR #2
 00016e  f81a9001          LDRB     r9,[r10,r1]
-;;;358            BG_attr_value = ((BG_attr_value >> (((y_TitleLine & 2) << 1) | (x_TitleLine & 2))) & 3) << 2;  
+;;;356            BG_attr_value = ((BG_attr_value >> (((y_TitleLine & 2) << 1) | (x_TitleLine & 2))) & 3) << 2;  
 000172  f0040102          AND      r1,r4,#2
 000176  f0070202          AND      r2,r7,#2
 00017a  ea410142          ORR      r1,r1,r2,LSL #1
 00017e  fa49f101          ASR      r1,r9,r1
 000182  0789              LSLS     r1,r1,#30
 000184  ea4f7911          LSR      r9,r1,#28
-;;;359            for(i=7; i>=0; i--){ 
+;;;357            for(i=7; i>=0; i--){ 
 000188  2507              MOVS     r5,#7
 00018a  e017              B        |L5.444|
                   |L5.396|
-;;;360                BG_color_num = BG_attr_value;   
+;;;358                BG_color_num = BG_attr_value;   
 00018c  464e              MOV      r6,r9
-;;;361                BG_color_num |=(L_byte >> i) & 1;                
+;;;359                BG_color_num |=(L_byte >> i) & 1;                
 00018e  9910              LDR      r1,[sp,#0x40]
 000190  4129              ASRS     r1,r1,r5
 000192  f0010101          AND      r1,r1,#1
 000196  430e              ORRS     r6,r6,r1
-;;;362                BG_color_num |=((H_byte >> i) & 1) << 1;   
+;;;360                BG_color_num |=((H_byte >> i) & 1) << 1;   
 000198  9911              LDR      r1,[sp,#0x44]
 00019a  4129              ASRS     r1,r1,r5
 00019c  f0010101          AND      r1,r1,#1
 0001a0  ea460641          ORR      r6,r6,r1,LSL #1
-;;;363                if(BG_color_num & 3){
+;;;361                if(BG_color_num & 3){
 0001a4  f0060103          AND      r1,r6,#3
 0001a8  b129              CBZ      r1,|L5.438|
-;;;364                    *bufptr++ = premap_palette[BG_color_num];   
+;;;362                    *bufptr++ = premap_palette[BG_color_num];   
 0001aa  a904              ADD      r1,sp,#0x10
 0001ac  f8311016          LDRH     r1,[r1,r6,LSL #1]
 0001b0  f8281b02          STRH     r1,[r8],#2
 0001b4  e001              B        |L5.442|
                   |L5.438|
-;;;365                    // *bufptr++ = NES_Color_Palette[PPU_Mem.image_palette[BG_color_num]];   
-;;;366                    // Buffer_LineCnt++;   
-;;;367                }else{   
-;;;368                    // Buffer_LineCnt++;  
-;;;369                    bufptr++; 
+;;;363                    // *bufptr++ = NES_Color_Palette[PPU_Mem.image_palette[BG_color_num]];   
+;;;364                    // Buffer_LineCnt++;   
+;;;365                }else{   
+;;;366                    // Buffer_LineCnt++;  
+;;;367                    bufptr++; 
 0001b6  f1080802          ADD      r8,r8,#2
                   |L5.442|
-0001ba  1e6d              SUBS     r5,r5,#1              ;359
+0001ba  1e6d              SUBS     r5,r5,#1              ;357
                   |L5.444|
-0001bc  2d00              CMP      r5,#0                 ;359
+0001bc  2d00              CMP      r5,#0                 ;357
 0001be  dae5              BGE      |L5.396|
-0001c0  1c64              ADDS     r4,r4,#1              ;353
+0001c0  1c64              ADDS     r4,r4,#1              ;351
                   |L5.450|
-0001c2  9801              LDR      r0,[sp,#4]            ;353
-0001c4  4284              CMP      r4,r0                 ;353
+0001c2  9801              LDR      r0,[sp,#4]            ;351
+0001c4  4284              CMP      r4,r0                 ;351
 0001c6  ddbc              BLE      |L5.322|
-;;;370                }   
-;;;371            }   
-;;;372        }   
-;;;373    }   
+;;;368                }   
+;;;369            }   
+;;;370        }   
+;;;371    }   
 0001c8  b013              ADD      sp,sp,#0x4c
 0001ca  e8bd8ff0          POP      {r4-r11,pc}
-;;;374    
+;;;372    
                           ENDP
 
 0001ce  0000              DCW      0x0000
@@ -3657,11 +3656,7 @@
                   PPU_BG_VScrlOrg
 00000c  00                DCB      0x00
                   PPU_BG_HScrlOrg
-00000d  000000            DCB      0x00,0x00,0x00
-                  last_y_scroll
-                          DCD      0x00000000
-                  |symbol_number.41|
-                          DCD      0x00000000
+00000d  00                DCB      0x00
 
 ;*** Start embedded assembler ***
 

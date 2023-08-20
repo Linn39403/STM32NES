@@ -79,6 +79,7 @@
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
+uint32_t joypad_update(void) ;
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -168,8 +169,8 @@ int main(void)
   MX_ADC1_Init();
   MX_SPI5_Init();
   MX_USART2_UART_Init();
-  MX_TIM13_Init();
-  MX_DAC_Init();
+  //MX_TIM13_Init();
+  //MX_DAC_Init();
   MX_TIM14_Init();
   MX_TIM12_Init();
   MX_TIM11_Init();
@@ -177,7 +178,7 @@ int main(void)
   MX_TIM9_Init();
   MX_TIM6_Init();
   MX_TIM7_Init();
-  MX_SDIO_SD_Init();
+  //MX_SDIO_SD_Init();
   /* USER CODE BEGIN 2 */
   tft_init(PIN_ON_LEFT, BLACK, WHITE, GREEN, RED);
   // IMU_enableAccel(50);
@@ -187,11 +188,7 @@ int main(void)
   TIM6->PSC = 83;
   TIM6->ARR = 33333;
   TIM6->CR1 = TIM_CR1_CEN;
-  //LCD backlight PWM
-  TIM13->PSC = 8399;
-  TIM13->ARR = 99;
-  TIM13->CCR1 = 10;
-  TIM13->CR1 = TIM_CR1_CEN;
+
 
   joypad_assignments[idx_from_mask(BTN_R1)]    = ASSIGN_RIGHT;
   joypad_assignments[idx_from_mask(BTN_D1)]    = ASSIGN_DOWN;
@@ -323,17 +320,7 @@ int main(void)
       gpio_toggle(LED2);
       last_blink = get_ticks();
     }
-
-    static uint32_t last_bright = 0;
-    if ((get_ticks() - last_bright) > 50) {
-      if (btn_pressed(BTN_X2)) TIM13->CCR1+= 3;
-      TIM13->CCR1%= 100;
-      last_bright = get_ticks();
-    }
-
-    //if (btn_clicked(BTN_X1)) 
-      //toggleIMUControl();
-
+		
     if (btn_clicked(BTN_X3)) {
       GAME_SELECT++;
       GAME_SELECT %= 3;
@@ -341,26 +328,20 @@ int main(void)
     if (btn_clicked(BTN_X4)) {
       nes_init(rom_select(GAME_SELECT));
 
-      while (1) {
-        if ((get_ticks() - last_bright) > 50) {
-          if (btn_pressed(BTN_X2)) TIM13->CCR1+= 3;
-          TIM13->CCR1 %= 100;
-          last_bright = get_ticks();
-        }
-        if (TIM6->SR & TIM_SR_UIF) {
+      while (1) 
+			{	
+        if (TIM6->SR & TIM_SR_UIF) 
+				{
           //IMU_dataAvailable();
           joypad_update();
-
           TIM6->SR = 0;
-          nes_frame(0);
-          // gpio_toggle(LED1);
+          nes_frame(0);;
           nes_frame(1);
-          // gpio_toggle(LED1);
-          if (btn_clicked(BTN_X3)) cpu_reset();
-          gpio_set(LED2);
-        } else {
-          gpio_reset(LED2);
-        }
+          if (btn_clicked(BTN_X3))
+					{
+						cpu_reset();
+					}
+        } 
       }
     }
     last_joypad_state = joypad_state;

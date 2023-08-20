@@ -258,7 +258,7 @@
 000118  a901              ADD      r1,sp,#4
 00011a  4806              LDR      r0,|L3.308|
 00011c  f7fffffe          BL       LL_GPIO_Init
-;;;154    	LCD_CS_LOW();
+;;;154    	LCD_CS_LOW();  /* Chip Sel pin must be always low */
 000120  4804              LDR      r0,|L3.308|
 000122  3018              ADDS     r0,r0,#0x18
 000124  6800              LDR      r0,[r0,#0]
@@ -266,10 +266,11 @@
 00012a  4902              LDR      r1,|L3.308|
 00012c  3118              ADDS     r1,r1,#0x18
 00012e  6008              STR      r0,[r1,#0]
-;;;155    }
+;;;155    	
+;;;156    }
 000130  b007              ADD      sp,sp,#0x1c
 000132  bd00              POP      {pc}
-;;;156    
+;;;157    
                           ENDP
 
                   |L3.308|

@@ -23994,122 +23994,122 @@
                           AREA ||i.joypad_read||, CODE, READONLY, ALIGN=2
 
                   joypad_read PROC
-;;;58     #define JOYPAD_BTN_READ(A, B) case A: return (joypad_state & B) != 0;
-;;;59     uint8_t joypad_read(uint8_t n) {
+;;;72     #define JOYPAD_BTN_READ(A, B) case A: return (joypad_state & B) != 0;
+;;;73     uint8_t joypad_read(uint8_t n) {
 000000  4601              MOV      r1,r0
-;;;60     	if (n==1) return 0;
+;;;74     	if (n==1) return 0;
 000002  2901              CMP      r1,#1
 000004  d101              BNE      |L97.10|
 000006  2000              MOVS     r0,#0
                   |L97.8|
-;;;61     	// if (joypad_strobe) return joypad_A();
-;;;62     	switch (joypad_read_state[n]++) {
-;;;63     		JOYPAD_BTN_TABLE(JOYPAD_BTN_READ)
-;;;64     		default: return 0;
-;;;65     	}
-;;;66     }
+;;;75     	// if (joypad_strobe) return joypad_A();
+;;;76     	switch (joypad_read_state[n]++) {
+;;;77     		JOYPAD_BTN_TABLE(JOYPAD_BTN_READ)
+;;;78     		default: return 0;
+;;;79     	}
+;;;80     }
 000008  4770              BX       lr
                   |L97.10|
 00000a  4a2f              LDR      r2,|L97.200|
-00000c  5c50              LDRB     r0,[r2,r1]            ;62
-00000e  1c42              ADDS     r2,r0,#1              ;62
+00000c  5c50              LDRB     r0,[r2,r1]            ;76
+00000e  1c42              ADDS     r2,r0,#1              ;76
 000010  4b2d              LDR      r3,|L97.200|
-000012  545a              STRB     r2,[r3,r1]            ;62
-000014  2808              CMP      r0,#8                 ;62
+000012  545a              STRB     r2,[r3,r1]            ;76
+000014  2808              CMP      r0,#8                 ;76
 000016  d255              BCS      |L97.196|
-000018  e8dff000          TBB      [pc,r0]               ;62
+000018  e8dff000          TBB      [pc,r0]               ;76
 00001c  040e1822          DCB      0x04,0x0e,0x18,0x22
 000020  2c36404a          DCB      0x2c,0x36,0x40,0x4a
 000024  4829              LDR      r0,|L97.204|
-000026  6800              LDR      r0,[r0,#0]            ;63  ; joypad_state
+000026  6800              LDR      r0,[r0,#0]            ;77  ; joypad_state
 000028  4a29              LDR      r2,|L97.208|
-00002a  6812              LDR      r2,[r2,#0]            ;63  ; joypad_A
-00002c  4010              ANDS     r0,r0,r2              ;63
+00002a  6812              LDR      r2,[r2,#0]            ;77  ; joypad_A
+00002c  4010              ANDS     r0,r0,r2              ;77
 00002e  b108              CBZ      r0,|L97.52|
-000030  2001              MOVS     r0,#1                 ;63
+000030  2001              MOVS     r0,#1                 ;77
 000032  e7e9              B        |L97.8|
                   |L97.52|
-000034  2000              MOVS     r0,#0                 ;63
+000034  2000              MOVS     r0,#0                 ;77
 000036  e7e7              B        |L97.8|
 000038  4824              LDR      r0,|L97.204|
-00003a  6800              LDR      r0,[r0,#0]            ;63  ; joypad_state
+00003a  6800              LDR      r0,[r0,#0]            ;77  ; joypad_state
 00003c  4a25              LDR      r2,|L97.212|
-00003e  6812              LDR      r2,[r2,#0]            ;63  ; joypad_B
-000040  4010              ANDS     r0,r0,r2              ;63
+00003e  6812              LDR      r2,[r2,#0]            ;77  ; joypad_B
+000040  4010              ANDS     r0,r0,r2              ;77
 000042  b108              CBZ      r0,|L97.72|
-000044  2001              MOVS     r0,#1                 ;63
+000044  2001              MOVS     r0,#1                 ;77
 000046  e7df              B        |L97.8|
                   |L97.72|
-000048  2000              MOVS     r0,#0                 ;63
+000048  2000              MOVS     r0,#0                 ;77
 00004a  e7dd              B        |L97.8|
 00004c  481f              LDR      r0,|L97.204|
-00004e  6800              LDR      r0,[r0,#0]            ;63  ; joypad_state
+00004e  6800              LDR      r0,[r0,#0]            ;77  ; joypad_state
 000050  4a21              LDR      r2,|L97.216|
-000052  6812              LDR      r2,[r2,#0]            ;63  ; joypad_SEL
-000054  4010              ANDS     r0,r0,r2              ;63
+000052  6812              LDR      r2,[r2,#0]            ;77  ; joypad_SEL
+000054  4010              ANDS     r0,r0,r2              ;77
 000056  b108              CBZ      r0,|L97.92|
-000058  2001              MOVS     r0,#1                 ;63
+000058  2001              MOVS     r0,#1                 ;77
 00005a  e7d5              B        |L97.8|
                   |L97.92|
-00005c  2000              MOVS     r0,#0                 ;63
+00005c  2000              MOVS     r0,#0                 ;77
 00005e  e7d3              B        |L97.8|
 000060  481a              LDR      r0,|L97.204|
-000062  6800              LDR      r0,[r0,#0]            ;63  ; joypad_state
+000062  6800              LDR      r0,[r0,#0]            ;77  ; joypad_state
 000064  4a1d              LDR      r2,|L97.220|
-000066  6812              LDR      r2,[r2,#0]            ;63  ; joypad_START
-000068  4010              ANDS     r0,r0,r2              ;63
+000066  6812              LDR      r2,[r2,#0]            ;77  ; joypad_START
+000068  4010              ANDS     r0,r0,r2              ;77
 00006a  b108              CBZ      r0,|L97.112|
-00006c  2001              MOVS     r0,#1                 ;63
+00006c  2001              MOVS     r0,#1                 ;77
 00006e  e7cb              B        |L97.8|
                   |L97.112|
-000070  2000              MOVS     r0,#0                 ;63
+000070  2000              MOVS     r0,#0                 ;77
 000072  e7c9              B        |L97.8|
 000074  4815              LDR      r0,|L97.204|
-000076  6800              LDR      r0,[r0,#0]            ;63  ; joypad_state
+000076  6800              LDR      r0,[r0,#0]            ;77  ; joypad_state
 000078  4a19              LDR      r2,|L97.224|
-00007a  6812              LDR      r2,[r2,#0]            ;63  ; joypad_U
-00007c  4010              ANDS     r0,r0,r2              ;63
+00007a  6812              LDR      r2,[r2,#0]            ;77  ; joypad_U
+00007c  4010              ANDS     r0,r0,r2              ;77
 00007e  b108              CBZ      r0,|L97.132|
-000080  2001              MOVS     r0,#1                 ;63
+000080  2001              MOVS     r0,#1                 ;77
 000082  e7c1              B        |L97.8|
                   |L97.132|
-000084  2000              MOVS     r0,#0                 ;63
+000084  2000              MOVS     r0,#0                 ;77
 000086  e7bf              B        |L97.8|
 000088  4810              LDR      r0,|L97.204|
-00008a  6800              LDR      r0,[r0,#0]            ;63  ; joypad_state
+00008a  6800              LDR      r0,[r0,#0]            ;77  ; joypad_state
 00008c  4a15              LDR      r2,|L97.228|
-00008e  6812              LDR      r2,[r2,#0]            ;63  ; joypad_D
-000090  4010              ANDS     r0,r0,r2              ;63
+00008e  6812              LDR      r2,[r2,#0]            ;77  ; joypad_D
+000090  4010              ANDS     r0,r0,r2              ;77
 000092  b108              CBZ      r0,|L97.152|
-000094  2001              MOVS     r0,#1                 ;63
+000094  2001              MOVS     r0,#1                 ;77
 000096  e7b7              B        |L97.8|
                   |L97.152|
-000098  2000              MOVS     r0,#0                 ;63
+000098  2000              MOVS     r0,#0                 ;77
 00009a  e7b5              B        |L97.8|
 00009c  480b              LDR      r0,|L97.204|
-00009e  6800              LDR      r0,[r0,#0]            ;63  ; joypad_state
+00009e  6800              LDR      r0,[r0,#0]            ;77  ; joypad_state
 0000a0  4a11              LDR      r2,|L97.232|
-0000a2  6812              LDR      r2,[r2,#0]            ;63  ; joypad_L
-0000a4  4010              ANDS     r0,r0,r2              ;63
+0000a2  6812              LDR      r2,[r2,#0]            ;77  ; joypad_L
+0000a4  4010              ANDS     r0,r0,r2              ;77
 0000a6  b108              CBZ      r0,|L97.172|
-0000a8  2001              MOVS     r0,#1                 ;63
+0000a8  2001              MOVS     r0,#1                 ;77
 0000aa  e7ad              B        |L97.8|
                   |L97.172|
-0000ac  2000              MOVS     r0,#0                 ;63
+0000ac  2000              MOVS     r0,#0                 ;77
 0000ae  e7ab              B        |L97.8|
 0000b0  4806              LDR      r0,|L97.204|
-0000b2  6800              LDR      r0,[r0,#0]            ;63  ; joypad_state
+0000b2  6800              LDR      r0,[r0,#0]            ;77  ; joypad_state
 0000b4  4a0d              LDR      r2,|L97.236|
-0000b6  6812              LDR      r2,[r2,#0]            ;63  ; joypad_R
-0000b8  4010              ANDS     r0,r0,r2              ;63
+0000b6  6812              LDR      r2,[r2,#0]            ;77  ; joypad_R
+0000b8  4010              ANDS     r0,r0,r2              ;77
 0000ba  b108              CBZ      r0,|L97.192|
-0000bc  2001              MOVS     r0,#1                 ;63
+0000bc  2001              MOVS     r0,#1                 ;77
 0000be  e7a3              B        |L97.8|
                   |L97.192|
-0000c0  2000              MOVS     r0,#0                 ;63
+0000c0  2000              MOVS     r0,#0                 ;77
 0000c2  e7a1              B        |L97.8|
                   |L97.196|
-0000c4  2000              MOVS     r0,#0                 ;64
+0000c4  2000              MOVS     r0,#0                 ;78
 0000c6  e79f              B        |L97.8|
 ;;;4      #include "ppu.h" 
                           ENDP
@@ -24139,155 +24139,148 @@
 
                   joypad_update PROC
 ;;;5      // static __forceinline 
-;;;6      uint32_t joypad_update() {
-000000  b510              PUSH     {r4,lr}
-;;;7      	uint32_t state = BUTTONS & 0xFFFF;
-000002  4832              LDR      r0,|L98.204|
-000004  6900              LDR      r0,[r0,#0x10]
-000006  43c0              MVNS     r0,r0
-000008  b284              UXTH     r4,r0
-;;;8      	state |= (joys.x0 > 3072)  << 16;
-00000a  4831              LDR      r0,|L98.208|
-00000c  8800              LDRH     r0,[r0,#0]  ; joys
-00000e  f5b06f40          CMP      r0,#0xc00
-000012  dd01              BLE      |L98.24|
-000014  2001              MOVS     r0,#1
-000016  e000              B        |L98.26|
+;;;6      uint32_t joypad_update(void) 
+000000  492b              LDR      r1,|L98.176|
+;;;7      {
+;;;8      	uint32_t state = BUTTONS & 0xFFFF;
+000002  6909              LDR      r1,[r1,#0x10]
+000004  43c9              MVNS     r1,r1
+000006  b288              UXTH     r0,r1
+;;;9      	state |= (joys.x0 > 3072)  << 16;
+000008  492a              LDR      r1,|L98.180|
+00000a  8809              LDRH     r1,[r1,#0]  ; joys
+00000c  f5b16f40          CMP      r1,#0xc00
+000010  dd01              BLE      |L98.22|
+000012  2101              MOVS     r1,#1
+000014  e000              B        |L98.24|
+                  |L98.22|
+000016  2100              MOVS     r1,#0
                   |L98.24|
-000018  2000              MOVS     r0,#0
-                  |L98.26|
-00001a  ea444400          ORR      r4,r4,r0,LSL #16
-;;;9      	state |= (joys.x0 < 1024)  << 17;
-00001e  482c              LDR      r0,|L98.208|
-000020  8800              LDRH     r0,[r0,#0]  ; joys
-000022  f5b06f80          CMP      r0,#0x400
-000026  da01              BGE      |L98.44|
-000028  2001              MOVS     r0,#1
-00002a  e000              B        |L98.46|
+000018  ea404001          ORR      r0,r0,r1,LSL #16
+;;;10     	state |= (joys.x0 < 1024)  << 17;
+00001c  4925              LDR      r1,|L98.180|
+00001e  8809              LDRH     r1,[r1,#0]  ; joys
+000020  f5b16f80          CMP      r1,#0x400
+000024  da01              BGE      |L98.42|
+000026  2101              MOVS     r1,#1
+000028  e000              B        |L98.44|
+                  |L98.42|
+00002a  2100              MOVS     r1,#0
                   |L98.44|
-00002c  2000              MOVS     r0,#0
-                  |L98.46|
-00002e  ea444440          ORR      r4,r4,r0,LSL #17
-;;;10     	state |= (joys.y0 > 3072)  << 18;
-000032  4827              LDR      r0,|L98.208|
-000034  8840              LDRH     r0,[r0,#2]  ; joys
-000036  f5b06f40          CMP      r0,#0xc00
-00003a  dd01              BLE      |L98.64|
-00003c  2001              MOVS     r0,#1
-00003e  e000              B        |L98.66|
+00002c  ea404041          ORR      r0,r0,r1,LSL #17
+;;;11     	state |= (joys.y0 > 3072)  << 18;
+000030  4920              LDR      r1,|L98.180|
+000032  8849              LDRH     r1,[r1,#2]  ; joys
+000034  f5b16f40          CMP      r1,#0xc00
+000038  dd01              BLE      |L98.62|
+00003a  2101              MOVS     r1,#1
+00003c  e000              B        |L98.64|
+                  |L98.62|
+00003e  2100              MOVS     r1,#0
                   |L98.64|
-000040  2000              MOVS     r0,#0
-                  |L98.66|
-000042  ea444480          ORR      r4,r4,r0,LSL #18
-;;;11     	state |= (joys.y0 < 1024)  << 19;
-000046  4822              LDR      r0,|L98.208|
-000048  8840              LDRH     r0,[r0,#2]  ; joys
-00004a  f5b06f80          CMP      r0,#0x400
-00004e  da01              BGE      |L98.84|
-000050  2001              MOVS     r0,#1
-000052  e000              B        |L98.86|
+000040  ea404081          ORR      r0,r0,r1,LSL #18
+;;;12     	state |= (joys.y0 < 1024)  << 19;
+000044  491b              LDR      r1,|L98.180|
+000046  8849              LDRH     r1,[r1,#2]  ; joys
+000048  f5b16f80          CMP      r1,#0x400
+00004c  da01              BGE      |L98.82|
+00004e  2101              MOVS     r1,#1
+000050  e000              B        |L98.84|
+                  |L98.82|
+000052  2100              MOVS     r1,#0
                   |L98.84|
-000054  2000              MOVS     r0,#0
-                  |L98.86|
-000056  ea4444c0          ORR      r4,r4,r0,LSL #19
-;;;12     	state |= (joys.x1 > 3072)  << 20;
-00005a  481d              LDR      r0,|L98.208|
-00005c  88c0              LDRH     r0,[r0,#6]  ; joys
-00005e  f5b06f40          CMP      r0,#0xc00
-000062  dd01              BLE      |L98.104|
-000064  2001              MOVS     r0,#1
-000066  e000              B        |L98.106|
+000054  ea4040c1          ORR      r0,r0,r1,LSL #19
+;;;13     	state |= (joys.x1 > 3072)  << 20;
+000058  4916              LDR      r1,|L98.180|
+00005a  88c9              LDRH     r1,[r1,#6]  ; joys
+00005c  f5b16f40          CMP      r1,#0xc00
+000060  dd01              BLE      |L98.102|
+000062  2101              MOVS     r1,#1
+000064  e000              B        |L98.104|
+                  |L98.102|
+000066  2100              MOVS     r1,#0
                   |L98.104|
-000068  2000              MOVS     r0,#0
-                  |L98.106|
-00006a  ea445400          ORR      r4,r4,r0,LSL #20
-;;;13     	state |= (joys.x1 < 1024)  << 21;
-00006e  4818              LDR      r0,|L98.208|
-000070  88c0              LDRH     r0,[r0,#6]  ; joys
-000072  f5b06f80          CMP      r0,#0x400
-000076  da01              BGE      |L98.124|
-000078  2001              MOVS     r0,#1
-00007a  e000              B        |L98.126|
+000068  ea405001          ORR      r0,r0,r1,LSL #20
+;;;14     	state |= (joys.x1 < 1024)  << 21;
+00006c  4911              LDR      r1,|L98.180|
+00006e  88c9              LDRH     r1,[r1,#6]  ; joys
+000070  f5b16f80          CMP      r1,#0x400
+000074  da01              BGE      |L98.122|
+000076  2101              MOVS     r1,#1
+000078  e000              B        |L98.124|
+                  |L98.122|
+00007a  2100              MOVS     r1,#0
                   |L98.124|
-00007c  2000              MOVS     r0,#0
-                  |L98.126|
-00007e  ea445440          ORR      r4,r4,r0,LSL #21
-;;;14     	state |= (joys.y1 > 3072)  << 22;
-000082  4813              LDR      r0,|L98.208|
-000084  8880              LDRH     r0,[r0,#4]  ; joys
-000086  f5b06f40          CMP      r0,#0xc00
-00008a  dd01              BLE      |L98.144|
-00008c  2001              MOVS     r0,#1
-00008e  e000              B        |L98.146|
+00007c  ea405041          ORR      r0,r0,r1,LSL #21
+;;;15     	state |= (joys.y1 > 3072)  << 22;
+000080  490c              LDR      r1,|L98.180|
+000082  8889              LDRH     r1,[r1,#4]  ; joys
+000084  f5b16f40          CMP      r1,#0xc00
+000088  dd01              BLE      |L98.142|
+00008a  2101              MOVS     r1,#1
+00008c  e000              B        |L98.144|
+                  |L98.142|
+00008e  2100              MOVS     r1,#0
                   |L98.144|
-000090  2000              MOVS     r0,#0
-                  |L98.146|
-000092  ea445480          ORR      r4,r4,r0,LSL #22
-;;;15     	state |= (joys.y1 < 1024)  << 23;
-000096  480e              LDR      r0,|L98.208|
-000098  8880              LDRH     r0,[r0,#4]  ; joys
-00009a  f5b06f80          CMP      r0,#0x400
-00009e  da01              BGE      |L98.164|
-0000a0  2001              MOVS     r0,#1
-0000a2  e000              B        |L98.166|
+000090  ea405081          ORR      r0,r0,r1,LSL #22
+;;;16     	state |= (joys.y1 < 1024)  << 23;
+000094  4907              LDR      r1,|L98.180|
+000096  8889              LDRH     r1,[r1,#4]  ; joys
+000098  f5b16f80          CMP      r1,#0x400
+00009c  da01              BGE      |L98.162|
+00009e  2101              MOVS     r1,#1
+0000a0  e000              B        |L98.164|
+                  |L98.162|
+0000a2  2100              MOVS     r1,#0
                   |L98.164|
-0000a4  2000              MOVS     r0,#0
-                  |L98.166|
-0000a6  ea4454c0          ORR      r4,r4,r0,LSL #23
-;;;16     	state |= (getAccelLeft())  << 24;
-0000aa  f7fffffe          BL       getAccelLeft
-0000ae  ea446400          ORR      r4,r4,r0,LSL #24
-;;;17     	state |= (getAccelRight()) << 25;
-0000b2  f7fffffe          BL       getAccelRight
-0000b6  ea446440          ORR      r4,r4,r0,LSL #25
-;;;18     	state |= (getAccelFlick()) << 26;
-0000ba  f7fffffe          BL       getAccelFlick
-0000be  ea446480          ORR      r4,r4,r0,LSL #26
-;;;19     	joypad_state = state;
-0000c2  4804              LDR      r0,|L98.212|
-0000c4  6004              STR      r4,[r0,#0]  ; joypad_state
-;;;20     	return state;
-0000c6  4620              MOV      r0,r4
-;;;21     }
-0000c8  bd10              POP      {r4,pc}
-;;;22     
+0000a4  ea4050c1          ORR      r0,r0,r1,LSL #23
+;;;17     	//state |= (getAccelLeft())  << 24; //disable the IMU
+;;;18     	//state |= (getAccelRight()) << 25;
+;;;19     	//state |= (getAccelFlick()) << 26;
+;;;20     	joypad_state = state;
+0000a8  4903              LDR      r1,|L98.184|
+0000aa  6008              STR      r0,[r1,#0]  ; joypad_state
+;;;21     	return state;
+;;;22     }
+0000ac  4770              BX       lr
+;;;23     
                           ENDP
 
-0000ca  0000              DCW      0x0000
-                  |L98.204|
+0000ae  0000              DCW      0x0000
+                  |L98.176|
                           DCD      0x40021000
-                  |L98.208|
+                  |L98.180|
                           DCD      joys
-                  |L98.212|
+                  |L98.184|
                           DCD      joypad_state
 
                           AREA ||i.joypad_write||, CODE, READONLY, ALIGN=2
 
                   joypad_write PROC
-;;;48     };
-;;;49     void joypad_write(uint8_t n, uint8_t v) {
-000000  b570              PUSH     {r4-r6,lr}
-000002  4604              MOV      r4,r0
-000004  460d              MOV      r5,r1
-;;;50     	// if (joypad_strobe[n] && !v) {
-;;;51     	if (v) {
-000006  b135              CBZ      r5,|L99.22|
-;;;52     		joypad_read_state[n] = 0;
+;;;62     };
+;;;63     void joypad_write(uint8_t n, uint8_t v) {
+000000  b500              PUSH     {lr}
+000002  4602              MOV      r2,r0
+000004  460b              MOV      r3,r1
+;;;64     	// if (joypad_strobe[n] && !v) {
+;;;65     	if (v) {
+000006  b133              CBZ      r3,|L99.22|
+;;;66     		joypad_read_state[n] = 0;
 000008  2000              MOVS     r0,#0
 00000a  4904              LDR      r1,|L99.28|
-00000c  5508              STRB     r0,[r1,r4]
-;;;53     		joypad_state = joypad_update();
+00000c  5488              STRB     r0,[r1,r2]
+;;;67     		joypad_state = joypad_update();
 00000e  f7fffffe          BL       joypad_update
 000012  4903              LDR      r1,|L99.32|
 000014  6008              STR      r0,[r1,#0]  ; joypad_state
                   |L99.22|
-;;;54     	}
-;;;55     	joypad_strobe[n] = v;
+;;;68     	}
+;;;69     	joypad_strobe[n] = v;
 000016  4803              LDR      r0,|L99.36|
-000018  5505              STRB     r5,[r0,r4]
-;;;56     }
-00001a  bd70              POP      {r4-r6,pc}
-;;;57     
+000018  5483              STRB     r3,[r0,r2]
+;;;70     }
+00001a  bd00              POP      {pc}
+;;;71     
                           ENDP
 
                   |L99.28|
@@ -24995,17 +24988,17 @@
                   joypad_state
                           DCD      0x00000000
                   joypad_A
-                          DCD      0x04c05000
+                          DCD      0x00001000
                   joypad_B
-                          DCD      0x0030ac21
+                          DCD      0x00000800
                   joypad_U
-                          DCD      0x00080002
+                          DCD      0x00000002
                   joypad_D
-                          DCD      0x00040008
+                          DCD      0x00000008
                   joypad_L
-                          DCD      0x01010010
+                          DCD      0x00000010
                   joypad_R
-                          DCD      0x02020004
+                          DCD      0x00000004
                   joypad_SEL
                           DCD      0x00000040
                   joypad_START

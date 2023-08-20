@@ -128,18 +128,25 @@ void Error_Handler(void);
 
 #define BTN_X2_Pin LL_GPIO_PIN_7
 #define BTN_X2_GPIO_Port GPIOE
-#define BTN_X3_Pin LL_GPIO_PIN_8
+
+#define BTN_X3_Pin LL_GPIO_PIN_8 //SELECT BUTTON
 #define BTN_X3_GPIO_Port GPIOE
-#define BTN_X4_Pin LL_GPIO_PIN_9
+
+#define BTN_X4_Pin LL_GPIO_PIN_9 //START BUTTON
 #define BTN_X4_GPIO_Port GPIOE
+
 #define BTN_JS2_Pin LL_GPIO_PIN_10
 #define BTN_JS2_GPIO_Port GPIOE
+
 #define BTN_D2_Pin LL_GPIO_PIN_11
 #define BTN_D2_GPIO_Port GPIOE
+
 #define BTN_R2_Pin LL_GPIO_PIN_12
 #define BTN_R2_GPIO_Port GPIOE
+
 #define BTN_M2_Pin LL_GPIO_PIN_13
 #define BTN_M2_GPIO_Port GPIOE
+
 #define BTN_U2_Pin LL_GPIO_PIN_14
 #define BTN_U2_GPIO_Port GPIOE
 #define BTN_L2_Pin LL_GPIO_PIN_15
