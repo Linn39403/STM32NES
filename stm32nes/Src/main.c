@@ -79,7 +79,7 @@
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
-uint32_t joypad_update(void) ;
+uint32_t joypad_update(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -164,7 +164,7 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_DMA_Init();
-  MX_SPI1_Init();
+  //MX_SPI1_Init();
   MX_USART1_UART_Init();
   MX_ADC1_Init();
   MX_SPI5_Init();
@@ -252,7 +252,7 @@ int main(void)
       joypad_icon(BTN_JS1_U), joypad_icon(BTN_JS1_L), joypad_icon(BTN_JS1), joypad_icon(BTN_JS1_R), joypad_icon(BTN_JS1_D));
     tft_prints(36, 2, " {%c} \n{%c}{%c}{%c}\n {%c} ",
       joypad_icon(BTN_JS2_U), joypad_icon(BTN_JS2_L), joypad_icon(BTN_JS2), joypad_icon(BTN_JS2_R), joypad_icon(BTN_JS2_D));
-    
+ #if 0   
     if (btn_clicked(BTN_R1))    joypad_rotate(BTN_R1);
     if (btn_clicked(BTN_D1))    joypad_rotate(BTN_D1);
     if (btn_clicked(BTN_L1))    joypad_rotate(BTN_L1);
@@ -273,6 +273,7 @@ int main(void)
     if (btn_clicked(BTN_JS2_R)) joypad_rotate(BTN_JS2_R);
     if (btn_clicked(BTN_JS2_D)) joypad_rotate(BTN_JS2_D);
     if (btn_clicked(BTN_JS2_U)) joypad_rotate(BTN_JS2_U);
+#endif
     joypad_A     = joypad_assigned(ASSIGN_A);
     joypad_B     = joypad_assigned(ASSIGN_B);
     joypad_U     = joypad_assigned(ASSIGN_UP);
@@ -296,7 +297,7 @@ int main(void)
 [$$] | [$$$] |[$$]       |[$$]    [$$]/ \n\
 [$$]/   [$$]/ [$$$$$$$$]/  [$$$$$$]/  ");
 
-    tft_prints(0,13, "%sIMU]",(getIMUControl())?"[":"");
+    //tft_prints(0,13, "%sIMU]",(getIMUControl())?"[":"");
     // IMU_dataAvailable();
     // tft_printi(6,11,(int16_t)getAccelY()*10);
     // tft_printi(0, 1, get_ticks()%1000);
@@ -335,7 +336,7 @@ int main(void)
           //IMU_dataAvailable();
           joypad_update();
           TIM6->SR = 0;
-          nes_frame(0);;
+          //nes_frame(0);
           nes_frame(1);
           if (btn_clicked(BTN_X3))
 					{

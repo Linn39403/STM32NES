@@ -43,7 +43,7 @@ static __forceinline void cpu_loadinstruction() {
 	default: return;  
 	case 0x0000:
 	case 0x1000:
-	    opcode = cpu_ram[addr & 0x7FF];    
+	    opcode = cpu_ram[addr & (CPU_RAM_SIZE-1)];    
 	    // operand = cpu_ram[(addr+1) & 0x7FF];
 	    // operand16 = *(uint16_t*)&cpu_ram[(addr+1) & 0x7FF];
 	

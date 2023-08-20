@@ -174,6 +174,8 @@ void MX_SPI1_Init(void)
   LL_DMA_SetMemorySize(DMA2, LL_DMA_STREAM_4, LL_DMA_MDATAALIGN_BYTE);
 
   LL_DMA_DisableFifoMode(DMA2, LL_DMA_STREAM_4);
+	//LL_DMA_EnableFifoMode(DMA2, LL_DMA_STREAM_4);
+	//LL_DMA_SetFIFOThreshold(DMA2, LL_DMA_STREAM_4, LL_DMA_FIFOTHRESHOLD_1_2);
 
   /* SPI2 interrupt Init */
   NVIC_SetPriority(SPI5_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),0, 0));
@@ -185,7 +187,7 @@ void MX_SPI1_Init(void)
   SPI_InitStruct.ClockPolarity = LL_SPI_POLARITY_LOW;
   SPI_InitStruct.ClockPhase = LL_SPI_PHASE_1EDGE;
   SPI_InitStruct.NSS = LL_SPI_NSS_SOFT;
-  SPI_InitStruct.BaudRate = LL_SPI_BAUDRATEPRESCALER_DIV16;
+  SPI_InitStruct.BaudRate = LL_SPI_BAUDRATEPRESCALER_DIV8;//LL_SPI_BAUDRATEPRESCALER_DIV16;
   SPI_InitStruct.BitOrder = LL_SPI_MSB_FIRST;
   SPI_InitStruct.CRCCalculation = LL_SPI_CRCCALCULATION_DISABLE;
   SPI_InitStruct.CRCPoly = 10;

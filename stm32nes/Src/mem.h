@@ -1,5 +1,6 @@
 /*  memory map */   
-uint8_t cpu_ram[0x800] = {0};  /* RAM*/   
+#define CPU_RAM_SIZE 0x800
+uint8_t cpu_ram[CPU_RAM_SIZE] = {0};  /* RAM*/   
 // uint8_t erom[0x2000] = {0};
 // uint8_t sram[0x2000] = {0};
 // #define SRAM sram
@@ -246,7 +247,7 @@ __forceinline int cpu_getmemory(uint16_t addr)
     switch(addr & 0xF000){   
     case 0x0000:
     case 0x1000:
-        return cpu_ram[addr&0x7FF];    
+        return cpu_ram[addr&(CPU_RAM_SIZE-1)];    
     case 0x2000:
     case 0x3000:
          return ppu_read_register(addr&0x7);  
@@ -298,7 +299,7 @@ __forceinline int cpu_getmemory16(uint16_t addr)
     switch(addr & 0xF000){   
     case 0x0000:
     case 0x1000:
-        return *(uint16_t*)&cpu_ram[addr&0x7FF];    
+        return *(uint16_t*)&cpu_ram[addr&(CPU_RAM_SIZE-1)];    
     case 0x2000:
     case 0x3000:
          return ppu_read_register(addr&0x7);  
@@ -351,7 +352,7 @@ __forceinline void cpu_putmemory(uint16_t addr, uint8_t value)
     switch(addr & 0xF000){   
     case 0x0000:   
     case 0x1000:   
-        cpu_ram[addr&0x7FF] = value;   
+        cpu_ram[addr&(CPU_RAM_SIZE-1)] = value;   
         break;   
     case 0x2000:
     case 0x3000:

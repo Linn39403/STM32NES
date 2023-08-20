@@ -3,7 +3,7 @@
 #include "ppu.h"
 #include "rom.h"
 
-uint32_t frame_count = 0;
+//uint32_t frame_count = 0;
 
 void nes_init(const NesRom* game) {
 	cpu_initmem(game->data, game->romnum);
@@ -12,7 +12,7 @@ void nes_init(const NesRom* game) {
 }
 
 void nes_frame(uint8_t render) { 
-    frame_count++; 
+    //frame_count++; 
     SpriteHitFlag = FALSE;   
     for(PPU_scanline=0; PPU_scanline<21; PPU_scanline++){    
         cpu_exec(CLOCKS_PER_SCANLINE);   
