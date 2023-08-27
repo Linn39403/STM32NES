@@ -155,13 +155,13 @@
 ;;;8      void nes_init(const NesRom* game) {
 000000  b510              PUSH     {r4,lr}
 000002  4604              MOV      r4,r0
-;;;9      	cpu_initmem(game->data, game->romnum);
+;;;9      	cpu_initmem(game->data, game->prg_rom_chunks);
 000004  7901              LDRB     r1,[r0,#4]
 000006  3010              ADDS     r0,r0,#0x10
 000008  f7fffffe          BL       cpu_initmem
 ;;;10     	cpu_reset();
 00000c  f7fffffe          BL       cpu_reset
-;;;11     	ppu_init(&game->data[game->romnum * 0x4000], (game->romfeature & 0x01));
+;;;11     	ppu_init(&game->data[game->prg_rom_chunks * 0x4000], (game->mapper1 & 0x01));
 000010  79a0              LDRB     r0,[r4,#6]
 000012  f0000101          AND      r1,r0,#1
 000016  7920              LDRB     r0,[r4,#4]

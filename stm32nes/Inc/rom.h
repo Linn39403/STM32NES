@@ -5,7 +5,7 @@
 #define _USE_ROM_MAPPY_
 
 #ifdef _USE_ROM_MARIO_
-static const NesRom MarioRomFile = 
+static const NesRom MarioRomFile =
 #include "..\..\ROMS\MarioRom.h"
 #endif
 

@@ -242,7 +242,8 @@ void sprite_dma(uint8_t scr_addr)
     }   
 }   
 
-__forceinline int cpu_getmemory(uint16_t addr)
+//__forceinline int cpu_getmemory(uint16_t addr)
+int cpu_getmemory(uint16_t addr)
 {   
     switch(addr & 0xF000){   
     case 0x0000:
@@ -261,10 +262,10 @@ __forceinline int cpu_getmemory(uint16_t addr)
          if(addr == 0x4015){ //pAPU Sound / Vertical Clock Signal Register   
          }   
          if(addr == 0x4016){   
-            return joypad_read(0);
+            return joypad_read(0); //controller 1
          }   
          if(addr == 0x4017){   
-            return joypad_read(1);
+            return joypad_read(1); //controller 2 ( which is not connected and not working )
          }   
          break;   
     case 0x5000: /* expansion rom*/

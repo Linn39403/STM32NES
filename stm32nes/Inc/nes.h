@@ -15,9 +15,40 @@ extern uint32_t joypad_START;
 
 #pragma anon_unions
 typedef struct {
-	uint8_t Constant_NES[4];
-	uint8_t romnum, vromnum, romfeature, rommappernum;
-	uint8_t dontcare[8];
+	/* always "NES."*/
+	char Constant_NES[4];
+
+	/* Size of PRG ROM in 16KB units */ 
+	uint8_t prg_rom_chunks;		
+
+	/* Size of CHR ROM in 8KB units  */	  
+	uint8_t chr_rom_chunks;          
+
+	/*
+	* 76543210
+	* ||||||||
+	* |||||||+- Mirroring: 0: horizontal (vertical arrangement) (CIRAM A10 = PPU A11)
+	* |||||||              1: vertical (horizontal arrangement) (CIRAM A10 = PPU A10)
+	* ||||||+-- 1: Cartridge contains battery-backed PRG RAM ($6000-7FFF) or other persistent memory
+	* |||||+--- 1: 512-byte trainer at $7000-$71FF (stored before PRG data)
+	* ||||+---- 1: Ignore mirroring control or above mirroring bit; instead provide four-screen VRAM
+	* ++++----- Lower nybble of mapper number
+	*/
+	uint8_t mapper1; 
+
+	/*
+	* 76543210
+	* ||||||||
+	* |||||||+- VS Unisystem
+	* ||||||+-- PlayChoice-10 (8 KB of Hint Screen data stored after CHR data)
+	* ||||++--- If equal to 2, flags 8-15 are in NES 2.0 format
+	* ++++----- Upper nybble of mapper number
+	*/
+	uint8_t mapper2;
+	uint8_t prg_ram_size;
+	uint8_t tv_system1;
+	uint8_t tv_system2;
+	char unused[5];
 } NesRomHeader;
 
 typedef struct {

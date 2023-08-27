@@ -2,6 +2,8 @@
 #include "adc.h"
 #include "imu.h"
 uint32_t volatile joypad_state = 0;
+static volatile uint8_t joypad_read_state[2] = {0};
+static volatile uint8_t joypad_strobe[2] = {0};
 // static __forceinline 
 uint32_t joypad_update(void) 
 {
@@ -43,7 +45,6 @@ uint32_t joypad_START = (BTN_X4);
 
 #endif
 
-typedef void (*JoypadBtnFunc)(void);
 #define JOYPAD_BTN_TABLE(X) \
 	X(JOYPAD_A,     joypad_A)         \
 	X(JOYPAD_B,     joypad_B)         \
@@ -54,12 +55,12 @@ typedef void (*JoypadBtnFunc)(void);
 	X(JOYPAD_L,     joypad_L)         \
 	X(JOYPAD_R,     joypad_R)         \
 
-static volatile uint8_t joypad_read_state[2] = {0};
-static volatile uint8_t joypad_strobe[2] = {0};
 #define JOYPAD_BTN_ENUM(A, B) A,
+#define JOYPAD_BTN_READ(A, B) case A: return (joypad_state & B) != 0;
 enum {
 	JOYPAD_BTN_TABLE(JOYPAD_BTN_ENUM)
 };
+
 void joypad_write(uint8_t n, uint8_t v) {
 	// if (joypad_strobe[n] && !v) {
 	if (v) {
@@ -69,7 +70,7 @@ void joypad_write(uint8_t n, uint8_t v) {
 	joypad_strobe[n] = v;
 }
 
-#define JOYPAD_BTN_READ(A, B) case A: return (joypad_state & B) != 0;
+
 uint8_t joypad_read(uint8_t n) {
 	if (n==1) return 0;
 	// if (joypad_strobe) return joypad_A();

@@ -22,12 +22,12 @@
 CPU_InitFlag NMI_Flag;   
 static CPU_InitFlag IRQ_Flag;   
 
-static uint8_t A;
-static uint8_t X;
-static uint8_t Y;
-static uint8_t P;
-static uint8_t S;
-static uint16_t PC;
+static uint8_t A;   /* Accumulator register */
+static uint8_t X;   /* Index register X     */
+static uint8_t Y;   /* Index register Y     */
+static uint8_t P;   /* Processor Status     */
+static uint8_t S;   /* Stack Pointer        */
+static uint16_t PC; /* Program Counter      */
 
 /* internal registers */   
 static uint8_t opcode;
@@ -90,14 +90,16 @@ static __forceinline uint16_t cpu_getoperand16() {
 }
 
 static __forceinline void cpu_pushstack(uint8_t value) {
-    cpu_ram[0x0100+S--] = value;
+    cpu_ram[0x0100+S] = value;
+	S -= 1;
 }
 static __forceinline void cpu_push16stack(uint16_t value) {
     S -= 2;
     *(uint16_t*)&cpu_ram[0x0101+S] = value;
 }
 static __forceinline uint8_t cpu_popstack(void) {
-    return cpu_ram[++S + 0x100];
+	S += 1;
+    return cpu_ram[S + 0x100];
 }
 static __forceinline uint16_t cpu_pop16stack(void) {
     uint16_t tmp = *(uint16_t*)&cpu_ram[S + 0x101];
@@ -120,14 +122,16 @@ static __forceinline void cpu_putzeropage(uint8_t addr, uint8_t value) {
 /* Reset CPU */   
 void cpu_reset(void)   
 {   
-	A=X=Y=0;   
-	P = R_FLAG | Z_FLAG;       //Z_FLAG | R_FLAG   
-	S=0xff;   
+	A = 0; X = 0; Y =0;
+	P = R_FLAG | Z_FLAG;      
+	S=0xFF;      
 
 	PC = RST_VECTOR; 
 
 	NMI_Flag = CLR0;   
 	IRQ_Flag = CLR0;   
+
+	cpu_clockticks = 8;
 }   
 
 /* Non maskerable interrupt */   

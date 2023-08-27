@@ -6,9 +6,9 @@
 //uint32_t frame_count = 0;
 
 void nes_init(const NesRom* game) {
-	cpu_initmem(game->data, game->romnum);
+	cpu_initmem(game->data, game->prg_rom_chunks);
 	cpu_reset();
-	ppu_init(&game->data[game->romnum * 0x4000], (game->romfeature & 0x01));
+	ppu_init(&game->data[game->prg_rom_chunks * 0x4000], (game->mapper1 & 0x01));
 }
 
 void nes_frame(uint8_t render) { 
